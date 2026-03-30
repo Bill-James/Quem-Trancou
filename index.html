@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QuemTrançou? · O melhor talento em tranças está aqui perto de ti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C87A;
+  --gold-dark: #9A7A30;
+  --rose: #E8547A;
+  --teal: #2A9D8F;
+  --ink: #0D0D12;
+  --ink2: #1A1A24;
+  --ink3: #242432;
+  --muted: #6B6B8A;
+  --muted2: #9090A8;
+  --line: rgba(255,255,255,0.07);
+  --text: #E8E8F0;
+  --text2: #B0B0C8;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.45);
+  --shadow-sm: 0 2px 16px rgba(0,0,0,0.3);
+  font-family: 'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+em { font-style: normal; color: var(--gold); }
+img { max-width: 100%; }
+
+.container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+/* ═══════════════════════════════════════════════
+   PAGE VISIBILITY
+═══════════════════════════════════════════════ */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ═══════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 64px;
+  background: rgba(13,13,18,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.3s;
+}
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.15rem;
+  display: flex; align-items: center; gap: 8px;
+  letter-spacing: -0.02em;
+}
+.nav-brand .star { color: var(--gold); font-size: 1rem; }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links button {
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 0.875rem; color: var(--text2);
+  transition: all 0.2s;
+}
+.nav-links button:hover, .nav-links button.active {
+  background: var(--ink3); color: var(--text);
+}
+.nav-links button.active { color: var(--gold); }
+.nav-auth { display: flex; gap: 8px; }
+.nav-btn-ghost {
+  padding: 8px 16px; border-radius: 8px;
+  font-size: 0.875rem; color: var(--text2);
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.nav-btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.nav-btn-gold {
+  padding: 8px 16px; border-radius: 8px;
+  font-size: 0.875rem; font-weight: 600;
+  background: var(--gold); color: var(--ink);
+  transition: all 0.2s;
+}
+.nav-btn-gold:hover { background: var(--gold-light); }
+.nav-user {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 12px; border-radius: 10px;
+  background: var(--ink3); cursor: pointer;
+}
+.nav-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--gold); color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.875rem;
+}
+.nav-user-name { font-size: 0.875rem; font-weight: 500; }
+.nav-logout { font-size: 0.75rem; color: var(--muted2); padding: 4px 8px; border-radius: 6px; }
+.nav-logout:hover { background: rgba(255,255,255,0.06); color: var(--text2); }
+
+/* hamburger */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; border-radius: 8px; }
+.nav-hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; display: block; transition: all 0.3s; }
+
+@media(max-width: 768px) {
+  .nav-links { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--ink2); flex-direction: column; padding: 16px; gap: 4px; border-bottom: 1px solid var(--line); }
+  .nav-links.open { display: flex; }
+  .nav-hamburger { display: flex; }
+  .nav-auth { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE WRAPPER (offset for navbar)
+═══════════════════════════════════════════════ */
+#app { padding-top: 64px; }
+
+/* ═══════════════════════════════════════════════
+   COMMON COMPONENTS
+═══════════════════════════════════════════════ */
+.section-tag {
+  display: inline-block;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.35);
+  padding: 5px 12px; border-radius: 20px; background: rgba(201,168,76,0.08);
+  margin-bottom: 12px;
+}
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+.section-header p { color: var(--text2); margin-top: 12px; font-size: 1rem; }
+
+.btn-gold-lg {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 40px;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: all 0.25s; box-shadow: 0 0 0 0 rgba(201,168,76,0.4);
+  cursor: pointer; border: none;
+}
+.btn-gold-lg:hover { background: var(--gold-light); box-shadow: 0 0 30px rgba(201,168,76,0.3); transform: translateY(-2px); }
+
+.stars { display: inline-flex; align-items: center; gap: 2px; font-size: 0.85rem; }
+.star { color: var(--muted); }
+.star.filled { color: #FFD700; }
+.stars strong { color: var(--text); font-size: 0.9rem; margin-left: 3px; }
+
+/* Toast */
+#toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--ink3); color: var(--text); border: 1px solid var(--line);
+  padding: 12px 24px; border-radius: 40px; font-size: 0.9rem;
+  box-shadow: var(--shadow); z-index: 9999;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; }
+
+/* Loading */
+.page-loading {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 60vh; flex-direction: column; gap: 16px;
+  color: var(--muted2); font-size: 1rem;
+}
+.spinner {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 3px solid var(--ink3); border-top-color: var(--gold);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 80% at 80% 20%, rgba(232,84,122,0.06) 0%, transparent 50%),
+              var(--ink);
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); opacity: 0.5; animation: float 8s ease-in-out infinite;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(201,168,76,0.12); top: -100px; left: -100px; animation-delay: 0s; }
+.orb-2 { width: 400px; height: 400px; background: rgba(232,84,122,0.10); top: 200px; right: -120px; animation-delay: -3s; }
+.orb-3 { width: 300px; height: 300px; background: rgba(42,157,143,0.08); bottom: -60px; left: 40%; animation-delay: -5s; }
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -30px) scale(1.03); }
+  66% { transform: translate(-15px, 20px) scale(0.97); }
+}
+.hero__pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.hero__content {
+  position: relative; z-index: 1;
+  padding: 80px 24px 80px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.hero__badge {
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.4);
+  padding: 7px 16px; border-radius: 24px; background: rgba(201,168,76,0.08);
+  margin-bottom: 28px; display: flex; align-items: center; gap: 8px;
+}
+.hero__title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.04em;
+  max-width: 700px; margin-bottom: 20px;
+}
+.hero__title-highlight {
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero__sub {
+  color: var(--text2); font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.6;
+  max-width: 520px; margin-bottom: 36px;
+}
+.search-box {
+  display: flex; align-items: center; gap: 0;
+  background: var(--ink2); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50px; padding: 6px 8px 6px 20px;
+  width: 100%; max-width: 560px;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.3);
+}
+.search-box input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text); font-size: 0.95rem; padding: 8px 12px 8px 4px;
+}
+.search-box input::placeholder { color: var(--muted2); }
+.search-icon { color: var(--muted2); font-size: 1rem; }
+.search-btn {
+  padding: 10px 22px; border-radius: 40px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 0.9rem; white-space: nowrap;
+  transition: all 0.2s;
+}
+.search-btn:hover { background: var(--gold-light); }
+.hero__tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+}
+.tag {
+  padding: 7px 16px; border-radius: 24px;
+  border: 1px solid var(--line); color: var(--text2);
+  font-size: 0.82rem; transition: all 0.2s;
+}
+.tag:hover, .tag.active {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+.hero__scroll { position: relative; z-index: 1; text-align: center; padding-bottom: 32px; color: var(--muted2); font-size: 1.4rem; animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* Stats */
+.stats { padding: 60px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stats__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+.stat { text-align: center; padding: 20px; border-right: 1px solid var(--line); }
+.stat:last-child { border-right: none; }
+.stat__num { display: block; font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: var(--gold); letter-spacing: -0.03em; }
+.stat__label { font-size: 0.85rem; color: var(--text2); margin-top: 4px; display: block; }
+
+/* Cards grid */
+.cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 40px; }
+@media(max-width:900px){ .cards-grid{ grid-template-columns: 1fr 1fr; } }
+@media(max-width:580px){ .cards-grid{ grid-template-columns: 1fr; } }
+
+.card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 24px;
+  transition: all 0.3s; overflow: hidden; cursor: pointer;
+}
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent, var(--gold)), transparent);
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); box-shadow: var(--shadow); }
+.card__rank {
+  position: absolute; top: 16px; right: 16px;
+  font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 800;
+  color: var(--muted2); letter-spacing: 0.05em;
+}
+.card__badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px; color: #fff;
+  margin-bottom: 16px; align-self: flex-start;
+}
+.card__avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--ink3); border: 2px solid var(--accent, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin-bottom: 14px;
+}
+.card__info h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+.card__specialty { font-size: 0.82rem; color: var(--text2); margin-bottom: 10px; }
+.card__reviews { font-size: 0.78rem; color: var(--muted2); }
+.card__footer { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--line); padding-top: 14px; }
+.card__detail { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text2); }
+.detail-icon { width: 20px; text-align: center; }
+.card__cta {
+  margin-top: 16px; text-align: center;
+  font-size: 0.82rem; font-weight: 600; color: var(--gold);
+  padding: 8px; border-radius: 8px; background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.section-cta { text-align: center; }
+
+/* Ranking preview section */
+.ranking-preview { padding: 80px 0; }
+.how-it-works { padding: 80px 0; background: var(--ink2); }
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+@media(max-width:768px){ .steps{ grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px){ .steps{ grid-template-columns: 1fr; } }
+.step { padding: 24px; border-radius: var(--radius); background: var(--ink); border: 1px solid var(--line); }
+.step__num { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 800; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 12px; }
+.step__icon { font-size: 2rem; margin-bottom: 12px; }
+.step h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.step p { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+
+/* CTA trancista */
+.cta-trancista { padding: 80px 0; }
+.cta-trancista__inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: 24px; padding: 60px; position: relative; overflow: hidden;
+}
+@media(max-width:768px){ .cta-trancista__inner{ grid-template-columns: 1fr; padding: 36px 24px; } }
+.cta-trancista__text { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.cta-trancista__text h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+.cta-trancista__text p { color: var(--text2); line-height: 1.7; }
+.cta-trancista__visual { position: relative; height: 220px; }
+.cta-badge {
+  position: absolute; background: var(--ink3); border: 1px solid var(--line);
+  border-radius: 16px; padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+  font-size: 0.85rem; font-weight: 600; box-shadow: var(--shadow-sm);
+  animation: badge-float 4s ease-in-out infinite;
+}
+.cta-badge:nth-child(1) { top: 0; left: 0; animation-delay: 0s; }
+.cta-badge:nth-child(2) { top: 50px; right: 0; animation-delay: -1.5s; }
+.cta-badge:nth-child(3) { bottom: 40px; left: 20px; animation-delay: -2.5s; }
+.cta-badge:nth-child(4) { bottom: 0; right: 30px; animation-delay: -1s; }
+.cta-badge__icon { font-size: 1.4rem; }
+@keyframes badge-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+/* Footer */
+footer {
+  background: var(--ink2); border-top: 1px solid var(--line);
+  padding: 40px 24px;
+}
+.footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer__brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 6px; }
+.footer__brand .star { color: var(--gold); }
+.footer__copy { font-size: 0.8rem; color: var(--muted2); }
+.footer__links { display: flex; gap: 20px; }
+.footer__links a { font-size: 0.8rem; color: var(--muted2); transition: color 0.2s; }
+.footer__links a:hover { color: var(--text2); }
+
+/* ═══════════════════════════════════════════════
+   EXPLORAR PAGE
+═══════════════════════════════════════════════ */
+.page-header {
+  padding: 48px 0 36px;
+  background: linear-gradient(180deg, var(--ink2) 0%, transparent 100%);
+  border-bottom: 1px solid var(--line);
+}
+.page-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; }
+.page-header p { color: var(--text2); margin-top: 6px; }
+
+.explorar-body { display: grid; grid-template-columns: 260px 1fr; gap: 32px; padding: 40px 24px; max-width: 1160px; margin: 0 auto; }
+@media(max-width:900px){ .explorar-body{ grid-template-columns: 1fr; } }
+
+.filtros { position: sticky; top: 80px; background: var(--ink2); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; align-self: flex-start; }
+.filtros h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 20px; }
+.filtro-group { margin-bottom: 20px; }
+.filtro-group label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+.filtro-input, .filtro-select {
+  width: 100%; background: var(--ink); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 10px 12px;
+  color: var(--text); font-size: 0.875rem; outline: none;
+  transition: border-color 0.2s;
+}
+.filtro-input:focus, .filtro-select:focus { border-color: var(--gold); }
+.filtro-opts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.filtro-opt {
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid var(--line); color: var(--text2);
+  font-size: 0.78rem; transition: all 0.2s; background: transparent;
+}
+.filtro-opt.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+.checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.875rem; color: var(--text2); }
+.checkbox-label input { accent-color: var(--gold); }
+
+.resultados { display: flex; flex-direction: column; gap: 16px; }
+.resultado-card {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--ink2); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px 24px; transition: all 0.25s; position: relative;
+  border-left: 3px solid var(--accent, var(--gold));
+  cursor: pointer;
+}
+.resultado-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: rgba(255,255,255,0.15); }
+.resultado-card__left { display: flex; align-items: center; gap: 16px; }
+.resultado-avatar {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--ink3); border: 2px solid var(--accent, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; position: relative; flex-shrink: 0;
+}
+.disponivel-dot {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #2ECC71; border: 2px solid var(--ink2);
+}
+.resultado-info {}
+.resultado-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.resultado-top h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+.resultado-badge { font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; color: #fff; }
+.resultado-specialty { font-size: 0.82rem; color: var(--text2); margin-bottom: 8px; }
+.resultado-meta { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text2); flex-wrap: wrap; }
+.resultado-meta .sep { color: var(--muted); }
+.resultado-card__right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+.resultado-preco { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--gold); }
+.resultado-status { font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+.resultado-status.disponivel { background: rgba(46,204,113,0.1); color: #2ECC71; }
+.resultado-status.indisponivel { background: rgba(231,76,60,0.1); color: #E74C3C; }
+.resultado-cta { font-size: 0.78rem; color: var(--gold); font-weight: 600; }
+.empty-msg { text-align: center; padding: 60px 20px; color: var(--muted2); }
+.empty-msg span { font-size: 3rem; display: block; margin-bottom: 12px; }
+.loading-msg { text-align: center; padding: 40px; color: var(--muted2); }
+@media(max-width:640px){
+  .resultado-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .resultado-card__right { align-items: flex-start; }
+}
+
+/* ═══════════════════════════════════════════════
+   RANKING PAGE
+═══════════════════════════════════════════════ */
+.ranking-tabs { border-bottom: 1px solid var(--line); }
+.tabs-inner { display: flex; gap: 4px; overflow-x: auto; padding: 0 24px; max-width: 1160px; margin: 0 auto; }
+.tab {
+  padding: 14px 18px; border-radius: 0; font-size: 0.875rem;
+  color: var(--text2); border-bottom: 2px solid transparent;
+  transition: all 0.2s; white-space: nowrap;
+}
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tab:hover { color: var(--text); }
+
+.ranking-body { padding: 48px 24px; max-width: 1160px; margin: 0 auto; }
+
+/* Podium */
+.podium { display: flex; align-items: flex-end; justify-content: center; gap: 16px; margin-bottom: 60px; }
+.podium__spot { display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 220px; }
+.podium-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--ink2); border: 3px solid var(--c, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin-bottom: 10px;
+}
+.podium__spot--1 .podium-avatar { width: 80px; height: 80px; font-size: 2.5rem; }
+.podium-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; text-align: center; margin-bottom: 4px; }
+.podium-pts { font-size: 0.78rem; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+.podium-block {
+  width: 100%; border-radius: 12px 12px 0 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 1.5rem; color: var(--ink);
+}
+.podium-block--1 { height: 120px; background: linear-gradient(135deg, #FFD700, #D4A843); }
+.podium-block--2 { height: 90px; background: linear-gradient(135deg, #C0C0C0, #A0A0A0); }
+.podium-block--3 { height: 70px; background: linear-gradient(135deg, #CD7F32, #A0622A); }
+.crown { font-size: 2rem; margin-bottom: 6px; }
+
+/* Ranking table */
+.ranking-list { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.ranking-list__header {
+  display: grid; grid-template-columns: 50px 1fr 80px 90px 90px 90px 40px;
+  padding: 12px 20px; background: var(--ink3);
+  font-size: 0.72rem; font-weight: 700; color: var(--muted2);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.ranking-row {
+  display: grid; grid-template-columns: 50px 1fr 80px 90px 90px 90px 40px;
+  align-items: center; padding: 14px 20px;
+  border-top: 1px solid var(--line); transition: background 0.15s; cursor: pointer;
+}
+.ranking-row:hover { background: var(--ink3); }
+.ranking-row--top { background: rgba(201,168,76,0.03); }
+.rank-pos { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; }
+.rank-trancista { display: flex; align-items: center; gap: 12px; }
+.rank-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ink3); border: 2px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.rank-trancista strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+.rank-city { font-size: 0.75rem; color: var(--muted2); }
+.rank-nota { font-size: 0.875rem; }
+.rank-aval { font-size: 0.875rem; color: var(--text2); }
+.rank-pts { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+.rank-conquistas { font-size: 1rem; }
+.rank-cta { color: var(--muted2); font-size: 1rem; }
+@media(max-width:768px){
+  .ranking-list__header { display: none; }
+  .ranking-row { grid-template-columns: 40px 1fr auto; }
+  .rank-nota, .rank-aval, .rank-conquistas { display: none; }
+}
+
+/* ═══════════════════════════════════════════════
+   FEED PAGE
+═══════════════════════════════════════════════ */
+.feed-body { display: grid; grid-template-columns: 1fr 320px; gap: 32px; padding: 40px 24px; max-width: 1160px; margin: 0 auto; }
+@media(max-width:900px){ .feed-body{ grid-template-columns: 1fr; } .feed-sidebar{ display: none; } }
+
+.feed-posts { display: flex; flex-direction: column; gap: 20px; }
+.post-card {
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  transition: border-color 0.2s;
+}
+.post-card:hover { border-color: rgba(255,255,255,0.15); }
+.post-header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; }
+.post-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ink3); border: 2px solid var(--pc, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; flex-shrink: 0;
+}
+.post-meta strong { display: block; font-size: 0.9rem; }
+.post-meta .post-info { font-size: 0.75rem; color: var(--muted2); }
+.post-tipo {
+  margin-left: auto; font-size: 0.72rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px; flex-shrink: 0;
+}
+.post-img-placeholder {
+  background: var(--ink3); height: 220px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; color: var(--muted2); font-size: 0.85rem;
+}
+.post-img-placeholder span { font-size: 3rem; }
+.post-body { padding: 16px 20px; font-size: 0.9rem; color: var(--text2); line-height: 1.6; }
+.post-footer { display: flex; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--line); }
+.like-btn, .comment-btn, .share-btn {
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 0.82rem; color: var(--text2);
+  border: 1px solid var(--line); transition: all 0.2s; background: none;
+}
+.like-btn:hover, .comment-btn:hover, .share-btn:hover { background: var(--ink3); color: var(--text); }
+.like-btn.liked { color: #E8547A; border-color: rgba(232,84,122,0.3); background: rgba(232,84,122,0.05); }
+
+.feed-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.sidebar-widget {
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 20px;
+}
+.sidebar-widget h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 16px; }
+.trend-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; }
+.trend-item:last-child { border-bottom: none; }
+.trend-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem; color: var(--gold); width: 24px; }
+.suggest-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.suggest-item:last-child { border-bottom: none; }
+.suggest-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--ink3); display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.suggest-item > div { flex: 1; }
+.suggest-item strong { display: block; font-size: 0.85rem; }
+.suggest-item span { font-size: 0.75rem; color: var(--muted2); }
+.seguir-btn {
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 0.78rem; font-weight: 600; transition: all 0.2s;
+}
+.seguir-btn:hover { background: var(--gold); color: var(--ink); }
+
+/* ═══════════════════════════════════════════════
+   TRANCISTA PERFIL PAGE
+═══════════════════════════════════════════════ */
+.tp-hero {
+  padding: 48px 0 36px; position: relative;
+  background: linear-gradient(180deg, rgba(201,168,76,0.05) 0%, transparent 100%);
+  border-bottom: 1px solid var(--line);
+}
+.tp-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--c, var(--gold)), transparent);
+}
+.tp-hero__inner { display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+.tp-avatar {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: var(--ink2); border: 3px solid var(--c, var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; flex-shrink: 0;
+}
+.tp-hero__info { flex: 1; min-width: 0; }
+.tp-hero__top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.tp-hero__top h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; }
+.tp-status { font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+.tp-status.on { background: rgba(46,204,113,0.1); color: #2ECC71; }
+.tp-status.off { background: rgba(231,76,60,0.1); color: #E74C3C; }
+.tp-specialty { color: var(--text2); font-size: 0.9rem; margin-bottom: 10px; }
+.tp-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.875rem; color: var(--text2); flex-wrap: wrap; }
+.tp-rating strong { color: var(--text); font-size: 1rem; }
+.tp-rating .sep { color: var(--muted); }
+.tp-badges-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tp-mini-badge {
+  font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+  background: var(--ink2); border: 1px solid var(--line); color: var(--text2);
+}
+.tp-marcar-btn {
+  padding: 12px 24px; border-radius: 40px;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+  white-space: nowrap; flex-shrink: 0; align-self: flex-start;
+  transition: all 0.2s;
+}
+.tp-marcar-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.tp-body {
+  display: grid; grid-template-columns: 1fr 300px; gap: 32px;
+  padding: 40px 24px; max-width: 1160px; margin: 0 auto;
+}
+@media(max-width:900px){ .tp-body{ grid-template-columns: 1fr; } }
+
+.tp-main {}
+.tp-section { margin-bottom: 40px; }
+.tp-section h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.tp-section > p { color: var(--text2); line-height: 1.7; }
+
+.tp-servicos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+@media(max-width:500px){ .tp-servicos-grid{ grid-template-columns: 1fr; } }
+.tp-detalhe {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 14px 16px;
+}
+.tp-detalhe-icon { font-size: 1.3rem; flex-shrink: 0; }
+.tp-detalhe > div { display: flex; flex-direction: column; }
+.tp-detalhe strong { font-size: 0.8rem; color: var(--text2); margin-bottom: 2px; }
+.tp-detalhe span { font-size: 0.9rem; }
+
+.tp-tipos { }
+.tp-tipos strong { display: block; font-size: 0.82rem; color: var(--text2); margin-bottom: 10px; }
+.tp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tp-chip { padding: 6px 14px; border-radius: 20px; background: var(--ink2); border: 1px solid var(--line); font-size: 0.82rem; }
+
+.tp-avals { display: flex; flex-direction: column; gap: 16px; }
+.tp-aval {
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 16px;
+}
+.tp-aval-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.tp-aval-user {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--gold); color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; flex-shrink: 0;
+}
+.tp-aval-header strong { display: block; font-size: 0.9rem; }
+.tp-aval-data { margin-left: auto; font-size: 0.75rem; color: var(--muted2); }
+.tp-aval > p { font-size: 0.875rem; color: var(--text2); line-height: 1.6; }
+.tp-stars span { color: var(--muted); font-size: 0.8rem; }
+.tp-stars span.filled { color: #FFD700; }
+
+.tp-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.tp-card {
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 20px;
+}
+.tp-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 16px; }
+.tp-stat-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; }
+.tp-stat-row:last-child { border-bottom: none; }
+.tp-stat-row span { color: var(--text2); }
+.tp-stat-row strong { font-family: 'Syne', sans-serif; font-size: 1rem; }
+
+.tp-conquista { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.tp-conquista:last-child { border-bottom: none; }
+.tp-conquista-icon { font-size: 1.5rem; }
+.tp-conquista strong { display: block; font-size: 0.875rem; }
+.tp-conquista span { font-size: 0.78rem; color: var(--muted2); }
+
+.tp-cta-card {
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: var(--radius); padding: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.tp-cta-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+.tp-cta-card p { font-size: 0.82rem; color: var(--text2); }
+.tp-cta-btn {
+  padding: 12px; border-radius: 10px;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+  text-align: center; transition: all 0.2s; width: 100%;
+}
+.tp-cta-btn:hover { background: var(--gold-light); }
+.tp-wa-btn {
+  padding: 10px; border-radius: 10px;
+  border: 1px solid rgba(37,211,102,0.4);
+  color: #25D166; font-weight: 600; font-size: 0.875rem;
+  text-align: center; display: block; transition: all 0.2s;
+}
+.tp-wa-btn:hover { background: rgba(37,211,102,0.08); }
+.tp-loading { display: flex; align-items: center; justify-content: center; min-height: 50vh; gap: 12px; color: var(--muted2); font-size: 1rem; }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.modal {
+  background: var(--ink2); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px; padding: 36px; width: 100%; max-width: 480px;
+  position: relative; box-shadow: var(--shadow);
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--ink3); color: var(--text2); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.modal h3 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 6px; }
+.modal-sub { font-size: 0.875rem; color: var(--text2); margin-bottom: 24px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; background: var(--ink); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 10px 14px;
+  color: var(--text); font-size: 0.9rem; outline: none;
+  transition: border-color 0.2s; resize: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+.modal-btn {
+  width: 100%; margin-top: 8px; padding: 14px;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  border-radius: 10px; transition: all 0.2s;
+}
+.modal-btn:hover { background: var(--gold-light); }
+
+/* ═══════════════════════════════════════════════
+   PERFIL PESSOAL PAGE
+═══════════════════════════════════════════════ */
+.perfil-hero {
+  padding: 48px 0 36px;
+  background: linear-gradient(180deg, var(--ink2) 0%, transparent 100%);
+  border-bottom: 1px solid var(--line);
+}
+.perfil-hero__inner { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.perfil-avatar-big {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--ink); font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 2rem; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.perfil-hero__info { flex: 1; }
+.perfil-hero__info h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; }
+.perfil-email { color: var(--muted2); font-size: 0.875rem; margin: 4px 0 10px; }
+.perfil-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.perfil-tipo-badge, .disponivel-badge {
+  font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px;
+}
+.perfil-tipo-badge { background: var(--ink2); border: 1px solid var(--line); }
+.disponivel-badge { background: rgba(46,204,113,0.1); color: #2ECC71; }
+.perfil-hero__actions { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+.btn-edit, .btn-sair {
+  padding: 10px 18px; border-radius: 10px;
+  font-size: 0.875rem; font-weight: 600; transition: all 0.2s;
+}
+.btn-edit { background: var(--ink2); border: 1px solid var(--line); color: var(--text); }
+.btn-edit:hover { border-color: var(--gold); color: var(--gold); }
+.btn-sair { background: rgba(231,76,60,0.1); color: #E74C3C; }
+.btn-sair:hover { background: rgba(231,76,60,0.2); }
+
+.perfil-body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+.perfil-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 32px; }
+@media(max-width:600px){ .perfil-stats{ grid-template-columns: 1fr 1fr; } }
+.pstat {
+  background: var(--ink2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px; text-align: center;
+}
+.pstat__n { display: block; font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+.pstat span { font-size: 0.75rem; color: var(--text2); }
+.perfil-msg {
+  padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px;
+  font-size: 0.875rem;
+}
+.perfil-msg.ok { background: rgba(46,204,113,0.1); color: #2ECC71; border: 1px solid rgba(46,204,113,0.2); }
+.perfil-msg.err { background: rgba(231,76,60,0.1); color: #E74C3C; border: 1px solid rgba(231,76,60,0.2); }
+
+.perfil-form { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+.perfil-form h3 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:600px){ .form-row{ grid-template-columns: 1fr; } }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width:700px){ .form-row-3{ grid-template-columns: 1fr 1fr; } }
+.tipos-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tipo-chip {
+  padding: 7px 14px; border-radius: 20px;
+  border: 1px solid var(--line); color: var(--text2);
+  font-size: 0.82rem; transition: all 0.2s;
+}
+.tipo-chip.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+.form-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; margin-top: 4px; }
+.check-opt { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.875rem; color: var(--text2); }
+.check-opt input { accent-color: var(--gold); }
+.btn-save {
+  width: 100%; padding: 14px;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  border-radius: 10px; transition: all 0.2s;
+}
+.btn-save:hover { background: var(--gold-light); }
+.btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.perfil-info { display: flex; flex-direction: column; gap: 16px; }
+.info-card { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.info-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; }
+.info-card p { color: var(--text2); font-size: 0.9rem; margin-bottom: 6px; }
+.chips-display { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-display { padding: 5px 12px; border-radius: 20px; background: var(--ink); border: 1px solid var(--line); font-size: 0.82rem; }
+.perfil-empty {
+  text-align: center; padding: 48px; color: var(--muted2);
+  background: var(--ink2); border: 1px dashed var(--line); border-radius: var(--radius);
+}
+.perfil-empty span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+
+/* ═══════════════════════════════════════════════
+   AUTH PAGES
+═══════════════════════════════════════════════ */
+.auth-page {
+  min-height: calc(100vh - 64px);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 40px 24px;
+}
+.auth-bg { position: absolute; inset: 0; z-index: 0; }
+.auth-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(100px); opacity: 0.4;
+}
+.auth-orb--1 { width: 400px; height: 400px; background: rgba(201,168,76,0.15); top: -100px; left: -100px; }
+.auth-orb--2 { width: 300px; height: 300px; background: rgba(232,84,122,0.1); bottom: -80px; right: -80px; }
+.auth-box {
+  position: relative; z-index: 1;
+  background: var(--ink2); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px; padding: 40px; width: 100%; max-width: 440px;
+  box-shadow: var(--shadow);
+}
+.auth-brand {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--gold); margin-bottom: 28px;
+}
+.auth-brand span { color: var(--gold); }
+.auth-box h2 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+.auth-sub { color: var(--text2); font-size: 0.875rem; margin-bottom: 28px; }
+.auth-erro {
+  background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.25);
+  color: #E74C3C; padding: 10px 14px; border-radius: 8px;
+  font-size: 0.875rem; margin-bottom: 16px;
+}
+.auth-form { display: flex; flex-direction: column; gap: 16px; }
+.auth-btn {
+  width: 100%; padding: 14px;
+  background: var(--gold); color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  border-radius: 10px; transition: all 0.2s; margin-top: 4px;
+}
+.auth-btn:hover { background: var(--gold-light); }
+.auth-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.auth-switch { text-align: center; margin-top: 20px; font-size: 0.875rem; color: var(--text2); }
+.auth-switch a { color: var(--gold); font-weight: 600; cursor: pointer; }
+.tipo-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+.tipo-btn {
+  padding: 10px; border-radius: 10px;
+  border: 1px solid var(--line); color: var(--text2);
+  font-size: 0.875rem; font-weight: 500; transition: all 0.2s;
+}
+.tipo-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-brand" onclick="navigate('home')" style="cursor:pointer">
+    <span class="star">✦</span> Quem<em>Trançou</em>?
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <button onclick="navigate('home')" id="nav-home">Início</button>
+    <button onclick="navigate('explorar')" id="nav-explorar">Explorar</button>
+    <button onclick="navigate('ranking')" id="nav-ranking">Ranking</button>
+    <button onclick="navigate('feed')" id="nav-feed">Feed</button>
+  </div>
+
+  <div class="nav-auth" id="navAuth">
+    <button class="nav-btn-ghost" onclick="navigate('login')">Entrar</button>
+    <button class="nav-btn-gold" onclick="navigate('cadastro')">Criar conta</button>
+  </div>
+  <div id="navUser" style="display:none;align-items:center;gap:10px">
+    <div class="nav-user" onclick="navigate('perfil')">
+      <div class="nav-avatar" id="navInitial">?</div>
+      <span class="nav-user-name" id="navName"></span>
+    </div>
+    <button class="nav-logout" onclick="handleLogout()">Sair</button>
+  </div>
+
+  <button class="nav-hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- toast -->
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════════════════
+     APP WRAPPER
+═══════════════════════════════════════════ -->
+<div id="app">
+
+<!-- ─── HOME ─── -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="hero__pattern"></div>
+    </div>
+    <div class="hero__content container">
+      <div class="hero__badge"><span>✦</span> A plataforma nº 1 de trancistas em Angola</div>
+      <h1 class="hero__title">O melhor talento em<br><em>tranças</em> está<br><span class="hero__title-highlight">aqui perto de ti</span></h1>
+      <p class="hero__sub">Encontra, avalia e marca com as melhores trancistas.<br>Ranking real. Preços transparentes. Resultados que falam por si.</p>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="heroSearch" placeholder="Que tipo de trança procuras?" onkeydown="if(event.key==='Enter') doHeroSearch()" />
+        <button class="search-btn" onclick="doHeroSearch()">Pesquisar</button>
+      </div>
+      <div class="hero__tags" id="heroTags"></div>
+    </div>
+    <div class="hero__scroll">↓</div>
+  </section>
+
+  <section class="stats">
+    <div class="container stats__grid">
+      <div class="stat"><span class="stat__num" id="cnt-profissionais">0</span><span class="stat__label">Trancistas cadastradas</span></div>
+      <div class="stat stat--accent"><span class="stat__num" id="cnt-avaliacoes">0</span><span class="stat__label">Avaliações verificadas</span></div>
+      <div class="stat"><span class="stat__num" id="cnt-cidades">0</span><span class="stat__label">Cidades cobertas</span></div>
+    </div>
+  </section>
+
+  <section class="ranking-preview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🏆 Ranking em Destaque</span>
+        <h2>As Melhores<br><em>desta Semana</em></h2>
+        <p>Classificadas com base em qualidade, rapidez, preço e atendimento</p>
+      </div>
+      <div class="cards-grid" id="homeCards"></div>
+      <div class="section-cta">
+        <button class="btn-gold-lg" onclick="navigate('ranking')">Ver Ranking Completo ✦</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header section-header--light">
+        <span class="section-tag">Como Funciona</span>
+        <h2>Simples.<br><em>Transparente.</em> Justo.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step__num">01</div><div class="step__icon">🔍</div><h4>Pesquisa</h4><p>Filtra por tipo de trança, preço, localização ou disponibilidade.</p></div>
+        <div class="step"><div class="step__num">02</div><div class="step__icon">📊</div><h4>Compara</h4><p>Vê portfólios, lê avaliações reais e compara lado a lado.</p></div>
+        <div class="step"><div class="step__num">03</div><div class="step__icon">📅</div><h4>Marca</h4><p>Agenda diretamente com a trancista escolhida no próprio site.</p></div>
+        <div class="step"><div class="step__num">04</div><div class="step__icon">⭐</div><h4>Avalia</h4><p>Depois do serviço, dá a tua avaliação e alimenta o ranking.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-trancista">
+    <div class="container">
+      <div class="cta-trancista__inner">
+        <div class="cta-trancista__text">
+          <span class="section-tag">Para Trancistas</span>
+          <h2>O teu talento<br>merece <em>visibilidade</em></h2>
+          <p>Cria o teu perfil profissional, mostra o teu portfólio, define os teus preços e começa a receber clientes. Sem algoritmos misteriosos — apenas mérito real.</p>
+          <button class="btn-gold-lg" onclick="navigate('cadastro')">Criar Perfil Grátis ✦</button>
+        </div>
+        <div class="cta-trancista__visual">
+          <div class="cta-badge"><span class="cta-badge__icon">🥇</span><span class="cta-badge__label">Top da Semana</span></div>
+          <div class="cta-badge"><span class="cta-badge__icon">⚡</span><span class="cta-badge__label">Mais Rápida</span></div>
+          <div class="cta-badge"><span class="cta-badge__icon">💰</span><span class="cta-badge__label">Melhor Preço</span></div>
+          <div class="cta-badge"><span class="cta-badge__icon">❤️</span><span class="cta-badge__label">Mais Recomendada</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer__inner">
+      <div class="footer__brand"><span class="star">✦</span> Quem<em>Trançou</em>?</div>
+      <p class="footer__copy">© 2025 QuemTrançou? · Feito com ❤️ para valorizar as trancistas de Angola</p>
+      <div class="footer__links">
+        <a href="#">Sobre</a><a href="#">Privacidade</a><a href="#">Contacto</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ─── EXPLORAR ─── -->
+<div class="page" id="page-explorar">
+  <div class="page-header" style="padding:48px 24px 36px">
+    <div class="container">
+      <span class="section-tag">🔍 Pesquisa</span>
+      <h1>Explorar <em>Trancistas</em></h1>
+      <p id="explorarCount">— profissionais encontradas</p>
+    </div>
+  </div>
+  <div class="explorar-body">
+    <aside class="filtros">
+      <h4>Filtros</h4>
+      <div class="filtro-group">
+        <label>Pesquisar</label>
+        <input class="filtro-input" id="filtBusca" type="text" placeholder="Nome ou tipo de trança..." oninput="renderExplorar()" />
+      </div>
+      <div class="filtro-group">
+        <label>Tipo de Trança</label>
+        <div class="filtro-opts" id="filtTipos"></div>
+      </div>
+      <div class="filtro-group">
+        <label>Cidade</label>
+        <div class="filtro-opts" id="filtCidades"></div>
+      </div>
+      <div class="filtro-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="filtDisp" onchange="renderExplorar()" />
+          <span>Apenas disponíveis agora</span>
+        </label>
+      </div>
+      <div class="filtro-group">
+        <label>Ordenar por</label>
+        <select class="filtro-select" id="filtOrdem" onchange="renderExplorar()">
+          <option value="nota">Melhor Avaliação</option>
+          <option value="avaliacoes">Mais Avaliadas</option>
+          <option value="preco_asc">Menor Preço</option>
+          <option value="preco_desc">Maior Preço</option>
+        </select>
+      </div>
+    </aside>
+    <div class="resultados" id="resultados"></div>
+  </div>
+</div>
+
+<!-- ─── RANKING ─── -->
+<div class="page" id="page-ranking">
+  <div class="page-header" style="padding:48px 24px 36px">
+    <div class="container">
+      <span class="section-tag">✦ Atualizado esta semana</span>
+      <h1>Ranking das<br><em>Trancistas</em></h1>
+      <p>Classificação dinâmica baseada em qualidade, rapidez, preço e atendimento</p>
+    </div>
+  </div>
+  <div class="ranking-tabs">
+    <div class="tabs-inner" id="rankingTabs"></div>
+  </div>
+  <div class="ranking-body">
+    <div class="podium" id="podium"></div>
+    <div class="ranking-list" id="rankingList">
+      <div class="ranking-list__header">
+        <span>Pos.</span><span>Trancista</span><span>Nota</span><span>Avaliações</span><span>Pontos</span><span>Conquistas</span><span></span>
+      </div>
+      <div id="rankingRows"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEED ─── -->
+<div class="page" id="page-feed">
+  <div class="page-header" style="padding:48px 24px 36px">
+    <div class="container">
+      <span class="section-tag">📸 Portfólios</span>
+      <h1>Feed de <em>Trabalhos</em></h1>
+      <p>Os trabalhos mais recentes das trancistas da plataforma</p>
+    </div>
+  </div>
+  <div class="feed-body">
+    <div class="feed-posts" id="feedPosts"></div>
+    <aside class="feed-sidebar">
+      <div class="sidebar-widget">
+        <h4>🔥 Em Alta</h4>
+        <div id="feedTrends"></div>
+      </div>
+      <div class="sidebar-widget">
+        <h4>✦ Trancistas a Seguir</h4>
+        <div id="feedSuggest"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- ─── TRANCISTA PERFIL ─── -->
+<div class="page" id="page-trancista">
+  <div id="tpContent"></div>
+</div>
+
+<!-- ─── PERFIL PESSOAL ─── -->
+<div class="page" id="page-perfil">
+  <div id="perfilContent"></div>
+</div>
+
+<!-- ─── LOGIN ─── -->
+<div class="page" id="page-login">
+  <div class="auth-page">
+    <div class="auth-bg">
+      <div class="auth-orb auth-orb--1"></div>
+      <div class="auth-orb auth-orb--2"></div>
+    </div>
+    <div class="auth-box">
+      <div class="auth-brand"><span>✦</span> Quem<em>Trançou</em>?</div>
+      <h2>Bem-vinda de volta</h2>
+      <p class="auth-sub">Entra na tua conta para continuar</p>
+      <div class="auth-erro" id="loginErro" style="display:none"></div>
+      <div class="auth-form">
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="o@teu.email" /></div>
+        <div class="form-group"><label>Senha</label><input type="password" id="loginSenha" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()" /></div>
+        <button class="auth-btn" id="loginBtn" onclick="doLogin()">Entrar ✦</button>
+      </div>
+      <p class="auth-switch">Ainda não tens conta? <a onclick="navigate('cadastro')">Cadastra-te aqui</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CADASTRO ─── -->
+<div class="page" id="page-cadastro">
+  <div class="auth-page">
+    <div class="auth-bg">
+      <div class="auth-orb auth-orb--1"></div>
+      <div class="auth-orb auth-orb--2"></div>
+    </div>
+    <div class="auth-box">
+      <div class="auth-brand"><span>✦</span> Quem<em>Trançou</em>?</div>
+      <h2>Cria a tua conta</h2>
+      <p class="auth-sub">Grátis. Sempre.</p>
+      <div class="auth-erro" id="cadErro" style="display:none"></div>
+      <div class="auth-form">
+        <div class="tipo-selector">
+          <button class="tipo-btn active" id="tipoBtnCliente" onclick="setTipoCad('cliente')">💇 Sou Cliente</button>
+          <button class="tipo-btn" id="tipoBtnTrancista" onclick="setTipoCad('trancista')">✨ Sou Trancista</button>
+        </div>
+        <div class="form-group"><label>Nome completo</label><input type="text" id="cadNome" placeholder="O teu nome" /></div>
+        <div class="form-group"><label>Email</label><input type="email" id="cadEmail" placeholder="o@teu.email" /></div>
+        <div class="form-group"><label>Senha</label><input type="password" id="cadSenha" placeholder="Mínimo 6 caracteres" onkeydown="if(event.key==='Enter') doCadastro()" /></div>
+        <button class="auth-btn" id="cadBtn" onclick="doCadastro()">Criar Conta Grátis ✦</button>
+      </div>
+      <p class="auth-switch">Já tens conta? <a onclick="navigate('login')">Entra aqui</a></p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- ═══════════════════════════════════════════
+     MODAL (shared)
+═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="globalModal" style="display:none" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FIREBASE + APP LOGIC
+═══════════════════════════════════════════ -->
+<script type="module">
+/* ─────────────────────────────────────
+   FIREBASE SETUP
+   Substitui os valores abaixo pelas tuas
+   credenciais do Firebase Console.
+────────────────────────────────────── */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, getDocs, getDoc, setDoc, query, orderBy, limit, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:            "SUA_API_KEY",
+  authDomain:        "SEU_AUTH_DOMAIN",
+  projectId:         "SEU_PROJECT_ID",
+  storageBucket:     "SEU_STORAGE_BUCKET",
+  messagingSenderId: "SEU_SENDER_ID",
+  appId:             "SEU_APP_ID",
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const auth  = getAuth(fbApp);
+const db    = getFirestore(fbApp);
+
+/* ─────────────────────────────────────
+   DEMO DATA
+────────────────────────────────────── */
+const DEMO_TRANCISTAS = [
+  { id:'1', nome:'Amara Diallo',   especialidade:'Box Braids & Knotless', nota:4.9, avaliacoes:312, preco:5000,  precoLabel:'AOA 5.000–15.000', tempo:'3–6h', cidade:'Luanda',   disponivel:true,  emoji:'👑', badge:'🥇 Top da Semana', cor:'#E8547A', pontos:9840, conquistas:['⭐','⚡','❤️'], bio:'Trancista profissional com mais de 8 anos de experiência. Especializada em box braids, knotless e tranças com extensão. Atendo em domicílio e no meu salão em Luanda.', tiposEscolhidos:['Box Braids','Knotless','Cornrows','Goddess Braids'], precoMin:5000, precoMax:15000, comMaterial:true, whatsapp:'244900000001', servicos:847, avaliacoesRecentes:[{nome:'Joana M.',nota:5,texto:'Trabalho impecável, muito cuidadosa e pontual!',data:'15 Mar 2025'},{nome:'Carla F.',nota:5,texto:'Box braids perfeitas, durou 6 semanas. Recomendo muito!',data:'10 Mar 2025'},{nome:'Ana S.',nota:4,texto:'Boa profissional, só demorou um pouco mais do previsto.',data:'5 Mar 2025'}] },
+  { id:'2', nome:'Beatriz Lopes',  especialidade:'Cornrows & Fulani',     nota:4.8, avaliacoes:198, preco:4000,  precoLabel:'AOA 4.000–10.000', tempo:'2–4h', cidade:'Luanda',   disponivel:true,  emoji:'⚡', badge:'⚡ Mais Rápida',   cor:'#2A9D8F', pontos:8920, conquistas:['⚡','⭐'], bio:'Especialista em cornrows e fulani braids. Velocidade sem perder qualidade!', tiposEscolhidos:['Cornrows','Fulani Braids'], precoMin:4000, precoMax:10000, comMaterial:false, whatsapp:'244900000002', servicos:512, avaliacoesRecentes:[{nome:'Maria L.',nota:5,texto:'Super rápida e muito caprichosa!',data:'20 Mar 2025'}] },
+  { id:'3', nome:'Celeste Nkosi',  especialidade:'Goddess Braids',        nota:4.7, avaliacoes:245, preco:3500,  precoLabel:'AOA 3.500–8.000',  tempo:'3–5h', cidade:'Benguela', disponivel:false, emoji:'✨', badge:'💰 Melhor Preço',  cor:'#D4A843', pontos:8540, conquistas:['💰','❤️'], bio:'Goddess braids são a minha paixão. Preços acessíveis para todas.', tiposEscolhidos:['Goddess Braids','Twists'], precoMin:3500, precoMax:8000, comMaterial:true, whatsapp:'244900000003', servicos:380, avaliacoesRecentes:[] },
+  { id:'4', nome:'Diana Muamba',   especialidade:'Knotless & Twists',     nota:4.6, avaliacoes:167, preco:6000,  precoLabel:'AOA 6.000–18.000', tempo:'4–7h', cidade:'Luanda',   disponivel:true,  emoji:'🌟', badge:'❤️ Top',          cor:'#9B59B6', pontos:7810, conquistas:['❤️'], bio:'Knotless braids e twists com acabamento premium.', tiposEscolhidos:['Knotless','Twists'], precoMin:6000, precoMax:18000, comMaterial:true, whatsapp:'244900000004', servicos:290, avaliacoesRecentes:[] },
+  { id:'5', nome:'Elena Ferreira', especialidade:'Box Braids',            nota:4.5, avaliacoes:89,  preco:3000,  precoLabel:'AOA 3.000–7.000',  tempo:'2–3h', cidade:'Huambo',  disponivel:true,  emoji:'🌺', badge:null,               cor:'#E67E22', pontos:6340, conquistas:['⭐'], bio:'Trancista jovem e dedicada. Box braids rápidas e bonitas!', tiposEscolhidos:['Box Braids'], precoMin:3000, precoMax:7000, comMaterial:false, whatsapp:'244900000005', servicos:140, avaliacoesRecentes:[] },
+  { id:'6', nome:'Fatima Cunha',   especialidade:'Cornrows Artísticos',   nota:4.9, avaliacoes:401, preco:4500,  precoLabel:'AOA 4.500–12.000', tempo:'2–5h', cidade:'Luanda',   disponivel:true,  emoji:'🎨', badge:'🎨 Artista',        cor:'#E74C3C', pontos:9710, conquistas:['⭐','🎨'], bio:'Arte e precisão em cada traçado. Cornrows geométricos e exclusivos.', tiposEscolhidos:['Cornrows'], precoMin:4500, precoMax:12000, comMaterial:true, whatsapp:'244900000006', servicos:670, avaliacoesRecentes:[] },
+];
+
+const DEMO_POSTS = [
+  { id:1, trancista:'Amara Diallo',   emoji:'👑', cidade:'Luanda',   tipo:'Box Braids',    desc:'Mais um resultado incrível! Box braids médias com extensão de 50cm. Cliente adorou! 😍', tempo:'2h atrás', likes:142, cor:'#E8547A' },
+  { id:2, trancista:'Fatima Cunha',   emoji:'🎨', cidade:'Luanda',   tipo:'Cornrows',      desc:'Padrão geométrico exclusivo para a minha cliente especial de hoje. Quanto tempo achas que demorei? 🤔', tempo:'5h atrás', likes:89, cor:'#E74C3C' },
+  { id:3, trancista:'Beatriz Lopes',  emoji:'⚡', cidade:'Luanda',   tipo:'Fulani Braids', desc:'Fulani braids com acessórios dourados. Tempo de execução: 2h30 🔥 Disponível amanhã a partir das 9h!', tempo:'8h atrás', likes:203, cor:'#2A9D8F' },
+  { id:4, trancista:'Celeste Nkosi',  emoji:'✨', cidade:'Benguela', tipo:'Goddess Braids',desc:'Goddess braids para a cerimônia de noivado da minha cliente. Que Deus abençoe esta nova fase! 🙏', tempo:'1d atrás', likes:317, cor:'#D4A843' },
+];
+
+const TIPOS_TRANCA = ['Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists','Senegalese','Locs'];
+const CIDADES_AO   = ['Luanda','Benguela','Huambo','Lobito','Lubango','Malanje','Cabinda','Kuito'];
+
+/* ─────────────────────────────────────
+   STATE
+────────────────────────────────────── */
+let currentUser  = null;
+let userProfile  = null;
+let trancistas   = DEMO_TRANCISTAS;
+let posts        = DEMO_POSTS;
+let liked        = new Set();
+let filtTipo     = 'Todos';
+let filtCidade   = 'Todas';
+let rankingCat   = 'geral';
+let cadTipo      = 'cliente';
+
+// Perfil edit form state
+let perfilForm = { bio:'', cidade:'', whatsapp:'', precoMin:'', precoMax:'', tempo:'', tiposEscolhidos:[], comMaterial:false, disponivel:true };
+
+/* ─────────────────────────────────────
+   ROUTER
+────────────────────────────────────── */
+window.navigate = function(page, id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+  const navBtn = document.getElementById('nav-' + page);
+  if (navBtn) navBtn.classList.add('active');
+  window.scrollTo(0,0);
+
+  if (page === 'home')      renderHome();
+  if (page === 'explorar')  { renderExplorar(); loadExplorarFromFirebase(); }
+  if (page === 'ranking')   renderRanking();
+  if (page === 'feed')      renderFeed();
+  if (page === 'trancista') renderTrancista(id);
+  if (page === 'perfil') {
+    if (!currentUser) { navigate('login'); return; }
+    renderPerfil();
+  }
+  if (page === 'login' && currentUser) { navigate('perfil'); return; }
+  if (page === 'cadastro' && currentUser) { navigate('perfil'); return; }
+
+  if (page === 'explorar' && id) {
+    setTimeout(() => { const el = document.getElementById('filtBusca'); if(el) { el.value = id; renderExplorar(); } }, 50);
+  }
+};
+
+/* ─────────────────────────────────────
+   HELPERS
+────────────────────────────────────── */
+function starsHtml(nota) {
+  let s = '';
+  for (let i=1;i<=5;i++) s += `<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`;
+  return `<span class="stars">${s}<strong> ${nota.toFixed(1)}</strong></span>`;
+}
+function starsHtmlTp(nota) {
+  let s = '';
+  for (let i=1;i<=5;i++) s += `<span class="${i<=Math.round(nota)?'filled':''}">★</span>`;
+  return `<span class="tp-stars">${s}</span>`;
+}
+
+window.showToast = function(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+};
+window.openModal = function(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('globalModal').style.display = 'flex';
+};
+window.closeModal = function() {
+  document.getElementById('globalModal').style.display = 'none';
+};
+
+/* nav hamburger */
+window.toggleMenu = function() {
+  document.getElementById('navLinks').classList.toggle('open');
+};
+
+/* ─────────────────────────────────────
+   AUTH
+────────────────────────────────────── */
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  updateNavAuth();
+  if (user) {
+    try {
+      const snap = await getDoc(doc(db, 'usuarios', user.uid));
+      if (snap.exists()) { userProfile = snap.data(); }
+    } catch {}
+  } else {
+    userProfile = null;
+  }
+});
+
+function updateNavAuth() {
+  const authDiv = document.getElementById('navAuth');
+  const userDiv = document.getElementById('navUser');
+  if (currentUser) {
+    authDiv.style.display = 'none';
+    userDiv.style.display = 'flex';
+    const initial = currentUser.displayName?.[0]?.toUpperCase() || currentUser.email[0].toUpperCase();
+    document.getElementById('navInitial').textContent = initial;
+    document.getElementById('navName').textContent = currentUser.displayName || 'Perfil';
+  } else {
+    authDiv.style.display = 'flex';
+    userDiv.style.display = 'none';
+  }
+}
+
+window.doLogin = async function() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const senha = document.getElementById('loginSenha').value;
+  const erroEl = document.getElementById('loginErro');
+  const btn = document.getElementById('loginBtn');
+  erroEl.style.display = 'none';
+  btn.textContent = 'A entrar...'; btn.disabled = true;
+  try {
+    await signInWithEmailAndPassword(auth, email, senha);
+    showToast('Bem-vinda de volta! ✦');
+    navigate('perfil');
+  } catch {
+    erroEl.textContent = 'Email ou senha incorretos. Tenta novamente.';
+    erroEl.style.display = 'block';
+  }
+  btn.textContent = 'Entrar ✦'; btn.disabled = false;
+};
+
+window.setTipoCad = function(t) {
+  cadTipo = t;
+  document.getElementById('tipoBtnCliente').classList.toggle('active', t==='cliente');
+  document.getElementById('tipoBtnTrancista').classList.toggle('active', t==='trancista');
+};
+
+window.doCadastro = async function() {
+  const nome  = document.getElementById('cadNome').value.trim();
+  const email = document.getElementById('cadEmail').value.trim();
+  const senha = document.getElementById('cadSenha').value;
+  const erroEl = document.getElementById('cadErro');
+  const btn = document.getElementById('cadBtn');
+  erroEl.style.display = 'none';
+  if (!nome || !email || !senha) { erroEl.textContent='Preenche todos os campos.'; erroEl.style.display='block'; return; }
+  if (senha.length < 6) { erroEl.textContent='A senha deve ter pelo menos 6 caracteres.'; erroEl.style.display='block'; return; }
+  btn.textContent='A criar conta...'; btn.disabled=true;
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, senha);
+    await updateProfile(cred.user, { displayName: nome });
+    await setDoc(doc(db,'usuarios',cred.user.uid),{ nome, email, tipo:cadTipo, criadoEm:serverTimestamp(), pontuacao:0, nota:0, avaliacoes:0 });
+    userProfile = { nome, email, tipo:cadTipo };
+    showToast('Conta criada com sucesso! ✦');
+    navigate('perfil');
+  } catch(err) {
+    erroEl.textContent = err.code === 'auth/email-already-in-use' ? 'Este email já está em uso.' : 'Erro ao criar conta. Tenta novamente.';
+    erroEl.style.display='block';
+  }
+  btn.textContent='Criar Conta Grátis ✦'; btn.disabled=false;
+};
+
+window.handleLogout = async function() {
+  await signOut(auth);
+  userProfile = null;
+  showToast('Sessão terminada.');
+  navigate('home');
+};
+
+/* ─────────────────────────────────────
+   HOME RENDER
+────────────────────────────────────── */
+const TIPOS_HERO = [{icon:'🌀',nome:'Box Braids'},{icon:'🔗',nome:'Knotless'},{icon:'🌿',nome:'Fulani'},{icon:'💫',nome:'Cornrows'},{icon:'🌺',nome:'Goddess'},{icon:'🪢',nome:'Twists'}];
+let heroTipoAtivo = '';
+
+function renderHome() {
+  animateCounters();
+
+  // Tags
+  const tagsEl = document.getElementById('heroTags');
+  tagsEl.innerHTML = TIPOS_HERO.map(t => `
+    <button class="tag ${heroTipoAtivo===t.nome?'tag--active':''}" onclick="heroFilterTipo('${t.nome}')">${t.icon} ${t.nome}</button>
+  `).join('');
+
+  // Cards (top 3 from Firebase or demo)
+  const top3 = trancistas.slice().sort((a,b)=>b.pontos-a.pontos).slice(0,3);
+  document.getElementById('homeCards').innerHTML = top3.map((t,i) => `
+    <div class="card" style="--accent:${t.cor}" onclick="navigate('trancista','${t.id}')">
+      <div class="card__rank">#${i+1}</div>
+      ${t.badge?`<div class="card__badge" style="background:${t.cor}">${t.badge}</div>`:''}
+      <div class="card__avatar"><span>${t.emoji}</span></div>
+      <div class="card__info">
+        <h3>${t.nome}</h3>
+        <p class="card__specialty">${t.especialidade}</p>
+        ${starsHtml(t.nota)}
+        <span class="card__reviews">(${t.avaliacoes} avaliações)</span>
+      </div>
+      <div class="card__footer">
+        <div class="card__detail"><span class="detail-icon">💰</span><span>${t.precoLabel}</span></div>
+        <div class="card__detail"><span class="detail-icon">⏱</span><span>${t.tempo}</span></div>
+      </div>
+      <div class="card__cta">Ver Perfil →</div>
+    </div>
+  `).join('');
+}
+
+window.heroFilterTipo = function(nome) {
+  heroTipoAtivo = heroTipoAtivo === nome ? '' : nome;
+  navigate('explorar', heroTipoAtivo || '');
+};
+window.doHeroSearch = function() {
+  const q = document.getElementById('heroSearch').value.trim();
+  navigate('explorar', q);
+};
+
+function animateCounters() {
+  const targets = { profissionais:1240, avaliacoes:8900, cidades:18 };
+  const dur = 1800, steps = 60, stepTime = dur/steps;
+  let step = 0;
+  const timer = setInterval(() => {
+    step++;
+    const ease = 1 - Math.pow(1-step/steps, 3);
+    document.getElementById('cnt-profissionais').textContent = Math.floor(targets.profissionais*ease).toLocaleString()+'+';
+    document.getElementById('cnt-avaliacoes').textContent    = Math.floor(targets.avaliacoes*ease).toLocaleString()+'+';
+    document.getElementById('cnt-cidades').textContent       = Math.floor(targets.cidades*ease);
+    if (step>=steps) clearInterval(timer);
+  }, stepTime);
+}
+
+/* ─────────────────────────────────────
+   EXPLORAR RENDER
+────────────────────────────────────── */
+const TIPOS_FILTRO  = ['Todos','Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists'];
+const CIDADES_FILTRO = ['Todas','Luanda','Benguela','Huambo','Lubango'];
+
+async function loadExplorarFromFirebase() {
+  try {
+    const snap = await getDocs(query(collection(db,'trancistas'), orderBy('nota','desc')));
+    if (!snap.empty) { trancistas = snap.docs.map(d=>({id:d.id,...d.data()})); renderExplorar(); }
+  } catch {}
+}
+
+// Build filter buttons once
+(function initFiltros() {
+  const tiposEl   = document.getElementById('filtTipos');
+  const cidadesEl = document.getElementById('filtCidades');
+  if (!tiposEl || !cidadesEl) { setTimeout(initFiltros, 100); return; }
+  tiposEl.innerHTML   = TIPOS_FILTRO.map(t=>`<button class="filtro-opt ${filtTipo===t?'active':''}" data-tipo="${t}" onclick="setFiltTipo('${t}')">${t}</button>`).join('');
+  cidadesEl.innerHTML = CIDADES_FILTRO.map(c=>`<button class="filtro-opt ${filtCidade===c?'active':''}" data-cidade="${c}" onclick="setFiltCidade('${c}')">${c}</button>`).join('');
+})();
+
+window.setFiltTipo = function(t) {
+  filtTipo = t;
+  document.querySelectorAll('[data-tipo]').forEach(b => b.classList.toggle('active', b.dataset.tipo===t));
+  renderExplorar();
+};
+window.setFiltCidade = function(c) {
+  filtCidade = c;
+  document.querySelectorAll('[data-cidade]').forEach(b => b.classList.toggle('active', b.dataset.cidade===c));
+  renderExplorar();
+};
+
+window.renderExplorar = function() {
+  const busca     = (document.getElementById('filtBusca')?.value || '').toLowerCase();
+  const apenasDisp= document.getElementById('filtDisp')?.checked;
+  const ordem     = document.getElementById('filtOrdem')?.value || 'nota';
+
+  let filtered = trancistas.filter(t => {
+    const mb = !busca || t.nome.toLowerCase().includes(busca) || t.especialidade.toLowerCase().includes(busca);
+    const mt = filtTipo==='Todos' || t.especialidade.toLowerCase().includes(filtTipo.toLowerCase());
+    const mc = filtCidade==='Todas' || t.cidade===filtCidade;
+    const md = !apenasDisp || t.disponivel;
+    return mb && mt && mc && md;
+  }).sort((a,b)=>{
+    if(ordem==='nota')      return b.nota-a.nota;
+    if(ordem==='avaliacoes')return b.avaliacoes-a.avaliacoes;
+    if(ordem==='preco_asc') return a.preco-b.preco;
+    if(ordem==='preco_desc')return b.preco-a.preco;
+    return 0;
+  });
+
+  document.getElementById('explorarCount').textContent = `${filtered.length} profissiona${filtered.length===1?'l':'is'} encontrada${filtered.length===1?'':'s'}`;
+
+  const el = document.getElementById('resultados');
+  if (!el) return;
+  if (filtered.length===0) {
+    el.innerHTML = `<div class="empty-msg"><span>😔</span><p>Nenhuma trancista encontrada com esses filtros.</p></div>`; return;
+  }
+  el.innerHTML = filtered.map(t => `
+    <div class="resultado-card" style="--accent:${t.cor}" onclick="navigate('trancista','${t.id}')">
+      <div class="resultado-card__left">
+        <div class="resultado-avatar">
+          <span>${t.emoji}</span>
+          ${t.disponivel?'<span class="disponivel-dot"></span>':''}
+        </div>
+        <div class="resultado-info">
+          <div class="resultado-top">
+            <h3>${t.nome}</h3>
+            ${t.badge?`<span class="resultado-badge" style="background:${t.cor}">${t.badge}</span>`:''}
+          </div>
+          <p class="resultado-specialty">${t.especialidade}</p>
+          <div class="resultado-meta">
+            ${starsHtml(t.nota)}
+            <span class="sep">·</span>
+            <span class="meta-item">📍 ${t.cidade}</span>
+            <span class="sep">·</span>
+            <span class="meta-item">⏱ ${t.tempo}</span>
+          </div>
+        </div>
+      </div>
+      <div class="resultado-card__right">
+        <div class="resultado-preco">${t.precoLabel}</div>
+        <div class="resultado-status ${t.disponivel?'disponivel':'indisponivel'}">${t.disponivel?'✓ Disponível':'✗ Ocupada'}</div>
+        <span class="resultado-cta">Ver perfil →</span>
+      </div>
+    </div>
+  `).join('');
+};
+
+/* ─────────────────────────────────────
+   RANKING RENDER
+────────────────────────────────────── */
+const RANKING_CATS = [
+  {key:'geral',       label:'🏆 Ranking Geral'},
+  {key:'rapida',      label:'⚡ Mais Rápida'},
+  {key:'preco',       label:'💰 Melhor Preço'},
+  {key:'recomendada', label:'❤️ Mais Recomendada'},
+];
+
+function renderRanking() {
+  // Tabs
+  document.getElementById('rankingTabs').innerHTML = RANKING_CATS.map(c=>
+    `<button class="tab ${rankingCat===c.key?'tab--active':''}" onclick="setRankingCat('${c.key}')">${c.label}</button>`
+  ).join('');
+
+  const sorted = [...trancistas].sort((a,b)=>b.pontos-a.pontos);
+  const podium = sorted.slice(0,3);
+
+  // Podium
+  const podEl = document.getElementById('podium');
+  podEl.innerHTML = `
+    <div class="podium__spot podium__spot--2" style="--c:${podium[1]?.cor||'#ccc'}">
+      <div class="podium-avatar">${podium[1]?.emoji||''}</div>
+      <div class="podium-name">${podium[1]?.nome||''}</div>
+      <div class="podium-pts">${podium[1]?.pontos?.toLocaleString()||0} pts</div>
+      <div class="podium-block podium-block--2"><span>2º</span></div>
+    </div>
+    <div class="podium__spot podium__spot--1" style="--c:${podium[0]?.cor||'#FFD700'}">
+      <div class="crown">👑</div>
+      <div class="podium-avatar" style="width:80px;height:80px;font-size:2.5rem">${podium[0]?.emoji||''}</div>
+      <div class="podium-name">${podium[0]?.nome||''}</div>
+      <div class="podium-pts">${podium[0]?.pontos?.toLocaleString()||0} pts</div>
+      <div class="podium-block podium-block--1"><span>1º</span></div>
+    </div>
+    <div class="podium__spot podium__spot--3" style="--c:${podium[2]?.cor||'#CD7F32'}">
+      <div class="podium-avatar">${podium[2]?.emoji||''}</div>
+      <div class="podium-name">${podium[2]?.nome||''}</div>
+      <div class="podium-pts">${podium[2]?.pontos?.toLocaleString()||0} pts</div>
+      <div class="podium-block podium-block--3"><span>3º</span></div>
+    </div>
+  `;
+
+  // Rows
+  const medals = ['🥇','🥈','🥉'];
+  document.getElementById('rankingRows').innerHTML = sorted.map((t,i)=>`
+    <div class="ranking-row ${i<3?'ranking-row--top':''}" onclick="navigate('trancista','${t.id}')">
+      <span class="rank-pos" style="color:${i===0?'#FFD700':i===1?'#C0C0C0':i===2?'#CD7F32':'inherit'}">${medals[i]||'#'+(i+1)}</span>
+      <div class="rank-trancista">
+        <div class="rank-avatar" style="border-color:${t.cor}">${t.emoji}</div>
+        <div><strong>${t.nome}</strong><span class="rank-city">📍 ${t.cidade}</span></div>
+      </div>
+      <span class="rank-nota">⭐ ${t.nota.toFixed(1)}</span>
+      <span class="rank-aval">${t.avaliacoes}</span>
+      <span class="rank-pts" style="color:${t.cor}">${t.pontos.toLocaleString()}</span>
+      <span class="rank-conquistas">${(t.conquistas||[]).join(' ')}</span>
+      <span class="rank-cta">→</span>
+    </div>
+  `).join('');
+}
+
+window.setRankingCat = function(cat) {
+  rankingCat = cat;
+  renderRanking();
+};
+
+/* ─────────────────────────────────────
+   FEED RENDER
+────────────────────────────────────── */
+function renderFeed() {
+  document.getElementById('feedPosts').innerHTML = posts.map(p=>`
+    <div class="post-card" style="--pc:${p.cor}">
+      <div class="post-header">
+        <div class="post-avatar">${p.emoji}</div>
+        <div class="post-meta">
+          <strong>${p.trancista}</strong>
+          <span class="post-info">📍 ${p.cidade} · ⏱ ${p.tempo}</span>
+        </div>
+        <span class="post-tipo" style="background:${p.cor}22;color:${p.cor}">${p.tipo}</span>
+      </div>
+      <div class="post-img-placeholder"><span>${p.emoji}</span><p>Imagem do trabalho</p></div>
+      <div class="post-body"><p>${p.desc}</p></div>
+      <div class="post-footer">
+        <button class="like-btn ${liked.has(p.id)?'liked':''}" onclick="toggleLike(${p.id})">${liked.has(p.id)?'❤️':'🤍'} ${p.likes}</button>
+        <button class="comment-btn">💬 Comentar</button>
+        <button class="share-btn">📤 Partilhar</button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('feedTrends').innerHTML = ['Box Braids','Knotless','Fulani Braids','Cornrows Art','Goddess Braids'].map((t,i)=>
+    `<div class="trend-item"><span class="trend-num">#${i+1}</span><span>${t}</span></div>`
+  ).join('');
+
+  const suggest = trancistas.filter(t=>!['1','2'].includes(t.id)).slice(0,2);
+  document.getElementById('feedSuggest').innerHTML = suggest.map(t=>
+    `<div class="suggest-item">
+      <div class="suggest-avatar">${t.emoji}</div>
+      <div><strong>${t.nome}</strong><span>⭐ ${t.nota}</span></div>
+      <button class="seguir-btn" onclick="showToast('A seguir ${t.nome}! ✦')">Seguir</button>
+    </div>`
+  ).join('');
+}
+
+window.toggleLike = function(id) {
+  if (liked.has(id)) { liked.delete(id); posts = posts.map(p=>p.id===id?{...p,likes:p.likes-1}:p); }
+  else               { liked.add(id);    posts = posts.map(p=>p.id===id?{...p,likes:p.likes+1}:p); }
+  renderFeed();
+};
+
+/* ─────────────────────────────────────
+   TRANCISTA PERFIL RENDER
+────────────────────────────────────── */
+async function renderTrancista(id) {
+  document.getElementById('tpContent').innerHTML = `<div class="page-loading"><div class="spinner"></div><p>A carregar perfil...</p></div>`;
+  let p = trancistas.find(t=>t.id===id) || DEMO_TRANCISTAS[0];
+  try {
+    const snap = await getDoc(doc(db,'trancistas',id));
+    if (snap.exists()) p = { id:snap.id, ...snap.data() };
+  } catch {}
+
+  const conquistas = [
+    {icon:'🥇',label:'Top da Semana',desc:'Melhor classificada geral'},
+    {icon:'❤️',label:'Mais Recomendada',desc:'+300 recomendações'},
+    {icon:'⭐',label:'Estrela de Ouro',desc:'Nota 4.9 ou acima'},
+    {icon:'⚡',label:'Resposta Rápida',desc:'Responde em menos de 1h'},
+  ];
+
+  document.getElementById('tpContent').innerHTML = `
+    <div class="tp-hero" style="--c:${p.cor||'var(--gold)'}">
+      <div class="container tp-hero__inner">
+        <div class="tp-avatar">${p.emoji||'👑'}</div>
+        <div class="tp-hero__info">
+          <div class="tp-hero__top">
+            <h1>${p.nome}</h1>
+            <span class="tp-status ${p.disponivel?'on':'off'}">${p.disponivel?'● Disponível':'● Ocupada'}</span>
+          </div>
+          <p class="tp-specialty">${p.especialidade}</p>
+          <div class="tp-rating">
+            ${starsHtmlTp(p.nota)} <strong>${p.nota?.toFixed(1)||0}</strong>
+            <span>(${p.avaliacoes||0} avaliações)</span>
+            <span class="sep">·</span><span>📍 ${p.cidade||'Angola'}</span>
+          </div>
+          <div class="tp-badges-row">
+            ${(p.conquistas||[]).slice(0,3).map(c=>`<span class="tp-mini-badge">${c}</span>`).join('')}
+          </div>
+        </div>
+        <button class="tp-marcar-btn" onclick="openMarcacaoModal('${p.id}','${p.nome}',${JSON.stringify(p.tiposEscolhidos||[]).replace(/"/g,"'")})">📅 Marcar Agora</button>
+      </div>
+    </div>
+
+    <div class="tp-body">
+      <div class="tp-main">
+        <section class="tp-section">
+          <h3>Sobre</h3>
+          <p>${p.bio||'Trancista profissional em Angola.'}</p>
+        </section>
+        <section class="tp-section">
+          <h3>Serviços & Preços</h3>
+          <div class="tp-servicos-grid">
+            <div class="tp-detalhe"><span class="tp-detalhe-icon">💰</span><div><strong>Preço</strong><span>AOA ${(p.precoMin||0).toLocaleString()} – ${(p.precoMax||0).toLocaleString()}</span></div></div>
+            <div class="tp-detalhe"><span class="tp-detalhe-icon">⏱</span><div><strong>Tempo médio</strong><span>${p.tempo||'—'}</span></div></div>
+            <div class="tp-detalhe"><span class="tp-detalhe-icon">${p.comMaterial?'✓':'✗'}</span><div><strong>Material</strong><span>${p.comMaterial?'Incluído no preço':'Não incluído'}</span></div></div>
+            <div class="tp-detalhe"><span class="tp-detalhe-icon">📍</span><div><strong>Localização</strong><span>${p.cidade||'Angola'}</span></div></div>
+          </div>
+          ${p.tiposEscolhidos?.length?`<div class="tp-tipos"><strong>Tipos de trança:</strong><div class="tp-chips">${p.tiposEscolhidos.map(t=>`<span class="tp-chip">${t}</span>`).join('')}</div></div>`:''}
+        </section>
+        <section class="tp-section">
+          <h3>Avaliações Recentes</h3>
+          <div class="tp-avals">
+            ${(p.avaliacoesRecentes||[]).length===0
+              ? `<p style="color:var(--text2);font-size:.875rem">Ainda sem avaliações.</p>`
+              : (p.avaliacoesRecentes||[]).map(a=>`
+                <div class="tp-aval">
+                  <div class="tp-aval-header">
+                    <div class="tp-aval-user">${a.nome[0]}</div>
+                    <div><strong>${a.nome}</strong>${starsHtmlTp(a.nota)}</div>
+                    <span class="tp-aval-data">${a.data}</span>
+                  </div>
+                  <p>${a.texto}</p>
+                </div>`).join('')}
+          </div>
+        </section>
+      </div>
+      <aside class="tp-sidebar">
+        <div class="tp-card">
+          <h4>Estatísticas</h4>
+          <div class="tp-stat-row"><span>Pontuação</span><strong style="color:${p.cor||'var(--gold)'}">${(p.pontos||0).toLocaleString()}</strong></div>
+          <div class="tp-stat-row"><span>Serviços realizados</span><strong>${p.servicos||0}</strong></div>
+          <div class="tp-stat-row"><span>Taxa de aprovação</span><strong>98%</strong></div>
+        </div>
+        <div class="tp-card">
+          <h4>Conquistas</h4>
+          ${conquistas.map(c=>`
+            <div class="tp-conquista">
+              <span class="tp-conquista-icon">${c.icon}</span>
+              <div><strong>${c.label}</strong><span>${c.desc}</span></div>
+            </div>`).join('')}
+        </div>
+        <div class="tp-cta-card" style="--c:${p.cor||'var(--gold)'}">
+          <h4>Pronta para marcar?</h4>
+          <p>Disponível agora · Responde em menos de 1h</p>
+          <button class="tp-cta-btn" onclick="openMarcacaoModal('${p.id}','${p.nome}',${JSON.stringify(p.tiposEscolhidos||[]).replace(/"/g,"'")})">📅 Marcar Agora</button>
+          <a href="https://wa.me/${p.whatsapp||'244900000000'}" class="tp-wa-btn" target="_blank">💬 WhatsApp</a>
+        </div>
+      </aside>
+    </div>
+  `;
+}
+
+window.openMarcacaoModal = function(id, nome, tipos) {
+  if (!Array.isArray(tipos)) tipos = [];
+  const today = new Date().toISOString().split('T')[0];
+  openModal(`
+    <h3>Marcar com ${nome}</h3>
+    <p class="modal-sub">Escolhe a data e tipo de serviço</p>
+    <div class="form-group"><label>Data preferida</label><input type="date" id="mDate" min="${today}" /></div>
+    <div class="form-group"><label>Tipo de trança</label><select id="mTipo">${tipos.map(t=>`<option>${t}</option>`).join('')}</select></div>
+    <div class="form-group"><label>Notas adicionais</label><textarea id="mNota" rows="3" placeholder="Descreve o que pretendes..."></textarea></div>
+    <button class="modal-btn" onclick="submitMarcacao('${nome}')">Enviar Pedido de Marcação ✦</button>
+  `);
+};
+
+window.submitMarcacao = function(nome) {
+  const d = document.getElementById('mDate').value;
+  if (!d) { showToast('Escolhe uma data!'); return; }
+  closeModal();
+  showToast(`Pedido enviado para ${nome}! ✦`);
+};
+
+/* ─────────────────────────────────────
+   PERFIL PESSOAL RENDER
+────────────────────────────────────── */
+let editandoPerfil = false;
+let perfilSaving   = false;
+let perfilMsg      = '';
+
+async function renderPerfil() {
+  if (!currentUser) return;
+  const u = currentUser;
+  const isTrancista = userProfile?.tipo === 'trancista';
+
+  if (!userProfile) {
+    try {
+      const snap = await getDoc(doc(db,'usuarios',u.uid));
+      if (snap.exists()) { userProfile = snap.data(); perfilForm = {...perfilForm,...userProfile}; }
+    } catch {}
+  } else {
+    perfilForm = {...perfilForm,...userProfile};
+  }
+
+  document.getElementById('perfilContent').innerHTML = buildPerfilHtml(u, isTrancista);
+}
+
+function buildPerfilHtml(u, isTrancista) {
+  const initial = u.displayName?.[0]?.toUpperCase() || u.email[0].toUpperCase();
+  return `
+    <div class="perfil-hero">
+      <div class="container perfil-hero__inner">
+        <div class="perfil-avatar-big">${initial}</div>
+        <div class="perfil-hero__info">
+          <h1>${u.displayName||'Utilizador'}</h1>
+          <p class="perfil-email">${u.email}</p>
+          <div class="perfil-badges">
+            <span class="perfil-tipo-badge">${isTrancista?'✨ Trancista':'💇 Cliente'}</span>
+            ${perfilForm.disponivel&&isTrancista?'<span class="disponivel-badge">✓ Disponível</span>':''}
+          </div>
+        </div>
+        <div class="perfil-hero__actions">
+          <button class="btn-edit" onclick="togglePerfilEdit()">${editandoPerfil?'✕ Cancelar':'✏️ Editar Perfil'}</button>
+          <button class="btn-sair" onclick="handleLogout()">Sair</button>
+        </div>
+      </div>
+    </div>
+    <div class="perfil-body">
+      ${perfilMsg?`<div class="perfil-msg ${perfilMsg.includes('Erro')?'err':'ok'}">${perfilMsg}</div>`:''}
+      ${isTrancista?`<div class="perfil-stats">
+        <div class="pstat"><span class="pstat__n">${userProfile?.pontuacao||0}</span><span>Pontos</span></div>
+        <div class="pstat"><span class="pstat__n">${userProfile?.nota?.toFixed(1)||'—'}</span><span>Nota</span></div>
+        <div class="pstat"><span class="pstat__n">${userProfile?.avaliacoes||0}</span><span>Avaliações</span></div>
+        <div class="pstat"><span class="pstat__n">${userProfile?.servicos||0}</span><span>Serviços</span></div>
+      </div>`:''}
+      ${editandoPerfil ? buildPerfilForm(isTrancista) : buildPerfilView(isTrancista)}
+    </div>
+  `;
+}
+
+function buildPerfilForm(isTrancista) {
+  return `
+    <div class="perfil-form">
+      <h3>Informações do Perfil</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Cidade</label>
+          <select id="pCidade">
+            <option value="">Seleciona a cidade</option>
+            ${CIDADES_AO.map(c=>`<option value="${c}" ${perfilForm.cidade===c?'selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group"><label>WhatsApp</label>
+          <input type="tel" id="pWa" placeholder="+244 9XX XXX XXX" value="${perfilForm.whatsapp||''}" />
+        </div>
+      </div>
+      <div class="form-group"><label>Bio</label>
+        <textarea id="pBio" rows="3" placeholder="Conta um pouco sobre ti...">${perfilForm.bio||''}</textarea>
+      </div>
+      ${isTrancista?`
+        <div class="form-row-3">
+          <div class="form-group"><label>Preço Mín (AOA)</label><input type="number" id="pPMin" placeholder="3000" value="${perfilForm.precoMin||''}" /></div>
+          <div class="form-group"><label>Preço Máx (AOA)</label><input type="number" id="pPMax" placeholder="15000" value="${perfilForm.precoMax||''}" /></div>
+          <div class="form-group"><label>Tempo Médio</label><input type="text" id="pTempo" placeholder="ex: 3–5 horas" value="${perfilForm.tempo||''}" /></div>
+        </div>
+        <div class="form-group"><label>Tipos de Trança que Realizo</label>
+          <div class="tipos-grid">${TIPOS_TRANCA.map(t=>`<button type="button" class="tipo-chip ${(perfilForm.tiposEscolhidos||[]).includes(t)?'active':''}" onclick="toggleTipoPerfil('${t}')" id="tc-${t.replace(/ /g,'_')}">${t}</button>`).join('')}</div>
+        </div>
+        <div class="form-checks">
+          <label class="check-opt"><input type="checkbox" id="pMat" ${perfilForm.comMaterial?'checked':''} /><span>Material incluído</span></label>
+          <label class="check-opt"><input type="checkbox" id="pDisp" ${perfilForm.disponivel?'checked':''} /><span>Disponível agora</span></label>
+        </div>
+      `:''}
+      <button class="btn-save" id="saveBtn" onclick="savePerfilData(${isTrancista})">${perfilSaving?'A guardar...':'Guardar Perfil ✦'}</button>
+    </div>
+  `;
+}
+
+function buildPerfilView(isTrancista) {
+  const hasBio = !!perfilForm.bio;
+  const hasCid = !!perfilForm.cidade;
+  const hasTipos = isTrancista && (perfilForm.tiposEscolhidos||[]).length>0;
+  const hasPreco = isTrancista && (perfilForm.precoMin||perfilForm.precoMax);
+  if (!hasBio && !hasCid) return `<div class="perfil-empty"><span>✏️</span><p>O teu perfil está quase vazio. Clica em "Editar Perfil" para o completar!</p></div>`;
+  return `<div class="perfil-info">
+    ${hasBio?`<div class="info-card"><h4>Sobre mim</h4><p>${perfilForm.bio}</p></div>`:''}
+    ${hasCid?`<div class="info-card"><h4>Localização</h4><p>📍 ${perfilForm.cidade}, Angola</p></div>`:''}
+    ${hasTipos?`<div class="info-card"><h4>Tipos de Trança</h4><div class="chips-display">${perfilForm.tiposEscolhidos.map(t=>`<span class="chip-display">${t}</span>`).join('')}</div></div>`:''}
+    ${hasPreco?`<div class="info-card"><h4>Preços e Disponibilidade</h4>
+      <p>💰 AOA ${Number(perfilForm.precoMin||0).toLocaleString()} – ${Number(perfilForm.precoMax||0).toLocaleString()}</p>
+      ${perfilForm.tempo?`<p>⏱ Tempo médio: ${perfilForm.tempo}</p>`:''}
+      <p>${perfilForm.comMaterial?'✓ Material incluído':'✗ Material não incluído'}</p>
+    </div>`:''}
+  </div>`;
+}
+
+window.togglePerfilEdit = function() {
+  editandoPerfil = !editandoPerfil;
+  perfilMsg = '';
+  renderPerfil();
+};
+
+window.toggleTipoPerfil = function(t) {
+  const arr = perfilForm.tiposEscolhidos || [];
+  if (arr.includes(t)) perfilForm.tiposEscolhidos = arr.filter(x=>x!==t);
+  else perfilForm.tiposEscolhidos = [...arr, t];
+  // toggle class only
+  const btn = document.getElementById('tc-'+t.replace(/ /g,'_'));
+  if (btn) btn.classList.toggle('active', perfilForm.tiposEscolhidos.includes(t));
+};
+
+window.savePerfilData = async function(isTrancista) {
+  // Read form
+  perfilForm.cidade   = document.getElementById('pCidade')?.value || '';
+  perfilForm.whatsapp = document.getElementById('pWa')?.value     || '';
+  perfilForm.bio      = document.getElementById('pBio')?.value    || '';
+  if (isTrancista) {
+    perfilForm.precoMin    = document.getElementById('pPMin')?.value  || '';
+    perfilForm.precoMax    = document.getElementById('pPMax')?.value  || '';
+    perfilForm.tempo       = document.getElementById('pTempo')?.value || '';
+    perfilForm.comMaterial = document.getElementById('pMat')?.checked || false;
+    perfilForm.disponivel  = document.getElementById('pDisp')?.checked || false;
+  }
+
+  perfilSaving = true;
+  const btn = document.getElementById('saveBtn');
+  if (btn) { btn.textContent='A guardar...'; btn.disabled=true; }
+
+  try {
+    await setDoc(doc(db,'usuarios',currentUser.uid), {
+      ...userProfile, ...perfilForm,
+      nome: currentUser.displayName, email: currentUser.email,
+      atualizadoEm: serverTimestamp(),
+    }, {merge:true});
+    userProfile = {...userProfile,...perfilForm};
+    editandoPerfil = false;
+    perfilMsg = 'Perfil guardado com sucesso! ✓';
+    showToast('Perfil atualizado! ✦');
+  } catch {
+    perfilMsg = 'Erro ao guardar. Tenta novamente.';
+  }
+  perfilSaving = false;
+  renderPerfil();
+};
+
+/* ─────────────────────────────────────
+   INIT
+────────────────────────────────────── */
+window.navigate('home');
+
+// Load trancistas from Firebase on startup
+(async () => {
+  try {
+    const snap = await getDocs(query(collection(db,'trancistas'), orderBy('pontos','desc'), limit(20)));
+    if (!snap.empty) trancistas = snap.docs.map(d=>({id:d.id,...d.data()}));
+  } catch {}
+})();
+
+</script>
+</body>
+</html>
