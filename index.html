@@ -1587,6 +1587,19 @@ window.doCadastro = async () => {
       email: document.getElementById('cadastroEmail').value,
       tipo: registoTipo, criadoEm: serverTimestamp(), pontuacao:0, nota:0, avaliacoes:0
     });
+    if (registoTipo === 'trancista') {
+  await setDoc(doc(db, 'trancistas', cred.user.uid), {
+    nome: document.getElementById('cadastroNome').value,
+    email: document.getElementById('cadastroEmail').value,
+    tipo: 'trancista',
+    nota: 0,
+    avaliacoes: 0,
+    pontuacao: 0,
+    disponivel: true,
+    portfolio: [],
+    criadoEm: serverTimestamp()
+  });
+}
     showPage('perfil');
   } catch(e) {
     err.style.display='block';
