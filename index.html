@@ -427,6 +427,30 @@ img{max-width:100%;display:block}
 .modal-sub{color:rgba(253,246,236,.4);font-size:.88rem;margin-bottom:28px}
 .modal-btn{display:block;width:100%;background:linear-gradient(135deg,var(--gold),var(--caramel));color:var(--espresso);border:none;padding:15px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;margin-top:8px;transition:opacity .2s}
 .modal-btn:hover{opacity:.9}
+  /* CHAT */
+.chat-box{background:rgba(26,15,8,.8);border:1px solid rgba(212,168,67,.15);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;height:420px}
+.chat-header{padding:16px 20px;border-bottom:1px solid rgba(212,168,67,.1);font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:var(--gold);display:flex;align-items:center;justify-content:space-between}
+.chat-notif{background:var(--accent-pink);color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+.chat-conversas{flex:1;overflow-y:auto;padding:12px}
+.chat-conversa-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;cursor:pointer;transition:background .2s;border-bottom:1px solid rgba(253,246,236,.05)}
+.chat-conversa-item:hover,.chat-conversa-item.active{background:rgba(212,168,67,.08)}
+.chat-conversa-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:var(--espresso);flex-shrink:0}
+.chat-conversa-info{flex:1;min-width:0}
+.chat-conversa-nome{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:var(--cream);display:block}
+.chat-conversa-ultima{font-size:.75rem;color:rgba(253,246,236,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.chat-nao-lida{width:8px;height:8px;border-radius:50%;background:var(--accent-pink);flex-shrink:0}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:75%;padding:10px 14px;border-radius:14px;font-size:.88rem;line-height:1.5}
+.chat-msg.deles{background:rgba(61,28,10,.8);border:1px solid rgba(212,168,67,.1);color:rgba(253,246,236,.85);align-self:flex-start;border-radius:4px 14px 14px 14px}
+.chat-msg.meu{background:linear-gradient(135deg,var(--gold),var(--caramel));color:var(--espresso);align-self:flex-end;border-radius:14px 4px 14px 14px;font-weight:500}
+.chat-msg-hora{font-size:.65rem;opacity:.6;margin-top:4px;display:block}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(212,168,67,.1)}
+.chat-input{flex:1;background:rgba(26,15,8,.6);border:1px solid rgba(212,168,67,.15);border-radius:50px;padding:10px 16px;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none}
+.chat-input:focus{border-color:var(--gold)}
+.chat-send-btn{background:var(--gold);color:var(--espresso);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.chat-send-btn:hover{background:var(--gold-light)}
+.chat-back{background:none;border:none;color:rgba(253,246,236,.5);cursor:pointer;font-size:1rem;padding:0}
+.chat-vazio{text-align:center;padding:40px 20px;color:rgba(253,246,236,.3);font-family:'Syne',sans-serif;font-size:.82rem}
 
 /* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:300;display:flex;align-items:center;justify-content:center}
@@ -759,8 +783,7 @@ img{max-width:100%;display:block}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, query, orderBy, serverTimestamp, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, query, orderBy, where, onSnapshot, serverTimestamp, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const app = initializeApp({
   apiKey: "AIzaSyBKlsoxb03nDoerHYCtfFFoQ8PFUXa5asA",
   authDomain: "quem-trancou.firebaseapp.com",
@@ -1277,6 +1300,7 @@ window.renderPerfil = async () => {
       </div>
       <div class="container perfil-body">
         <div id="perfilMsg"></div>
+        ${isTrancista?` `<div id="chatContainer" style="margin-bottom:32px"></div>` : ''}
         ${isTrancista?`
         <div class="perfil-stats">
           <div class="pstat"><span class="pstat__n">${(tData.nota||0).toFixed(1)}</span><span>Nota média</span></div>
@@ -1289,6 +1313,7 @@ window.renderPerfil = async () => {
         </div>
       </div>
     </div>`;
+  if(isTrancista) setTimeout(() => renderChat('chatContainer'), 300);
 };
 
 function renderPerfilVer(tData, isTrancista) {
@@ -1668,7 +1693,113 @@ function stars(nota) {
 function starsHtml(nota) {
   return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');
 }
+// ── CHAT ──
+let chatUnsub = null;
+let conversaAtiva = null;
 
+window.renderChat = async (containerId) => {
+  const el = document.getElementById(containerId);
+  if(!el || !currentUser) return;
+
+  el.innerHTML = `<div class="chat-box">
+    <div class="chat-header">
+      <span>💬 Mensagens</span>
+      <span class="chat-notif" id="chatNotifCount" style="display:none">0</span>
+    </div>
+    <div class="chat-conversas" id="chatConversas">
+      <div class="chat-vazio">A carregar conversas...</div>
+    </div>
+  </div>`;
+
+  // Escuta conversas em tempo real
+  const q = query(collection(db,'conversas'), where('trancistId','==',currentUser.uid));
+  onSnapshot(q, (snap) => {
+    const conversas = snap.docs.map(d=>({id:d.id,...d.data()}));
+    const naoLidas = conversas.filter(c=>c.naoLida).length;
+    const notif = document.getElementById('chatNotifCount');
+    if(notif) { notif.style.display = naoLidas>0?'flex':'none'; notif.textContent=naoLidas; }
+
+    const el2 = document.getElementById('chatConversas');
+    if(!el2) return;
+    if(!conversas.length) { el2.innerHTML=`<div class="chat-vazio">Ainda não tens mensagens.<br>As clientes irão contactar-te aqui.</div>`; return; }
+
+    el2.innerHTML = conversas.map(c=>`
+      <div class="chat-conversa-item ${conversaAtiva===c.id?'active':''}" onclick="abrirConversa('${c.id}','${c.clienteNome||'Cliente'}','${containerId}')">
+        <div class="chat-conversa-avatar">${(c.clienteNome||'?')[0].toUpperCase()}</div>
+        <div class="chat-conversa-info">
+          <span class="chat-conversa-nome">${c.clienteNome||'Cliente'}</span>
+          <span class="chat-conversa-ultima">${c.ultimaMensagem||'Nova conversa'}</span>
+        </div>
+        ${c.naoLida?'<div class="chat-nao-lida"></div>':''}
+      </div>`).join('');
+  });
+};
+
+window.abrirConversa = (conversaId, nomeCliente, containerId) => {
+  conversaAtiva = conversaId;
+  if(chatUnsub) chatUnsub();
+  const el = document.getElementById(containerId);
+  if(!el) return;
+
+  el.innerHTML = `<div class="chat-box">
+    <div class="chat-header">
+      <button class="chat-back" onclick="renderChat('${containerId}')">← </button>
+      <span>💬 ${nomeCliente}</span>
+      <span></span>
+    </div>
+    <div class="chat-msgs" id="chatMsgs"></div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInputMsg" placeholder="Escreve uma mensagem..." onkeydown="if(event.key==='Enter')enviarMensagem('${conversaId}','${containerId}')">
+      <button class="chat-send-btn" onclick="enviarMensagem('${conversaId}','${containerId}')">➤</button>
+    </div>
+  </div>`;
+
+  // Marca como lida
+  updateDoc(doc(db,'conversas',conversaId),{naoLida:false}).catch(()=>{});
+
+  // Escuta mensagens em tempo real
+  const q = query(collection(db,'conversas',conversaId,'mensagens'), orderBy('criadoEm','asc'));
+  chatUnsub = onSnapshot(q, (snap) => {
+    const msgsEl = document.getElementById('chatMsgs');
+    if(!msgsEl) return;
+    msgsEl.innerHTML = snap.docs.map(d => {
+      const m = d.data();
+      const meu = m.autorId === currentUser.uid;
+      const hora = m.criadoEm?.toDate ? m.criadoEm.toDate().toLocaleTimeString('pt-AO',{hour:'2-digit',minute:'2-digit'}) : '';
+      return `<div class="chat-msg ${meu?'meu':'deles'}">
+        ${m.texto}
+        <span class="chat-msg-hora">${hora}</span>
+      </div>`;
+    }).join('');
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  });
+};
+
+window.enviarMensagem = async (conversaId, containerId) => {
+  const input = document.getElementById('chatInputMsg');
+  if(!input||!input.value.trim()) return;
+  const texto = input.value.trim();
+  input.value = '';
+  await addDoc(collection(db,'conversas',conversaId,'mensagens'),{
+    texto, autorId: currentUser.uid,
+    autorNome: currentUser.displayName||'Trancista',
+    criadoEm: serverTimestamp()
+  });
+  await updateDoc(doc(db,'conversas',conversaId),{ultimaMensagem:texto, naoLida:true});
+};
+
+// Quando cliente faz marcação, cria/abre conversa
+window.iniciarConversa = async (trancistId, trancistaNome) => {
+  if(!currentUser) { showPage('login'); return; }
+  const conversaId = currentUser.uid + '_' + trancistId;
+  await setDoc(doc(db,'conversas',conversaId),{
+    clienteId: currentUser.uid,
+    clienteNome: currentUser.displayName||currentUser.email,
+    trancistId, trancistaNome,
+    ultimaMensagem: '', naoLida: false,
+    criadoEm: serverTimestamp()
+  },{merge:true});
+};
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40);
 });
