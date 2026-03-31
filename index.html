@@ -158,7 +158,6 @@ img{max-width:100%;display:block}
 .resultado-info{flex:1}
 .resultado-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
 .resultado-top h3{font-size:1.1rem;color:var(--cream)}
-.resultado-badge{color:white;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:50px}
 .resultado-specialty{font-size:.85rem;color:rgba(253,246,236,.5);margin-bottom:8px}
 .resultado-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sep{color:rgba(253,246,236,.2)}
@@ -181,7 +180,7 @@ img{max-width:100%;display:block}
 .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .ranking-body{padding:60px 0 80px}
 .podium{display:flex;align-items:flex-end;justify-content:center;gap:16px;margin-bottom:60px}
-.podium__spot{display:flex;flex-direction:column;align-items:center;gap:8px}
+.podium__spot{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
 .crown{font-size:2rem;animation:float 3s ease-in-out infinite}
 .podium-avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:2px solid var(--c,var(--gold));overflow:hidden}
 .podium-avatar img{width:100%;height:100%;object-fit:cover}
@@ -317,6 +316,7 @@ img{max-width:100%;display:block}
 .pstat{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:24px;text-align:center}
 .pstat__n{display:block;font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--gold);margin-bottom:4px}
 .pstat span:last-child{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(253,246,236,.4)}
+.perfil-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
 .perfil-form{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:20px;padding:36px}
 .perfil-form h3{font-size:1.3rem;color:var(--cream);margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(212,168,67,.1)}
 .form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
@@ -393,11 +393,11 @@ img{max-width:100%;display:block}
 .lightbox-media{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
 .lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:white;font-size:2rem;cursor:pointer}
 
-/* ── MARCAÇÕES STYLES ── */
+/* MARCAÇÕES */
 .marcacoes-section{margin-bottom:40px}
 .marcacoes-section h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(212,168,67,.1);display:flex;align-items:center;gap:12px}
 .badge-count{background:var(--accent-pink);color:white;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:50px;min-width:22px;text-align:center}
-.marcacao-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:24px;margin-bottom:12px;transition:border-color .2s}
+.marcacao-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:24px;margin-bottom:12px;animation:slideIn .3s ease}
 .marcacao-card--pendente{border-left:4px solid var(--gold)}
 .marcacao-card--confirmado{border-left:4px solid #2ecc71}
 .marcacao-card--recusado{border-left:4px solid rgba(232,84,122,.5);opacity:.7}
@@ -415,16 +415,14 @@ img{max-width:100%;display:block}
 .marcacao-card__details{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px}
 .marc-detail{font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.6);display:flex;align-items:center;gap:6px}
 .marcacao-card__nota{background:rgba(26,15,8,.4);border-radius:10px;padding:12px 16px;font-size:.88rem;color:rgba(253,246,236,.65);line-height:1.5;margin-bottom:16px;font-style:italic}
-.marcacao-card__actions{display:flex;gap:10px}
+.marcacao-card__actions{display:flex;gap:10px;flex-wrap:wrap}
 .btn-aceitar{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71;padding:10px 20px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
 .btn-aceitar:hover{background:rgba(46,204,113,.25)}
 .btn-rejeitar{background:rgba(232,84,122,.1);border:1px solid rgba(232,84,122,.3);color:var(--accent-pink);padding:10px 20px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
 .btn-rejeitar:hover{background:rgba(232,84,122,.2)}
 .btn-ver-cliente{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.2);color:var(--gold);padding:10px 20px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
 .btn-ver-cliente:hover{background:rgba(212,168,67,.2)}
-
-/* MARCAÇÕES CLIENTE */
-.marc-cliente-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:20px;margin-bottom:12px}
+.marc-cliente-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:20px;margin-bottom:12px;animation:slideIn .3s ease}
 .marc-cliente-card--pendente{border-left:4px solid var(--gold)}
 .marc-cliente-card--confirmado{border-left:4px solid #2ecc71}
 .marc-cliente-card--recusado{border-left:4px solid rgba(232,84,122,.4);opacity:.7}
@@ -450,17 +448,16 @@ img{max-width:100%;display:block}
 .cliente-hist-item span{color:rgba(253,246,236,.6)}
 .cliente-hist-item strong{font-family:'Syne',sans-serif;color:var(--cream);font-size:.78rem}
 
-/* NOTIFICAÇÃO — TRIGGER */
+/* NOTIFICAÇÕES */
 .notif-trigger{position:relative;cursor:pointer;display:flex;align-items:center;gap:10px}
-.notif-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:var(--espresso);border:2px solid transparent;transition:border-color .2s,transform .2s;flex-shrink:0}
+.notif-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:var(--espresso);border:2px solid transparent;transition:border-color .2s,transform .2s;flex-shrink:0;overflow:hidden}
+.notif-avatar img{width:100%;height:100%;object-fit:cover}
 .notif-trigger:hover .notif-avatar{border-color:var(--gold);transform:scale(1.05)}
 .notif-trigger-label{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;color:rgba(253,246,236,.75);letter-spacing:.04em;text-transform:uppercase}
-.notif-badge{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;background:var(--accent-pink);border-radius:50px;font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:white;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--espresso);animation:badge-pop .3s cubic-bezier(.34,1.56,.64,1) forwards}
+.notif-badge{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;background:var(--accent-pink);border-radius:50px;font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:white;display:none;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--espresso);animation:badge-pop .3s cubic-bezier(.34,1.56,.64,1) forwards}
 @keyframes badge-pop{from{transform:scale(0)}to{transform:scale(1)}}
 .nav-perfil-wrap{position:relative;display:flex;align-items:center}
-
-/* NOTIFICAÇÃO — PAINEL FLUTUANTE */
-.notif-panel{position:fixed;top:70px;right:24px;width:420px;max-height:calc(100vh - 90px);background:var(--mahogany);border:1px solid rgba(212,168,67,.18);border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(212,168,67,.06);z-index:999;display:flex;flex-direction:column;overflow:hidden;transform-origin:top right;animation:panel-in .25s cubic-bezier(.34,1.2,.64,1) forwards}
+.notif-panel{position:fixed;top:70px;right:24px;width:420px;max-height:calc(100vh - 90px);background:var(--mahogany);border:1px solid rgba(212,168,67,.18);border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,.6);z-index:999;display:flex;flex-direction:column;overflow:hidden;transform-origin:top right;animation:panel-in .25s cubic-bezier(.34,1.2,.64,1) forwards}
 @keyframes panel-in{from{opacity:0;transform:scale(.92) translateY(-8px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .notif-panel.closing{animation:panel-out .18s ease forwards}
 @keyframes panel-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.94) translateY(-6px)}}
@@ -477,9 +474,6 @@ img{max-width:100%;display:block}
 .tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;background:var(--accent-pink);color:white;border-radius:50px;font-size:.6rem;font-weight:800;padding:0 3px;margin-left:4px;vertical-align:middle}
 .tab-count.zero{background:rgba(253,246,236,.12);color:rgba(253,246,236,.4)}
 .notif-list{overflow-y:auto;flex:1;padding:8px 0}
-.notif-list::-webkit-scrollbar{width:4px}
-.notif-list::-webkit-scrollbar-track{background:transparent}
-.notif-list::-webkit-scrollbar-thumb{background:rgba(212,168,67,.2);border-radius:2px}
 .notif-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid rgba(253,246,236,.04);transition:background .15s;cursor:default;position:relative}
 .notif-item:last-child{border-bottom:none}
 .notif-item:hover{background:rgba(212,168,67,.04)}
@@ -487,9 +481,6 @@ img{max-width:100%;display:block}
 .notif-item.unread{background:rgba(212,168,67,.03)}
 .notif-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;border:1.5px solid}
 .notif-icon--marcacao{background:rgba(212,168,67,.12);border-color:rgba(212,168,67,.3)}
-.notif-icon--like{background:rgba(232,84,122,.12);border-color:rgba(232,84,122,.3)}
-.notif-icon--comentario{background:rgba(42,157,143,.12);border-color:rgba(42,157,143,.3)}
-.notif-icon--avaliacao{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3)}
 .notif-body{flex:1;min-width:0}
 .notif-body strong{display:block;font-family:'Syne',sans-serif;font-size:.84rem;font-weight:700;color:var(--cream);margin-bottom:2px}
 .notif-body p{font-size:.79rem;color:rgba(253,246,236,.55);line-height:1.4;margin-bottom:5px}
@@ -499,8 +490,6 @@ img{max-width:100%;display:block}
 .btn-notif-aceitar:hover{background:rgba(46,204,113,.28)}
 .btn-notif-recusar{background:rgba(232,84,122,.1);border:1px solid rgba(232,84,122,.3);color:var(--accent-pink);padding:5px 13px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .2s}
 .btn-notif-recusar:hover{background:rgba(232,84,122,.2)}
-.btn-notif-ver{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.2);color:var(--gold);padding:5px 13px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .2s}
-.btn-notif-ver:hover{background:rgba(212,168,67,.22)}
 .notif-estado{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:4px 11px;border-radius:50px;margin-top:5px;display:inline-block}
 .notif-estado.confirmado{background:rgba(46,204,113,.12);color:#2ecc71}
 .notif-estado.recusado{background:rgba(232,84,122,.1);color:var(--accent-pink)}
@@ -510,10 +499,7 @@ img{max-width:100%;display:block}
 .notif-footer{padding:14px 24px;border-top:1px solid rgba(212,168,67,.1);flex-shrink:0;text-align:center}
 .notif-footer button{background:none;border:none;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;color:rgba(212,168,67,.6);cursor:pointer;letter-spacing:.04em;transition:color .2s}
 .notif-footer button:hover{color:var(--gold)}
-
-/* MINI-MODAL DE CONFIRMAÇÃO */
-.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:1100;display:flex;align-items:center;justify-content:center;padding:20px}
-.confirm-overlay-anim{animation:fade-in .2s ease}
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:1100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fade-in .2s ease}
 @keyframes fade-in{from{opacity:0}to{opacity:1}}
 .confirm-modal{background:var(--mahogany);border:1px solid rgba(212,168,67,.2);border-radius:20px;padding:36px 32px;max-width:380px;width:100%;text-align:center;animation:modal-in .25s cubic-bezier(.34,1.2,.64,1)}
 @keyframes modal-in{from{transform:scale(.9) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
@@ -532,14 +518,6 @@ img{max-width:100%;display:block}
 .confirm-btn-nao:hover{background:rgba(253,246,236,.12)}
 
 @media(max-width:460px){.notif-panel{right:0;left:0;width:100%;border-radius:20px 20px 0 0;top:auto;bottom:0;max-height:80vh}}
-
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.4)}50%{box-shadow:0 0 0 12px rgba(212,168,67,0)}}
-@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-.marcacao-card{animation:slideIn .3s ease}
-
 @media(max-width:900px){
   .explorar__body{grid-template-columns:1fr}
   .filtros{position:static}
@@ -558,6 +536,7 @@ img{max-width:100%;display:block}
   .ranking-list__header,.ranking-row{grid-template-columns:50px 1fr 70px 40px;font-size:.75rem}
   .ranking-list__header span:nth-child(4),.ranking-row .rank-aval{display:none}
   .perfil-stats{grid-template-columns:repeat(2,1fr)}
+  .perfil-grid{grid-template-columns:1fr}
   .cliente-modal-stats{grid-template-columns:1fr 1fr}
 }
 @media(max-width:600px){
@@ -566,8 +545,12 @@ img{max-width:100%;display:block}
   .tp-portfolio-grid{grid-template-columns:repeat(2,1fr)}
   .auth-box{padding:32px 20px}
   .marcacao-card__top{flex-direction:column;align-items:flex-start}
-  .marcacao-card__actions{flex-wrap:wrap}
 }
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.4)}50%{box-shadow:0 0 0 12px rgba(212,168,67,0)}}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 </style>
 </head>
 <body>
@@ -589,6 +572,7 @@ img{max-width:100%;display:block}
   </div>
 </nav>
 
+<!-- HOME -->
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero__bg">
@@ -665,6 +649,7 @@ img{max-width:100%;display:block}
   </footer>
 </div>
 
+<!-- EXPLORAR -->
 <div class="page" id="page-explorar">
   <div class="explorar__header"><div class="container"><h1>Explorar <em>Trancistas</em></h1><p id="explorarCount">A carregar...</p></div></div>
   <div class="container explorar__body">
@@ -704,6 +689,7 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- RANKING -->
 <div class="page" id="page-ranking">
   <div class="ranking-header"><div class="container"><span class="section-tag">✦ Atualizado esta semana</span><h1>Ranking das<br><em>Trancistas</em></h1><p>Classificação dinâmica baseada em qualidade, rapidez, preço e atendimento</p></div></div>
   <div class="ranking-tabs"><div class="container tabs-inner">
@@ -718,6 +704,7 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- FEED -->
 <div class="page" id="page-feed">
   <div class="feed-header"><div class="container"><h1>Feed de <em>Trabalhos</em></h1><p>Os trabalhos mais recentes das trancistas da plataforma</p></div></div>
   <div class="container feed-body">
@@ -726,10 +713,13 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- PERFIL TRANCISTA -->
 <div class="page" id="page-trancista"><div id="trancistaPerfil"></div></div>
+
+<!-- MEU PERFIL -->
 <div class="page" id="page-perfil"><div id="perfilContent"></div></div>
 
-<!-- LOGIN — só aparece se NÃO estiver autenticado -->
+<!-- LOGIN -->
 <div class="page" id="page-login">
   <div class="auth-page">
     <div class="auth-bg"><div class="auth-orb auth-orb--1"></div><div class="auth-orb auth-orb--2"></div></div>
@@ -748,7 +738,7 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- CADASTRO — só aparece se NÃO estiver autenticado -->
+<!-- CADASTRO -->
 <div class="page" id="page-cadastro">
   <div class="auth-page">
     <div class="auth-bg"><div class="auth-orb auth-orb--1"></div><div class="auth-orb auth-orb--2"></div></div>
@@ -799,7 +789,7 @@ img{max-width:100%;display:block}
   <div id="lightboxContent"></div>
 </div>
 
-<!-- PAINEL DE NOTIFICAÇÕES FLUTUANTE -->
+<!-- PAINEL DE NOTIFICAÇÕES -->
 <div class="notif-panel" id="notifPanel" style="display:none">
   <div class="notif-header">
     <div class="notif-header__top">
@@ -818,7 +808,7 @@ img{max-width:100%;display:block}
   <div class="notif-footer"><button onclick="notifClosePanel();showPage('perfil')">Ver todas as marcações →</button></div>
 </div>
 
-<!-- MINI-MODAL CONFIRMAÇÃO NOTIFICAÇÃO -->
+<!-- MINI-MODAL CONFIRMAÇÃO -->
 <div class="confirm-overlay" id="confirmOverlay" style="display:none">
   <div class="confirm-modal">
     <span class="confirm-icon" id="confirmIcon">📅</span>
@@ -851,6 +841,7 @@ const db = getFirestore(app);
 const CLOUDINARY_CLOUD_NAME = 'dgvjdkgmg';
 const CLOUDINARY_UPLOAD_PRESET = 'quem-trancou';
 
+// ── CLOUDINARY UPLOAD ──
 async function uploadParaCloudinary(file, onProgress) {
   const isVideo = file.type.startsWith('video/');
   const resourceType = isVideo ? 'video' : 'image';
@@ -862,8 +853,12 @@ async function uploadParaCloudinary(file, onProgress) {
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
     xhr.upload.onprogress = (e) => { if(e.lengthComputable && onProgress) onProgress(Math.round((e.loaded/e.total)*100)); };
     xhr.onload = () => {
-      if(xhr.status===200) { const d=JSON.parse(xhr.responseText); resolve({url:d.secure_url,type:isVideo?'video':'image',publicId:d.public_id}); }
-      else reject(new Error('Erro no upload: '+xhr.responseText));
+      if(xhr.status === 200) {
+        const d = JSON.parse(xhr.responseText);
+        resolve({ url: d.secure_url, type: isVideo ? 'video' : 'image', publicId: d.public_id });
+      } else {
+        reject(new Error('Erro no upload: ' + xhr.responseText));
+      }
     };
     xhr.onerror = () => reject(new Error('Falha na ligação ao Cloudinary'));
     xhr.open('POST', url);
@@ -873,7 +868,7 @@ async function uploadParaCloudinary(file, onProgress) {
 
 // ── STATE ──
 let currentUser = null;
-let currentUserPerfil = null; // dados do Firestore do utilizador actual
+let currentUserPerfil = null;
 let allTrancistas = [];
 let filtroTipo = 'Todos';
 let filtroCidade = 'Todas';
@@ -881,53 +876,57 @@ let currentTrancistaPerfil = null;
 let registoTipo = 'cliente';
 let uploadedPortfolioFiles = [];
 let existingPortfolioItems = [];
-let marcacoesUnsub = null; // listener em tempo real das marcações
+let marcacoesUnsub = null;
 
-// ── AUTH STATE — lógica central ──
+// ── AUTH STATE ──
 onAuthStateChanged(auth, async user => {
   currentUser = user;
-
   if(user) {
-    // Carrega perfil do utilizador autenticado
     try {
-      const snap = await getDoc(doc(db,'usuarios',user.uid));
+      const snap = await getDoc(doc(db, 'usuarios', user.uid));
       currentUserPerfil = snap.exists() ? snap.data() : {};
-    } catch(e){ currentUserPerfil = {}; }
+    } catch(e) { currentUserPerfil = {}; }
 
-    // Conta marcações pendentes para badge
-    const pendentes = await contarMarcacoesPendentes(user.uid, currentUserPerfil?.tipo);
-    renderNavAuth(user, pendentes);
+    renderNavAuth(user);
+    notifInit(user.uid, currentUserPerfil?.tipo || 'cliente');
 
-    // Se estava em login ou cadastro, redireciona para o perfil
     const pAtiva = document.querySelector('.page.active');
-    if(pAtiva && (pAtiva.id==='page-login' || pAtiva.id==='page-cadastro')) {
+    if(pAtiva && (pAtiva.id === 'page-login' || pAtiva.id === 'page-cadastro')) {
       showPage('perfil');
     }
   } else {
     currentUserPerfil = null;
-    renderNavAuth(null, 0);
+    renderNavAuth(null);
+    notifReset();
   }
-
   loadAllTrancistas();
 });
 
-function renderNavAuth(user, pendentes) {
+function getFotoUrl(dados) {
+  if(!dados || !dados.fotoPerfil) return null;
+  if(typeof dados.fotoPerfil === 'string') return dados.fotoPerfil;
+  if(dados.fotoPerfil.url) return dados.fotoPerfil.url;
+  return null;
+}
+
+function renderNavAuth(user) {
   const navAuth = document.getElementById('navAuth');
   if(user) {
     const initial = (user.displayName || user.email || '?')[0].toUpperCase();
     const nome = (user.displayName || user.email || '').split(' ')[0] || 'Perfil';
-    const badgeHtml = pendentes > 0 ? `<span class="notif-badge" id="notifBadge">${pendentes}</span>` : `<span class="notif-badge" id="notifBadge" style="display:none">0</span>`;
+    const fotoUrl = getFotoUrl(currentUserPerfil);
+    const avatarHtml = fotoUrl
+      ? `<img src="${fotoUrl}" alt="${nome}">`
+      : initial;
     navAuth.innerHTML = `
       <div class="nav-perfil-wrap">
         <div class="notif-trigger" id="notifTrigger" onclick="notifTogglePanel()">
-          <div class="notif-avatar" id="notifAvatar">${initial}</div>
+          <div class="notif-avatar" id="notifAvatar">${avatarHtml}</div>
           <span class="notif-trigger-label">${nome}</span>
-          ${badgeHtml}
+          <span class="notif-badge" id="notifBadge" style="display:none">0</span>
         </div>
       </div>
       <button class="btn-logout" onclick="doLogout()">Sair</button>`;
-    // Inicializa o painel de notificações com dados do Firebase
-    notifInit(user.uid, currentUserPerfil?.tipo || 'cliente');
   } else {
     navAuth.innerHTML = `
       <a href="#" class="btn-nav-ghost" onclick="event.preventDefault();showPage('login')">Entrar</a>
@@ -935,25 +934,12 @@ function renderNavAuth(user, pendentes) {
   }
 }
 
-async function contarMarcacoesPendentes(uid, tipo) {
-  if(!uid) return 0;
-  try {
-    const campo = tipo === 'trancista' ? 'trancistId' : 'clienteId';
-    const snap = await getDocs(query(
-      collection(db,'marcacoes'),
-      where(campo,'==',uid),
-      where('estado','==','pendente')
-    ));
-    return snap.size;
-  } catch(e){ return 0; }
-}
-
 // ── LOAD TRANCISTAS ──
 async function loadAllTrancistas() {
   try {
-    const snap = await getDocs(query(collection(db,'trancistas'),orderBy('nota','desc')));
-    allTrancistas = snap.docs.map(d=>({id:d.id,...d.data()}));
-  } catch(e) { allTrancistas=[]; }
+    const snap = await getDocs(query(collection(db, 'trancistas'), orderBy('nota', 'desc')));
+    allTrancistas = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch(e) { allTrancistas = []; }
   renderHomeCards();
   renderExplorar();
   renderRanking();
@@ -963,31 +949,37 @@ async function loadAllTrancistas() {
 
 // ── STATS ──
 function animateStats() {
-  const total=allTrancistas.length;
-  const avals=allTrancistas.reduce((s,t)=>s+(t.avaliacoes||0),0);
-  const cidades=[...new Set(allTrancistas.map(t=>t.cidade).filter(Boolean))].length;
-  animCount('statProf',total); animCount('statAval',avals); animCount('statCid',cidades);
+  const total = allTrancistas.length;
+  const avals = allTrancistas.reduce((s, t) => s + (t.avaliacoes || 0), 0);
+  const cidades = [...new Set(allTrancistas.map(t => t.cidade).filter(Boolean))].length;
+  animCount('statProf', total);
+  animCount('statAval', avals);
+  animCount('statCid', cidades);
 }
-function animCount(id,target) {
-  if(!target){document.getElementById(id).textContent='0';return;}
-  let i=0;const steps=50;
-  const timer=setInterval(()=>{i++;document.getElementById(id).textContent=Math.floor(target*(i/steps)).toLocaleString()+'+';if(i>=steps)clearInterval(timer);},30);
+function animCount(id, target) {
+  if(!target) { document.getElementById(id).textContent = '0'; return; }
+  let i = 0; const steps = 50;
+  const timer = setInterval(() => {
+    i++;
+    document.getElementById(id).textContent = Math.floor(target * (i / steps)).toLocaleString() + '+';
+    if(i >= steps) clearInterval(timer);
+  }, 30);
 }
 
 // ── HOME CARDS ──
 function renderHomeCards() {
   const el = document.getElementById('homeCards');
-  const top3 = allTrancistas.slice(0,3);
+  const top3 = allTrancistas.slice(0, 3);
   if(!top3.length) {
     el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="empty-icon">✦</span><p>Ainda não há trancistas cadastradas.<br>Sê a primeira!</p><button class="btn-gold-lg" onclick="showPage('cadastro')">Criar Perfil Grátis ✦</button></div>`;
     return;
   }
-  const cores=['#E8547A','#2A9D8F','#D4A843'];
-  el.innerHTML = top3.map((t,i)=>{
-    const foto=getFotoPerfilUrl(t);
+  const cores = ['#E8547A', '#2A9D8F', '#D4A843'];
+  el.innerHTML = top3.map((t, i) => {
+    const foto = getFotoUrl(t);
     return `<div class="card" style="--accent:${t.cor||cores[i]}" onclick="showTrancista('${t.id}')">
       <div class="card__rank">#${i+1}</div>
-      ${foto?`<img class="card__avatar-img" src="${foto}" alt="${t.nome}">`:`<div class="card__avatar-placeholder">✦</div>`}
+      ${foto ? `<img class="card__avatar-img" src="${foto}" alt="${t.nome}">` : `<div class="card__avatar-placeholder">✦</div>`}
       <div class="card__info"><h3>${t.nome||'Trancista'}</h3><p class="card__specialty">${t.especialidade||''}</p>
       ${stars(t.nota||0)} <span class="card__reviews">(${t.avaliacoes||0} avaliações)</span></div>
       <div class="card__footer">
@@ -999,113 +991,127 @@ function renderHomeCards() {
   }).join('');
 }
 
-function getFotoPerfilUrl(t) {
-  if(!t||!t.fotoPerfil) return null;
-  if(typeof t.fotoPerfil==='string') return t.fotoPerfil;
-  if(t.fotoPerfil.url) return t.fotoPerfil.url;
-  return null;
-}
-
 // ── EXPLORAR ──
 function renderExplorar() {
-  const busca=(document.getElementById('filtroSearch')||{}).value||'';
-  const disp=(document.getElementById('filtroDisp')||{}).checked||false;
-  const ordem=(document.getElementById('filtroOrdem')||{}).value||'nota';
-  let lista=allTrancistas.filter(t=>{
-    const mb=!busca||(t.nome||'').toLowerCase().includes(busca.toLowerCase())||(t.especialidade||'').toLowerCase().includes(busca.toLowerCase());
-    const mt=filtroTipo==='Todos'||(t.especialidade||'').toLowerCase().includes(filtroTipo.toLowerCase())||(t.tiposEscolhidos||[]).some(x=>x.toLowerCase().includes(filtroTipo.toLowerCase()));
-    const mc=filtroCidade==='Todas'||t.cidade===filtroCidade;
-    const md=!disp||t.disponivel;
-    return mb&&mt&&mc&&md;
-  }).sort((a,b)=>{
-    if(ordem==='nota') return (b.nota||0)-(a.nota||0);
-    if(ordem==='avaliacoes') return (b.avaliacoes||0)-(a.avaliacoes||0);
-    if(ordem==='preco_asc') return (a.precoMin||0)-(b.precoMin||0);
-    if(ordem==='preco_desc') return (b.precoMin||0)-(a.precoMin||0);
+  const busca = (document.getElementById('filtroSearch') || {}).value || '';
+  const disp = (document.getElementById('filtroDisp') || {}).checked || false;
+  const ordem = (document.getElementById('filtroOrdem') || {}).value || 'nota';
+  let lista = allTrancistas.filter(t => {
+    const mb = !busca || (t.nome||'').toLowerCase().includes(busca.toLowerCase()) || (t.especialidade||'').toLowerCase().includes(busca.toLowerCase());
+    const mt = filtroTipo === 'Todos' || (t.especialidade||'').toLowerCase().includes(filtroTipo.toLowerCase()) || (t.tiposEscolhidos||[]).some(x => x.toLowerCase().includes(filtroTipo.toLowerCase()));
+    const mc = filtroCidade === 'Todas' || t.cidade === filtroCidade;
+    const md = !disp || t.disponivel;
+    return mb && mt && mc && md;
+  }).sort((a, b) => {
+    if(ordem === 'nota') return (b.nota||0) - (a.nota||0);
+    if(ordem === 'avaliacoes') return (b.avaliacoes||0) - (a.avaliacoes||0);
+    if(ordem === 'preco_asc') return (a.precoMin||0) - (b.precoMin||0);
+    if(ordem === 'preco_desc') return (b.precoMin||0) - (a.precoMin||0);
     return 0;
   });
-  const el=document.getElementById('resultados');
-  const ct=document.getElementById('explorarCount');
-  if(ct) ct.textContent=lista.length+' profissionais encontradas';
-  if(!lista.length){el.innerHTML=`<div class="empty-state"><span class="empty-icon">😔</span><p>Nenhuma trancista encontrada com esses filtros.</p></div>`;return;}
-  el.innerHTML=lista.map(t=>{
-    const foto=getFotoPerfilUrl(t);
+  const el = document.getElementById('resultados');
+  const ct = document.getElementById('explorarCount');
+  if(ct) ct.textContent = lista.length + ' profissionais encontradas';
+  if(!lista.length) {
+    el.innerHTML = `<div class="empty-state"><span class="empty-icon">😔</span><p>Nenhuma trancista encontrada com esses filtros.</p></div>`;
+    return;
+  }
+  el.innerHTML = lista.map(t => {
+    const foto = getFotoUrl(t);
     return `<div class="resultado-card" style="--accent:${t.cor||'var(--gold)'}" onclick="showTrancista('${t.id}')">
       <div class="resultado-card__left">
-        ${foto?`<div class="resultado-avatar"><img src="${foto}" alt="${t.nome}"></div>`:`<div class="resultado-avatar-placeholder">✦${t.disponivel?'<span class="disponivel-dot"></span>':''}</div>`}
+        ${foto
+          ? `<div class="resultado-avatar"><img src="${foto}" alt="${t.nome}"></div>`
+          : `<div class="resultado-avatar-placeholder">✦${t.disponivel ? '<span class="disponivel-dot"></span>' : ''}</div>`}
         <div class="resultado-info">
           <div class="resultado-top"><h3>${t.nome||'Trancista'}</h3></div>
           <p class="resultado-specialty">${t.especialidade||''}</p>
-          <div class="resultado-meta">${stars(t.nota||0)}<span class="sep">·</span><span class="meta-item">📍 ${t.cidade||'Angola'}</span>${t.tempo?`<span class="sep">·</span><span class="meta-item">⏱ ${t.tempo}</span>`:''}</div>
+          <div class="resultado-meta">${stars(t.nota||0)}<span class="sep">·</span><span class="meta-item">📍 ${t.cidade||'Angola'}</span>${t.tempo ? `<span class="sep">·</span><span class="meta-item">⏱ ${t.tempo}</span>` : ''}</div>
         </div>
       </div>
       <div class="resultado-card__right">
-        ${(t.precoMin||t.precoMax)?`<div class="resultado-preco">AOA ${Number(t.precoMin||0).toLocaleString()}–${Number(t.precoMax||0).toLocaleString()}</div>`:''}
-        <div class="resultado-status ${t.disponivel?'disponivel':'indisponivel'}">${t.disponivel?'✓ Disponível':'✗ Ocupada'}</div>
+        ${(t.precoMin||t.precoMax) ? `<div class="resultado-preco">AOA ${Number(t.precoMin||0).toLocaleString()}–${Number(t.precoMax||0).toLocaleString()}</div>` : ''}
+        <div class="resultado-status ${t.disponivel ? 'disponivel' : 'indisponivel'}">${t.disponivel ? '✓ Disponível' : '✗ Ocupada'}</div>
         <span class="resultado-cta">Ver perfil →</span>
       </div>
     </div>`;
   }).join('');
 }
-window.setFiltroTipo=(btn,val)=>{filtroTipo=val;document.querySelectorAll('.filtro-group .filtro-opt').forEach(b=>{if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent))b.classList.remove('active');});btn.classList.add('active');renderExplorar();};
-window.setFiltroCidade=(btn,val)=>{filtroCidade=val;document.querySelectorAll('.filtro-group .filtro-opt').forEach(b=>{if(['Todas','Luanda','Benguela','Huambo','Lubango'].includes(b.textContent))b.classList.remove('active');});btn.classList.add('active');renderExplorar();};
-window.renderExplorar=renderExplorar;
+window.setFiltroTipo = (btn, val) => { filtroTipo = val; document.querySelectorAll('.filtro-group .filtro-opt').forEach(b => { if(['Todos','Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists'].includes(b.textContent)) b.classList.remove('active'); }); btn.classList.add('active'); renderExplorar(); };
+window.setFiltroCidade = (btn, val) => { filtroCidade = val; document.querySelectorAll('.filtro-group .filtro-opt').forEach(b => { if(['Todas','Luanda','Benguela','Huambo','Lubango'].includes(b.textContent)) b.classList.remove('active'); }); btn.classList.add('active'); renderExplorar(); };
+window.renderExplorar = renderExplorar;
 
 // ── RANKING ──
 function renderRanking() {
-  const sorted=[...allTrancistas].sort((a,b)=>(b.nota||0)-(a.nota||0));
-  const podiumEl=document.getElementById('podium');
-  const listEl=document.getElementById('rankingList');
-  if(!sorted.length){podiumEl.innerHTML='';listEl.innerHTML=`<div class="empty-state"><span class="empty-icon">🏆</span><p>Ainda não há trancistas no ranking.</p></div>`;return;}
-  const cores=['#E8547A','#2A9D8F','#D4A843'];
-  const top3=sorted.slice(0,3);
-  const order=top3.length>=3?[top3[1],top3[0],top3[2]]:top3;
-  const heights=['podium-block--2','podium-block--1','podium-block--3'];
-  const bigs=[false,true,false];
-  const crowns=[false,true,false];
-  const labels=['2º','1º','3º'];
-  podiumEl.innerHTML=order.map((t,i)=>{
-    const foto=getFotoPerfilUrl(t);
+  const sorted = [...allTrancistas].sort((a, b) => (b.nota||0) - (a.nota||0));
+  const podiumEl = document.getElementById('podium');
+  const listEl = document.getElementById('rankingList');
+  if(!sorted.length) {
+    podiumEl.innerHTML = '';
+    listEl.innerHTML = `<div class="empty-state"><span class="empty-icon">🏆</span><p>Ainda não há trancistas no ranking.</p></div>`;
+    return;
+  }
+  const cores = ['#E8547A', '#2A9D8F', '#D4A843'];
+  const top3 = sorted.slice(0, 3);
+  const order = top3.length >= 3 ? [top3[1], top3[0], top3[2]] : top3;
+  const heights = ['podium-block--2', 'podium-block--1', 'podium-block--3'];
+  const bigs = [false, true, false];
+  const crowns = [false, true, false];
+  const labels = ['2º', '1º', '3º'];
+  podiumEl.innerHTML = order.map((t, i) => {
+    const foto = getFotoUrl(t);
     return `<div class="podium__spot" style="--c:${t.cor||cores[i]}" onclick="showTrancista('${t.id}')">
-      ${crowns[i]?'<div class="crown">👑</div>':''}
-      <div class="podium-avatar ${bigs[i]?'podium-avatar--big':''}" style="border-color:${t.cor||cores[i]}">
-        ${foto?`<img src="${foto}" alt="${t.nome}">`:`<span>✦</span>`}
+      ${crowns[i] ? '<div class="crown">👑</div>' : ''}
+      <div class="podium-avatar ${bigs[i] ? 'podium-avatar--big' : ''}" style="border-color:${t.cor||cores[i]}">
+        ${foto ? `<img src="${foto}" alt="${t.nome}">` : `<span>✦</span>`}
       </div>
       <div class="podium-name">${t.nome||'Trancista'}</div>
       <div class="podium-pts" style="color:${t.cor||cores[i]}">${(t.pontuacao||0).toLocaleString()} pts</div>
       <div class="podium-block ${heights[i]}"><span>${labels[i]}</span></div>
     </div>`;
   }).join('');
-  listEl.innerHTML=`<div class="ranking-list__header"><span>Pos.</span><span>Trancista</span><span>Nota</span><span>Avaliações</span><span></span></div>
-    ${sorted.map((t,i)=>{const foto=getFotoPerfilUrl(t);return `<div class="ranking-row" onclick="showTrancista('${t.id}')">
-      <span class="rank-pos" style="color:${i===0?'#FFD700':i===1?'#C0C0C0':i===2?'#CD7F32':'inherit'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</span>
-      <div class="rank-trancista"><div class="rank-avatar" style="border-color:${t.cor||'var(--gold)'}">
-        ${foto?`<img src="${foto}" alt="${t.nome}">`:`✦`}
-      </div><div><strong>${t.nome||'Trancista'}</strong><span class="rank-city">📍 ${t.cidade||''}</span></div></div>
-      <span class="rank-nota">⭐ ${(t.nota||0).toFixed(1)}</span>
-      <span class="rank-aval">${t.avaliacoes||0}</span>
-      <span class="rank-cta">→</span>
-    </div>`;}).join('')}`;
+  listEl.innerHTML = `<div class="ranking-list__header"><span>Pos.</span><span>Trancista</span><span>Nota</span><span>Avaliações</span><span></span></div>
+    ${sorted.map((t, i) => {
+      const foto = getFotoUrl(t);
+      return `<div class="ranking-row" onclick="showTrancista('${t.id}')">
+        <span class="rank-pos" style="color:${i===0?'#FFD700':i===1?'#C0C0C0':i===2?'#CD7F32':'inherit'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</span>
+        <div class="rank-trancista"><div class="rank-avatar" style="border-color:${t.cor||'var(--gold)'}">
+          ${foto ? `<img src="${foto}" alt="${t.nome}">` : `✦`}
+        </div><div><strong>${t.nome||'Trancista'}</strong><span class="rank-city">📍 ${t.cidade||''}</span></div></div>
+        <span class="rank-nota">⭐ ${(t.nota||0).toFixed(1)}</span>
+        <span class="rank-aval">${t.avaliacoes||0}</span>
+        <span class="rank-cta">→</span>
+      </div>`;
+    }).join('')}`;
 }
-window.setRankTab=(btn)=>{document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderRanking();};
+window.setRankTab = (btn) => { document.querySelectorAll('.tab').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderRanking(); };
 
 // ── FEED ──
 function renderFeed() {
-  const el=document.getElementById('feedPosts');
-  const trancistas=allTrancistas.filter(t=>(t.portfolio||[]).length>0);
-  if(!trancistas.length){el.innerHTML=`<div class="empty-state"><span class="empty-icon">📸</span><p>Ainda não há publicações.</p></div>`;}
-  else{
-    const posts=[];
-    trancistas.forEach(t=>{(t.portfolio||[]).forEach((item,i)=>{const url=typeof item==='string'?item:item.url;const type=typeof item==='string'?'image':(item.type||'image');posts.push({trancista:t,url,type,id:t.id+'_'+i});});});
-    posts.sort(()=>Math.random()-.5);
-    el.innerHTML=posts.slice(0,12).map(p=>{
-      const foto=getFotoPerfilUrl(p.trancista);
-      const mediaHtml=p.type==='video'?`<video class="post-img" src="${p.url}" controls muted playsinline></video>`:`<img class="post-img" src="${p.url}" alt="Trabalho" onclick="openLightbox('${p.url}','image')">`;
+  const el = document.getElementById('feedPosts');
+  const trancistas = allTrancistas.filter(t => (t.portfolio||[]).length > 0);
+  if(!trancistas.length) {
+    el.innerHTML = `<div class="empty-state"><span class="empty-icon">📸</span><p>Ainda não há publicações.</p></div>`;
+  } else {
+    const posts = [];
+    trancistas.forEach(t => {
+      (t.portfolio||[]).forEach((item, i) => {
+        const url = typeof item === 'string' ? item : item.url;
+        const type = typeof item === 'string' ? 'image' : (item.type || 'image');
+        posts.push({ trancista: t, url, type, id: t.id + '_' + i });
+      });
+    });
+    posts.sort(() => Math.random() - .5);
+    el.innerHTML = posts.slice(0, 12).map(p => {
+      const foto = getFotoUrl(p.trancista);
+      const mediaHtml = p.type === 'video'
+        ? `<video class="post-img" src="${p.url}" controls muted playsinline></video>`
+        : `<img class="post-img" src="${p.url}" alt="Trabalho" onclick="openLightbox('${p.url}','image')">`;
       return `<div class="post-card">
         <div class="post-header">
-          <div class="post-avatar">${foto?`<img src="${foto}" alt="${p.trancista.nome}">`:`✦`}</div>
+          <div class="post-avatar">${foto ? `<img src="${foto}" alt="${p.trancista.nome}">` : `✦`}</div>
           <div class="post-meta"><strong>${p.trancista.nome||'Trancista'}</strong><span class="post-info">📍 ${p.trancista.cidade||'Angola'}</span></div>
-          ${p.trancista.especialidade?`<span class="post-tipo" style="background:${(p.trancista.cor||'var(--gold)')+'22'};color:${p.trancista.cor||'var(--gold)'}">${p.trancista.especialidade}</span>`:''}
+          ${p.trancista.especialidade ? `<span class="post-tipo" style="background:${(p.trancista.cor||'var(--gold)')+'22'};color:${p.trancista.cor||'var(--gold)'}">${p.trancista.especialidade}</span>` : ''}
         </div>${mediaHtml}
         <div class="post-body"><p>${p.trancista.bio||'Trabalho da trancista.'}</p></div>
         <div class="post-footer">
@@ -1116,31 +1122,36 @@ function renderFeed() {
       </div>`;
     }).join('');
   }
-  const tipos={};allTrancistas.forEach(t=>(t.tiposEscolhidos||[]).forEach(x=>tipos[x]=(tipos[x]||0)+1));
-  const top=Object.entries(tipos).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  document.getElementById('tendencias').innerHTML=top.map(([nome],i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(253,246,236,.05);font-family:'Syne',sans-serif;font-size:.85rem;color:rgba(253,246,236,.7)"><span style="color:var(--gold);font-weight:700;width:24px">#${i+1}</span><span>${nome}</span></div>`).join('')||'<p style="color:rgba(253,246,236,.3);font-size:.85rem">Em breve...</p>';
+  const tipos = {};
+  allTrancistas.forEach(t => (t.tiposEscolhidos||[]).forEach(x => tipos[x] = (tipos[x]||0) + 1));
+  const top = Object.entries(tipos).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  document.getElementById('tendencias').innerHTML = top.map(([nome], i) =>
+    `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(253,246,236,.05);font-family:'Syne',sans-serif;font-size:.85rem;color:rgba(253,246,236,.7)"><span style="color:var(--gold);font-weight:700;width:24px">#${i+1}</span><span>${nome}</span></div>`
+  ).join('') || '<p style="color:rgba(253,246,236,.3);font-size:.85rem">Em breve...</p>';
 }
-window.toggleLike=(id)=>{const btn=document.getElementById('like_'+id);if(!btn)return;const liked=btn.classList.toggle('liked');const n=parseInt(btn.textContent.replace(/\D/g,''))||0;btn.textContent=(liked?'❤️':'🤍')+' '+(liked?n+1:n-1);};
+window.toggleLike = (id) => { const btn = document.getElementById('like_'+id); if(!btn) return; const liked = btn.classList.toggle('liked'); const n = parseInt(btn.textContent.replace(/\D/g,''))||0; btn.textContent = (liked ? '❤️' : '🤍') + ' ' + (liked ? n+1 : n-1); };
 
 // ── TRANCISTA PERFIL ──
-window.showTrancista=async(id)=>{
+window.showTrancista = async (id) => {
   showPage('trancista');
-  const el=document.getElementById('trancistaPerfil');
-  if(!el)return;
-  el.innerHTML=`<div class="tp-loading"><span>✦</span> A carregar perfil...</div>`;
-  let t=allTrancistas.find(x=>x.id===id);
-  if(!t){try{const snap=await getDoc(doc(db,'trancistas',id));if(snap.exists())t={id,...snap.data()};}catch(e){}}
-  if(!t){el.innerHTML=`<div class="tp-loading">Perfil não encontrado.</div>`;return;}
-  currentTrancistaPerfil=t;
-  const portfolio=t.portfolio||[];
-  const foto=getFotoPerfilUrl(t);
-  el.innerHTML=`<div class="tp-page" style="padding-top:0">
+  const el = document.getElementById('trancistaPerfil');
+  if(!el) return;
+  el.innerHTML = `<div class="tp-loading"><span>✦</span> A carregar perfil...</div>`;
+  let t = allTrancistas.find(x => x.id === id);
+  if(!t) {
+    try { const snap = await getDoc(doc(db, 'trancistas', id)); if(snap.exists()) t = { id, ...snap.data() }; } catch(e) {}
+  }
+  if(!t) { el.innerHTML = `<div class="tp-loading">Perfil não encontrado.</div>`; return; }
+  currentTrancistaPerfil = t;
+  const portfolio = t.portfolio || [];
+  const foto = getFotoUrl(t);
+  el.innerHTML = `<div class="tp-page" style="padding-top:0">
     <div class="tp-hero" style="--c:${t.cor||'var(--gold)'}">
       <div class="tp-hero__bg"></div>
       <div class="container tp-hero__inner">
-        <div class="tp-avatar">${foto?`<img src="${foto}" alt="${t.nome}">`:`✦`}</div>
+        <div class="tp-avatar">${foto ? `<img src="${foto}" alt="${t.nome}">` : `✦`}</div>
         <div class="tp-hero__info">
-          <div class="tp-hero__top"><h1>${t.nome||'Trancista'}</h1><span class="tp-status ${t.disponivel?'on':'off'}">${t.disponivel?'● Disponível':'● Ocupada'}</span></div>
+          <div class="tp-hero__top"><h1>${t.nome||'Trancista'}</h1><span class="tp-status ${t.disponivel ? 'on' : 'off'}">${t.disponivel ? '● Disponível' : '● Ocupada'}</span></div>
           <p class="tp-specialty">${t.especialidade||''}</p>
           <div class="tp-rating"><span class="tp-stars">${starsHtml(t.nota||0)}</span><strong>${(t.nota||0).toFixed(1)}</strong><span>(${t.avaliacoes||0} avaliações)</span><span class="sep">·</span><span>📍 ${t.cidade||'Angola'}</span></div>
         </div>
@@ -1149,18 +1160,23 @@ window.showTrancista=async(id)=>{
     </div>
     <div class="container tp-body">
       <div class="tp-main">
-        ${t.bio?`<section class="tp-section"><h3>Sobre</h3><p>${t.bio}</p></section>`:''}
-        ${portfolio.length?`<section class="tp-section"><h3>Portfólio de Trabalhos</h3><div class="tp-portfolio-grid">${portfolio.map(item=>{const url=typeof item==='string'?item:item.url;const type=typeof item==='string'?'image':(item.type||'image');if(type==='video')return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','video')"><video src="${url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','image')"><img src="${url}" alt="Trabalho"></div>`;}).join('')}</div></section>`:''}
+        ${t.bio ? `<section class="tp-section"><h3>Sobre</h3><p>${t.bio}</p></section>` : ''}
+        ${portfolio.length ? `<section class="tp-section"><h3>Portfólio de Trabalhos</h3><div class="tp-portfolio-grid">${portfolio.map(item => {
+          const url = typeof item === 'string' ? item : item.url;
+          const type = typeof item === 'string' ? 'image' : (item.type || 'image');
+          if(type === 'video') return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','video')"><video src="${url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;
+          return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','image')"><img src="${url}" alt="Trabalho"></div>`;
+        }).join('')}</div></section>` : ''}
         <section class="tp-section"><h3>Serviços & Preços</h3>
           <div class="tp-servicos-grid">
-            ${(t.precoMin||t.precoMax)?`<div class="tp-detalhe"><span class="tp-detalhe-icon">💰</span><div><strong>Preço</strong><span>AOA ${Number(t.precoMin||0).toLocaleString()} – ${Number(t.precoMax||0).toLocaleString()}</span></div></div>`:''}
-            ${t.tempo?`<div class="tp-detalhe"><span class="tp-detalhe-icon">⏱</span><div><strong>Tempo médio</strong><span>${t.tempo}</span></div></div>`:''}
-            <div class="tp-detalhe"><span class="tp-detalhe-icon">${t.comMaterial?'✓':'✗'}</span><div><strong>Material</strong><span>${t.comMaterial?'Incluído':'Não incluído'}</span></div></div>
+            ${(t.precoMin||t.precoMax) ? `<div class="tp-detalhe"><span class="tp-detalhe-icon">💰</span><div><strong>Preço</strong><span>AOA ${Number(t.precoMin||0).toLocaleString()} – ${Number(t.precoMax||0).toLocaleString()}</span></div></div>` : ''}
+            ${t.tempo ? `<div class="tp-detalhe"><span class="tp-detalhe-icon">⏱</span><div><strong>Tempo médio</strong><span>${t.tempo}</span></div></div>` : ''}
+            <div class="tp-detalhe"><span class="tp-detalhe-icon">${t.comMaterial ? '✓' : '✗'}</span><div><strong>Material</strong><span>${t.comMaterial ? 'Incluído' : 'Não incluído'}</span></div></div>
             <div class="tp-detalhe"><span class="tp-detalhe-icon">📍</span><div><strong>Localização</strong><span>${t.cidade||'Angola'}</span></div></div>
           </div>
-          ${(t.tiposEscolhidos||[]).length?`<div style="margin-top:12px"><p style="font-family:'Syne',sans-serif;font-size:.75rem;color:rgba(253,246,236,.4);margin-bottom:10px">TIPOS DE TRANÇA</p><div class="tp-chips">${t.tiposEscolhidos.map(x=>`<span class="tp-chip">${x}</span>`).join('')}</div></div>`:''}
+          ${(t.tiposEscolhidos||[]).length ? `<div style="margin-top:12px"><p style="font-family:'Syne',sans-serif;font-size:.75rem;color:rgba(253,246,236,.4);margin-bottom:10px">TIPOS DE TRANÇA</p><div class="tp-chips">${t.tiposEscolhidos.map(x => `<span class="tp-chip">${x}</span>`).join('')}</div></div>` : ''}
         </section>
-        ${(t.avaliacoesRecentes||[]).length?`<section class="tp-section"><h3>Avaliações Recentes</h3><div class="tp-avals">${t.avaliacoesRecentes.map(a=>`<div class="tp-aval"><div class="tp-aval-header"><div class="tp-aval-user">${(a.nome||'?')[0]}</div><div><strong>${a.nome||'Cliente'}</strong><span class="tp-stars" style="font-size:.85rem">${starsHtml(a.nota||5)}</span></div><span class="tp-aval-data">${a.data||''}</span></div><p>${a.texto||''}</p></div>`).join('')}</div></section>`:''}
+        ${(t.avaliacoesRecentes||[]).length ? `<section class="tp-section"><h3>Avaliações Recentes</h3><div class="tp-avals">${t.avaliacoesRecentes.map(a => `<div class="tp-aval"><div class="tp-aval-header"><div class="tp-aval-user">${(a.nome||'?')[0]}</div><div><strong>${a.nome||'Cliente'}</strong><span class="tp-stars" style="font-size:.85rem">${starsHtml(a.nota||5)}</span></div><span class="tp-aval-data">${a.data||''}</span></div><p>${a.texto||''}</p></div>`).join('')}</div></section>` : ''}
       </div>
       <aside class="tp-sidebar">
         <div class="tp-card"><h4>Estatísticas</h4>
@@ -1169,77 +1185,90 @@ window.showTrancista=async(id)=>{
           <div class="tp-stat-row"><span>Fotos/Vídeos</span><strong>${portfolio.length}</strong></div>
         </div>
         <div class="tp-cta-card" style="--c:${t.cor||'var(--gold)'}">
-          <h4>Pronta para marcar?</h4><p>${t.disponivel?'Disponível agora':'Momentaneamente ocupada'}</p>
+          <h4>Pronta para marcar?</h4><p>${t.disponivel ? 'Disponível agora' : 'Momentaneamente ocupada'}</p>
           <button class="tp-cta-btn" onclick="openMarcacao()">📅 Marcar Agora</button>
-          ${t.whatsapp?`<a href="https://wa.me/${t.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank">💬 WhatsApp</a>`:''}
+          ${t.whatsapp ? `<a href="https://wa.me/${t.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank">💬 WhatsApp</a>` : ''}
         </div>
       </aside>
     </div>
   </div>`;
 };
 
-window.openMarcacao=()=>{
-  if(!currentUser){showPage('login');return;}
-  const t=currentTrancistaPerfil;if(!t)return;
-  document.getElementById('modalNome').textContent='Marcar com '+t.nome;
-  document.getElementById('modalData').min=new Date().toISOString().split('T')[0];
-  const sel=document.getElementById('modalTipo');
-  sel.innerHTML=(t.tiposEscolhidos||['Box Braids']).map(x=>`<option>${x}</option>`).join('');
-  document.getElementById('modalMarcacao').style.display='flex';
+window.openMarcacao = () => {
+  if(!currentUser) { showPage('login'); return; }
+  const t = currentTrancistaPerfil;
+  if(!t) return;
+  document.getElementById('modalNome').textContent = 'Marcar com ' + t.nome;
+  document.getElementById('modalData').min = new Date().toISOString().split('T')[0];
+  const sel = document.getElementById('modalTipo');
+  sel.innerHTML = (t.tiposEscolhidos||['Box Braids']).map(x => `<option>${x}</option>`).join('');
+  document.getElementById('modalNota').value = '';
+  document.getElementById('modalMarcacao').style.display = 'flex';
 };
-window.closeModal=(id)=>document.getElementById(id).style.display='none';
-window.enviarMarcacao=async()=>{
-  if(!currentUser||!currentTrancistaPerfil)return;
-  const dataVal=document.getElementById('modalData').value;
-  if(!dataVal){alert('Por favor escolhe uma data.');return;}
-  await addDoc(collection(db,'marcacoes'),{
-    clienteId:currentUser.uid,
-    clienteNome:currentUser.displayName||currentUser.email,
-    clienteEmail:currentUser.email,
-    trancistId:currentTrancistaPerfil.id,
-    trancistaNome:currentTrancistaPerfil.nome,
-    data:dataVal,
-    tipo:document.getElementById('modalTipo').value,
-    nota:document.getElementById('modalNota').value,
-    criadoEm:serverTimestamp(),
-    estado:'pendente'
-  });
-  closeModal('modalMarcacao');
-  alert('✦ Pedido enviado! A trancista irá contactar-te em breve.');
+window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+window.enviarMarcacao = async () => {
+  if(!currentUser || !currentTrancistaPerfil) return;
+  const dataVal = document.getElementById('modalData').value;
+  if(!dataVal) { alert('Por favor escolhe uma data.'); return; }
+  try {
+    await addDoc(collection(db, 'marcacoes'), {
+      clienteId: currentUser.uid,
+      clienteNome: currentUser.displayName || currentUser.email,
+      clienteEmail: currentUser.email,
+      trancistId: currentTrancistaPerfil.id,
+      trancistaNome: currentTrancistaPerfil.nome,
+      data: dataVal,
+      tipo: document.getElementById('modalTipo').value,
+      nota: document.getElementById('modalNota').value,
+      criadoEm: serverTimestamp(),
+      estado: 'pendente'
+    });
+    closeModal('modalMarcacao');
+    alert('✦ Pedido enviado! A trancista irá contactar-te em breve.');
+  } catch(e) {
+    alert('Erro ao enviar pedido: ' + e.message);
+  }
 };
 
 // ══════════════════════════════════════════════
 // ── MEU PERFIL ──
 // ══════════════════════════════════════════════
-window.renderPerfil=async()=>{
-  if(!currentUser){showPage('login');return;}
-  const el=document.getElementById('perfilContent');
-  if(!el)return;
+window.renderPerfil = async () => {
+  if(!currentUser) { showPage('login'); return; }
+  const el = document.getElementById('perfilContent');
+  if(!el) return;
+  el.innerHTML = `<div class="tp-loading"><span>✦</span> A carregar...</div>`;
 
-  const snap=await getDoc(doc(db,'usuarios',currentUser.uid));
-  const perfil=snap.exists()?snap.data():{};
-  const isTrancista=perfil.tipo==='trancista';
-  currentUserPerfil=perfil;
+  // Recarrega sempre dados frescos do Firestore
+  try {
+    const snap = await getDoc(doc(db, 'usuarios', currentUser.uid));
+    currentUserPerfil = snap.exists() ? snap.data() : {};
+  } catch(e) { currentUserPerfil = {}; }
 
-  let tData={};
-  if(isTrancista){
-    try{const s=await getDoc(doc(db,'trancistas',currentUser.uid));if(s.exists())tData=s.data();}catch(e){}
+  const isTrancista = currentUserPerfil.tipo === 'trancista';
+  let tData = {};
+  if(isTrancista) {
+    try { const s = await getDoc(doc(db, 'trancistas', currentUser.uid)); if(s.exists()) tData = s.data(); } catch(e) {}
   }
-  existingPortfolioItems=(tData.portfolio||[]).map(item=>typeof item==='string'?{url:item,type:'image'}:item);
-  uploadedPortfolioFiles=[];
 
-  const foto=getFotoPerfilUrl(tData);
-  const initial=(currentUser.displayName||'?')[0].toUpperCase();
+  existingPortfolioItems = (tData.portfolio||[]).map(item => typeof item === 'string' ? { url: item, type: 'image' } : item);
+  uploadedPortfolioFiles = [];
 
-  el.innerHTML=`<div class="perfil-page" style="padding-top:0">
+  // Foto: trancistas usam tData, clientes usam currentUserPerfil
+  const dadosFoto = isTrancista ? tData : currentUserPerfil;
+  const foto = getFotoUrl(dadosFoto);
+  const initial = (currentUser.displayName || '?')[0].toUpperCase();
+  const avatarHtml = foto ? `<img src="${foto}" alt="foto">` : initial;
+
+  el.innerHTML = `<div class="perfil-page" style="padding-top:0">
     <div class="perfil-hero"><div class="container perfil-hero__inner">
-      <div class="perfil-avatar-big">${foto?`<img src="${foto}" alt="foto">`:`${initial}`}</div>
+      <div class="perfil-avatar-big">${avatarHtml}</div>
       <div class="perfil-hero__info">
         <h1>${currentUser.displayName||'Utilizador'}</h1>
         <p class="perfil-email">${currentUser.email}</p>
         <div class="perfil-badges">
-          <span class="perfil-tipo-badge">${isTrancista?'✨ Trancista':'💇 Cliente'}</span>
-          ${tData.disponivel&&isTrancista?'<span class="disponivel-badge">✓ Disponível</span>':''}
+          <span class="perfil-tipo-badge">${isTrancista ? '✨ Trancista' : '💇 Cliente'}</span>
+          ${tData.disponivel && isTrancista ? '<span class="disponivel-badge">✓ Disponível</span>' : ''}
         </div>
       </div>
       <div class="perfil-hero__actions">
@@ -1249,120 +1278,119 @@ window.renderPerfil=async()=>{
     </div></div>
     <div class="container perfil-body">
       <div id="perfilMsg"></div>
-      ${isTrancista?`<div class="perfil-stats">
+      ${isTrancista ? `<div class="perfil-stats">
         <div class="pstat"><span class="pstat__n">${(tData.nota||0).toFixed(1)}</span><span>Nota média</span></div>
         <div class="pstat"><span class="pstat__n">${tData.avaliacoes||0}</span><span>Avaliações</span></div>
         <div class="pstat"><span class="pstat__n">${(tData.portfolio||[]).length}</span><span>Fotos/Vídeos</span></div>
         <div class="pstat"><span class="pstat__n">${tData.pontuacao||0}</span><span>Pontos</span></div>
-      </div>`:''}
-      <div id="perfilFormArea">${renderPerfilVer(tData,isTrancista)}</div>
-      <div id="marcacoesArea"></div>
+      </div>` : ''}
+      <div id="perfilFormArea">${renderPerfilVer(tData, isTrancista)}</div>
+      <div id="marcacoesArea"><div class="loading-msg">A carregar marcações...</div></div>
     </div>
   </div>`;
 
-  // Carrega marcações em tempo real
-  carregarMarcacoesRealtime(currentUser.uid, isTrancista);
+  // Cancela listener anterior e cria novo
+  if(marcacoesUnsub) { marcacoesUnsub(); marcacoesUnsub = null; }
+  carregarMarcacoes(currentUser.uid, isTrancista);
 };
 
-function renderPerfilVer(tData,isTrancista){
+// ── RENDER PERFIL VER (modo leitura) ──
+function renderPerfilVer(tData, isTrancista) {
+  // Para clientes: usa currentUserPerfil; para trancistas: usa tData
+  const dados = isTrancista ? tData : currentUserPerfil;
+  const temConteudo = dados.bio || dados.cidade;
+
   return `<div class="perfil-info">
-    ${tData.bio?`<div class="info-card"><h4>Sobre mim</h4><p>${tData.bio}</p></div>`:''}
-    ${tData.cidade?`<div class="info-card"><h4>Localização</h4><p>📍 ${tData.cidade}, Angola</p></div>`:''}
-    ${isTrancista&&(tData.tiposEscolhidos||[]).length?`<div class="info-card"><h4>Tipos de Trança</h4><div class="chips-display">${tData.tiposEscolhidos.map(t=>`<span class="chip-display">${t}</span>`).join('')}</div></div>`:''}
-    ${isTrancista&&(tData.precoMin||tData.precoMax)?`<div class="info-card"><h4>Preços</h4><p>💰 AOA ${Number(tData.precoMin||0).toLocaleString()} – ${Number(tData.precoMax||0).toLocaleString()}</p>${tData.tempo?`<p>⏱ ${tData.tempo}</p>`:''}</div>`:''}
-    ${existingPortfolioItems.length?`<div class="info-card"><h4>Portfólio</h4><div class="tp-portfolio-grid">${existingPortfolioItems.map(item=>{if(item.type==='video')return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','video')"><video src="${item.url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','image')"><img src="${item.url}" alt="trabalho"></div>`;}).join('')}</div></div>`:''}
-    ${!tData.bio&&!tData.cidade?`<div class="perfil-empty"><span>✏️</span><p>O teu perfil está quase vazio. Clica em "Editar Perfil" para o completar!</p></div>`:''}
+    ${dados.bio ? `<div class="info-card"><h4>Sobre mim</h4><p>${dados.bio}</p></div>` : ''}
+    ${dados.cidade ? `<div class="info-card"><h4>Localização</h4><p>📍 ${dados.cidade}, Angola</p></div>` : ''}
+    ${dados.whatsapp ? `<div class="info-card"><h4>WhatsApp</h4><p>📞 ${dados.whatsapp}</p></div>` : ''}
+    ${isTrancista && (tData.tiposEscolhidos||[]).length ? `<div class="info-card"><h4>Tipos de Trança</h4><div class="chips-display">${tData.tiposEscolhidos.map(t => `<span class="chip-display">${t}</span>`).join('')}</div></div>` : ''}
+    ${isTrancista && (tData.precoMin||tData.precoMax) ? `<div class="info-card"><h4>Preços</h4><p>💰 AOA ${Number(tData.precoMin||0).toLocaleString()} – ${Number(tData.precoMax||0).toLocaleString()}</p>${tData.tempo ? `<p>⏱ ${tData.tempo}</p>` : ''}</div>` : ''}
+    ${existingPortfolioItems.length ? `<div class="info-card"><h4>Portfólio</h4><div class="tp-portfolio-grid">${existingPortfolioItems.map(item => {
+      if(item.type === 'video') return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','video')"><video src="${item.url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;
+      return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','image')"><img src="${item.url}" alt="trabalho"></div>`;
+    }).join('')}</div></div>` : ''}
+    ${!temConteudo ? `<div class="perfil-empty"><span>✏️</span><p>O teu perfil está quase vazio. Clica em "Editar Perfil" para o completar!</p></div>` : ''}
   </div>`;
 }
 
-// ══════════════════════════════════════════════
 // ── MARCAÇÕES EM TEMPO REAL ──
-// ══════════════════════════════════════════════
-function carregarMarcacoesRealtime(uid, isTrancista) {
-  // Cancela listener anterior se existir
-  if(marcacoesUnsub) { marcacoesUnsub(); marcacoesUnsub=null; }
-
+function carregarMarcacoes(uid, isTrancista) {
   const campo = isTrancista ? 'trancistId' : 'clienteId';
-  const q = query(
-    collection(db,'marcacoes'),
-    where(campo,'==',uid),
-    orderBy('criadoEm','desc')
-  );
+  let q;
+  try {
+    q = query(collection(db, 'marcacoes'), where(campo, '==', uid), orderBy('criadoEm', 'desc'));
+  } catch(e) {
+    document.getElementById('marcacoesArea').innerHTML = '';
+    return;
+  }
 
   marcacoesUnsub = onSnapshot(q, (snapshot) => {
-    const marcacoes = snapshot.docs.map(d=>({id:d.id,...d.data()}));
+    const marcacoes = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
     const area = document.getElementById('marcacoesArea');
     if(!area) return;
 
-    if(!marcacoes.length){
-      area.innerHTML=`<div class="marcacoes-section"><h3>${isTrancista?'📅 Pedidos de Marcação':'📋 As Minhas Marcações'}</h3><div class="perfil-empty"><span>📭</span><p>${isTrancista?'Ainda não tens pedidos de marcação.':'Ainda não fizeste nenhuma marcação.'}</p></div></div>`;
+    const pendentes = marcacoes.filter(m => m.estado === 'pendente');
+    const confirmadas = marcacoes.filter(m => m.estado === 'confirmado');
+    const recusadas = marcacoes.filter(m => m.estado === 'recusado');
+
+    // Actualiza badge navbar
+    notifActualizarBadgeCount(pendentes.length, isTrancista ? 'trancista' : 'cliente', marcacoes);
+
+    if(!marcacoes.length) {
+      area.innerHTML = `<div class="marcacoes-section"><h3>${isTrancista ? '📅 Pedidos de Marcação' : '📋 As Minhas Marcações'}</h3><div class="perfil-empty"><span>📭</span><p>${isTrancista ? 'Ainda não tens pedidos de marcação.' : 'Ainda não fizeste nenhuma marcação.'}</p></div></div>`;
       return;
     }
 
-    const pendentes = marcacoes.filter(m=>m.estado==='pendente');
-    const confirmadas = marcacoes.filter(m=>m.estado==='confirmado');
-    const recusadas = marcacoes.filter(m=>m.estado==='recusado');
-
-    // Atualiza badge na navbar
-    const badge = document.querySelector('.notif-badge');
-    if(badge) badge.textContent = pendentes.length || '';
-    if(badge && !pendentes.length) badge.style.display='none';
-    else if(badge) badge.style.display='flex';
-
     if(isTrancista) {
-      area.innerHTML = `
-        <div class="marcacoes-section">
-          <h3>📅 Pedidos de Marcação ${pendentes.length?`<span class="badge-count">${pendentes.length} pendente${pendentes.length>1?'s':''}</span>`:''}
-          </h3>
-          ${pendentes.length?pendentes.map(m=>renderMarcacaoTrancista(m,true)).join(''):''}
-          ${confirmadas.length?`<div style="margin-top:28px"><h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(253,246,236,.5);margin-bottom:16px;border-bottom:1px solid rgba(212,168,67,.06);padding-bottom:10px">✅ Confirmadas (${confirmadas.length})</h3>${confirmadas.map(m=>renderMarcacaoTrancista(m,false)).join('')}</div>`:''}
-          ${recusadas.length?`<div style="margin-top:28px"><h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(253,246,236,.3);margin-bottom:16px;border-bottom:1px solid rgba(212,168,67,.04);padding-bottom:10px">✗ Recusadas (${recusadas.length})</h3>${recusadas.map(m=>renderMarcacaoTrancista(m,false)).join('')}</div>`:''}
-        </div>`;
+      area.innerHTML = `<div class="marcacoes-section">
+        <h3>📅 Pedidos de Marcação ${pendentes.length ? `<span class="badge-count">${pendentes.length} pendente${pendentes.length > 1 ? 's' : ''}</span>` : ''}</h3>
+        ${pendentes.map(m => renderMarcacaoTrancista(m, true)).join('')}
+        ${confirmadas.length ? `<div style="margin-top:28px"><h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(253,246,236,.5);margin-bottom:16px;border-bottom:1px solid rgba(212,168,67,.06);padding-bottom:10px">✅ Confirmadas (${confirmadas.length})</h3>${confirmadas.map(m => renderMarcacaoTrancista(m, false)).join('')}</div>` : ''}
+        ${recusadas.length ? `<div style="margin-top:28px"><h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(253,246,236,.3);margin-bottom:16px;border-bottom:1px solid rgba(212,168,67,.04);padding-bottom:10px">✗ Recusadas (${recusadas.length})</h3>${recusadas.map(m => renderMarcacaoTrancista(m, false)).join('')}</div>` : ''}
+      </div>`;
     } else {
-      area.innerHTML = `
-        <div class="marcacoes-section">
-          <h3>📋 As Minhas Marcações ${pendentes.length?`<span class="badge-count">${pendentes.length}</span>`:''}
-          </h3>
-          ${marcacoes.map(m=>renderMarcacaoCliente(m)).join('')}
-        </div>`;
+      area.innerHTML = `<div class="marcacoes-section">
+        <h3>📋 As Minhas Marcações</h3>
+        ${marcacoes.map(m => renderMarcacaoCliente(m)).join('')}
+      </div>`;
     }
-  }, (err)=>{
-    console.error('Erro no listener de marcações:', err);
+  }, (err) => {
+    console.error('Erro listener marcações:', err);
+    const area = document.getElementById('marcacoesArea');
+    if(area) area.innerHTML = `<div class="perfil-empty"><span>⚠️</span><p>Erro ao carregar marcações. Verifica os índices no Firebase.</p></div>`;
   });
 }
 
 function renderMarcacaoTrancista(m, comAcoes) {
-  const inicialCliente = (m.clienteNome||'?')[0].toUpperCase();
-  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{weekday:'short',day:'numeric',month:'long'}) : '—';
+  const inicial = (m.clienteNome||'?')[0].toUpperCase();
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'long' }) : '—';
   const criadoFmt = m.criadoEm?.toDate ? m.criadoEm.toDate().toLocaleDateString('pt-PT') : '';
   return `<div class="marcacao-card marcacao-card--${m.estado}">
     <div class="marcacao-card__top">
       <div class="marcacao-card__user" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">
-        <div class="marc-avatar">${inicialCliente}</div>
-        <div>
-          <div class="marc-nome">👤 ${m.clienteNome||'Cliente'}</div>
-          <div class="marc-email">${m.clienteEmail||''}</div>
-        </div>
+        <div class="marc-avatar">${inicial}</div>
+        <div><div class="marc-nome">👤 ${m.clienteNome||'Cliente'}</div><div class="marc-email">${m.clienteEmail||''}</div></div>
       </div>
-      <span class="marc-estado ${m.estado}">${m.estado==='pendente'?'⏳ Pendente':m.estado==='confirmado'?'✅ Confirmado':'✗ Recusado'}</span>
+      <span class="marc-estado ${m.estado}">${m.estado==='pendente' ? '⏳ Pendente' : m.estado==='confirmado' ? '✅ Confirmado' : '✗ Recusado'}</span>
     </div>
     <div class="marcacao-card__details">
       <span class="marc-detail">📅 ${dataFmt}</span>
       <span class="marc-detail">✂️ ${m.tipo||'—'}</span>
-      ${criadoFmt?`<span class="marc-detail">🕐 Pedido em ${criadoFmt}</span>`:''}
+      ${criadoFmt ? `<span class="marc-detail">🕐 Pedido em ${criadoFmt}</span>` : ''}
     </div>
-    ${m.nota?`<div class="marcacao-card__nota">"${m.nota}"</div>`:''}
-    ${comAcoes&&m.estado==='pendente'?`<div class="marcacao-card__actions">
+    ${m.nota ? `<div class="marcacao-card__nota">"${m.nota}"</div>` : ''}
+    ${comAcoes && m.estado === 'pendente' ? `<div class="marcacao-card__actions">
       <button class="btn-aceitar" onclick="responderMarcacao('${m.id}','confirmado')">✅ Aceitar</button>
       <button class="btn-rejeitar" onclick="responderMarcacao('${m.id}','recusado')">✗ Recusar</button>
       <button class="btn-ver-cliente" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver Perfil</button>
-    </div>`:''}
-    ${m.estado!=='pendente'?`<div class="marcacao-card__actions"><button class="btn-ver-cliente" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver Perfil da Cliente</button></div>`:''}
+    </div>` : ''}
+    ${m.estado !== 'pendente' ? `<div class="marcacao-card__actions"><button class="btn-ver-cliente" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver Perfil da Cliente</button></div>` : ''}
   </div>`;
 }
 
 function renderMarcacaoCliente(m) {
-  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{weekday:'short',day:'numeric',month:'long'}) : '—';
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'long' }) : '—';
   return `<div class="marc-cliente-card marc-cliente-card--${m.estado}">
     <div class="marc-cliente-top">
       <div>
@@ -1372,254 +1400,279 @@ function renderMarcacaoCliente(m) {
           <span class="marc-cliente-detail">🪡 ${m.tipo||'—'}</span>
         </div>
       </div>
-      <span class="marc-estado ${m.estado}">${m.estado==='pendente'?'⏳ Pendente':m.estado==='confirmado'?'✅ Confirmado':'✗ Recusado'}</span>
+      <span class="marc-estado ${m.estado}">${m.estado==='pendente' ? '⏳ Pendente' : m.estado==='confirmado' ? '✅ Confirmado' : '✗ Recusado'}</span>
     </div>
-    ${m.nota?`<div class="marc-cliente-nota">"${m.nota}"</div>`:''}
+    ${m.nota ? `<div class="marc-cliente-nota">"${m.nota}"</div>` : ''}
   </div>`;
 }
 
-// ── RESPONDER MARCAÇÃO (aceitar / recusar) ──
 window.responderMarcacao = async (marcacaoId, novoEstado) => {
   try {
-    await updateDoc(doc(db,'marcacoes',marcacaoId),{
-      estado: novoEstado,
-      respondidoEm: serverTimestamp()
-    });
-    // Atualiza badge
-    const pendentes = await contarMarcacoesPendentes(currentUser.uid, currentUserPerfil?.tipo);
-    renderNavAuth(currentUser, pendentes);
-  } catch(e) {
-    alert('Erro ao actualizar marcação: '+e.message);
-  }
+    await updateDoc(doc(db, 'marcacoes', marcacaoId), { estado: novoEstado, respondidoEm: serverTimestamp() });
+  } catch(e) { alert('Erro ao actualizar marcação: ' + e.message); }
 };
 
-// ── VER PERFIL DE CLIENTE ──
 window.verPerfilCliente = async (clienteId, clienteNome, clienteEmail) => {
   const modal = document.getElementById('modalCliente');
   const content = document.getElementById('modalClienteContent');
-  if(!modal||!content) return;
-
+  if(!modal || !content) return;
   content.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--gold)">⏳ A carregar...</div>`;
   modal.style.display = 'flex';
-
   try {
-    // Busca dados do utilizador
     let userData = { nome: clienteNome, email: clienteEmail };
-    try {
-      const uSnap = await getDoc(doc(db,'usuarios',clienteId));
-      if(uSnap.exists()) userData = {...userData,...uSnap.data()};
-    } catch(e){}
-
-    // Busca histórico de marcações deste cliente com esta trancista
+    try { const uSnap = await getDoc(doc(db, 'usuarios', clienteId)); if(uSnap.exists()) userData = { ...userData, ...uSnap.data() }; } catch(e) {}
     const historico = [];
     try {
-      const mSnap = await getDocs(query(
-        collection(db,'marcacoes'),
-        where('clienteId','==',clienteId),
-        where('trancistId','==',currentUser.uid),
-        orderBy('criadoEm','desc')
-      ));
-      mSnap.docs.forEach(d=>historico.push({id:d.id,...d.data()}));
-    } catch(e){}
-
+      const mSnap = await getDocs(query(collection(db, 'marcacoes'), where('clienteId','==',clienteId), where('trancistId','==',currentUser.uid), orderBy('criadoEm','desc')));
+      mSnap.docs.forEach(d => historico.push({ id: d.id, ...d.data() }));
+    } catch(e) {}
     const totalMarcacoes = historico.length;
-    const confirmadas = historico.filter(m=>m.estado==='confirmado').length;
+    const confirmadas = historico.filter(m => m.estado === 'confirmado').length;
     const inicial = (userData.nome||clienteNome||'?')[0].toUpperCase();
-    const foto = userData.fotoPerfil ? (typeof userData.fotoPerfil==='string'?userData.fotoPerfil:userData.fotoPerfil.url) : null;
-
-    content.innerHTML = `
-      <div class="cliente-modal-perfil">
-        <div class="cliente-modal-avatar">${foto?`<img src="${foto}" alt="${userData.nome}">`:`${inicial}`}</div>
-        <h3 class="cliente-modal-nome">${userData.nome||clienteNome||'Cliente'}</h3>
-        <p class="cliente-modal-email">${userData.email||clienteEmail||''}</p>
-        ${userData.cidade?`<p style="font-family:'Syne',sans-serif;font-size:.8rem;color:var(--gold);margin-bottom:16px">📍 ${userData.cidade}</p>`:''}
-        <div class="cliente-modal-stats">
-          <div class="cliente-stat"><strong>${totalMarcacoes}</strong><span>Marcações</span></div>
-          <div class="cliente-stat"><strong>${confirmadas}</strong><span>Confirmadas</span></div>
-          <div class="cliente-stat"><strong>${totalMarcacoes>0?Math.round((confirmadas/totalMarcacoes)*100):0}%</strong><span>Taxa confirm.</span></div>
-        </div>
-        ${historico.length?`
-        <div style="width:100%;text-align:left">
-          <div class="cliente-hist-title">Histórico de marcações contigo</div>
-          ${historico.slice(0,5).map(m=>{
-            const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{day:'numeric',month:'short',year:'numeric'}) : '—';
-            const estadoCor = m.estado==='confirmado'?'#2ecc71':m.estado==='recusado'?'var(--accent-pink)':'var(--gold)';
-            return `<div class="cliente-hist-item">
-              <div><span>${dataFmt}</span><br><span style="font-size:.75rem;color:rgba(253,246,236,.4)">${m.tipo||'—'}</span></div>
-              <strong style="color:${estadoCor}">${m.estado==='confirmado'?'✅':m.estado==='recusado'?'✗':'⏳'} ${m.estado}</strong>
-            </div>`;
-          }).join('')}
-        </div>`:''}
-        ${userData.whatsapp?`<a href="https://wa.me/${userData.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank" style="margin-top:20px">💬 Contactar no WhatsApp</a>`:''}
-      </div>`;
+    const foto = getFotoUrl(userData);
+    content.innerHTML = `<div class="cliente-modal-perfil">
+      <div class="cliente-modal-avatar">${foto ? `<img src="${foto}" alt="">` : inicial}</div>
+      <h3 class="cliente-modal-nome">${userData.nome||clienteNome||'Cliente'}</h3>
+      <p class="cliente-modal-email">${userData.email||clienteEmail||''}</p>
+      ${userData.cidade ? `<p style="font-family:'Syne',sans-serif;font-size:.8rem;color:var(--gold);margin-bottom:16px">📍 ${userData.cidade}</p>` : ''}
+      <div class="cliente-modal-stats">
+        <div class="cliente-stat"><strong>${totalMarcacoes}</strong><span>Marcações</span></div>
+        <div class="cliente-stat"><strong>${confirmadas}</strong><span>Confirmadas</span></div>
+        <div class="cliente-stat"><strong>${totalMarcacoes > 0 ? Math.round((confirmadas/totalMarcacoes)*100) : 0}%</strong><span>Taxa confirm.</span></div>
+      </div>
+      ${historico.length ? `<div style="width:100%;text-align:left">
+        <div class="cliente-hist-title">Histórico de marcações contigo</div>
+        ${historico.slice(0,5).map(m => {
+          const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT', { day:'numeric', month:'short', year:'numeric' }) : '—';
+          const estadoCor = m.estado==='confirmado' ? '#2ecc71' : m.estado==='recusado' ? 'var(--accent-pink)' : 'var(--gold)';
+          return `<div class="cliente-hist-item"><div><span>${dataFmt}</span><br><span style="font-size:.75rem;color:rgba(253,246,236,.4)">${m.tipo||'—'}</span></div><strong style="color:${estadoCor}">${m.estado==='confirmado'?'✅':m.estado==='recusado'?'✗':'⏳'} ${m.estado}</strong></div>`;
+        }).join('')}
+      </div>` : ''}
+      ${userData.whatsapp ? `<a href="https://wa.me/${userData.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank" style="margin-top:20px">💬 Contactar no WhatsApp</a>` : ''}
+    </div>`;
   } catch(e) {
     content.innerHTML = `<div style="text-align:center;padding:40px;color:var(--accent-pink)">Erro ao carregar perfil.</div>`;
   }
 };
 
 // ── EDITAR PERFIL ──
-window.toggleEditarPerfil=async()=>{
-  if(!currentUser)return;
-  const snap=await getDoc(doc(db,'usuarios',currentUser.uid));
-  const perfil=snap.exists()?snap.data():{};
-  const isTrancista=perfil.tipo==='trancista';
-  let tData={};
-  if(isTrancista){try{const s=await getDoc(doc(db,'trancistas',currentUser.uid));if(s.exists())tData=s.data();}catch(e){}}
-  existingPortfolioItems=(tData.portfolio||[]).map(item=>typeof item==='string'?{url:item,type:'image'}:item);
-  uploadedPortfolioFiles=[];
-  const tipos=['Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists','Senegalese','Locs'];
-  const cidades=['Luanda','Benguela','Huambo','Lobito','Lubango','Malanje','Cabinda','Kuito'];
-  document.getElementById('perfilFormArea').innerHTML=`<div class="perfil-form"><h3>Editar Perfil</h3>
+window.toggleEditarPerfil = async () => {
+  if(!currentUser) return;
+  const isTrancista = currentUserPerfil?.tipo === 'trancista';
+  let tData = {};
+  if(isTrancista) {
+    try { const s = await getDoc(doc(db, 'trancistas', currentUser.uid)); if(s.exists()) tData = s.data(); } catch(e) {}
+  }
+  existingPortfolioItems = (tData.portfolio||[]).map(item => typeof item === 'string' ? { url: item, type: 'image' } : item);
+  uploadedPortfolioFiles = [];
+
+  // Dados do perfil base (para preencher campos de clientes também)
+  const dadosBase = isTrancista ? tData : currentUserPerfil;
+
+  const tipos = ['Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists','Senegalese','Locs'];
+  const cidades = ['Luanda','Benguela','Huambo','Lobito','Lubango','Malanje','Cabinda','Kuito'];
+
+  document.getElementById('perfilFormArea').innerHTML = `<div class="perfil-form"><h3>Editar Perfil</h3>
     <div class="form-group"><label>Foto de Perfil</label>
       <div class="upload-area" onclick="document.getElementById('uploadFotoPerfil').click()">
         <div class="upload-icon">📸</div><p>Clica para fazer upload da tua foto de perfil</p>
-        <input type="file" id="uploadFotoPerfil" accept="image/*,video/*" onchange="previewFotoPerfil(this)">
+        <input type="file" id="uploadFotoPerfil" accept="image/*" onchange="previewFotoPerfil(this)">
       </div>
-      <div id="fotoPerfilPreview">${getFotoPerfilUrl(tData)?`<img src="${getFotoPerfilUrl(tData)}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`:''}</div>
+      <div id="fotoPerfilPreview">${getFotoUrl(dadosBase) ? `<img src="${getFotoUrl(dadosBase)}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">` : ''}</div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Cidade</label><select id="editCidade"><option value="">Seleciona</option>${cidades.map(c=>`<option value="${c}" ${tData.cidade===c?'selected':''}>${c}</option>`).join('')}</select></div>
-      <div class="form-group"><label>WhatsApp</label><input type="tel" id="editWhatsapp" placeholder="+244 9XX XXX XXX" value="${tData.whatsapp||''}"></div>
+      <div class="form-group"><label>Cidade</label><select id="editCidade"><option value="">Seleciona</option>${cidades.map(c => `<option value="${c}" ${dadosBase.cidade===c?'selected':''}>${c}</option>`).join('')}</select></div>
+      <div class="form-group"><label>WhatsApp</label><input type="tel" id="editWhatsapp" placeholder="+244 9XX XXX XXX" value="${dadosBase.whatsapp||''}"></div>
     </div>
-    <div class="form-group"><label>Bio</label><textarea id="editBio" rows="3" placeholder="Conta um pouco sobre ti...">${tData.bio||''}</textarea></div>
-    ${isTrancista?`
+    <div class="form-group"><label>Bio</label><textarea id="editBio" rows="3" placeholder="Conta um pouco sobre ti...">${dadosBase.bio||''}</textarea></div>
+    ${isTrancista ? `
     <div class="form-group"><label>Especialidade Principal</label><input type="text" id="editEspecialidade" placeholder="ex: Box Braids & Knotless" value="${tData.especialidade||''}"></div>
     <div class="form-row">
       <div class="form-group"><label>Preço Mínimo (AOA)</label><input type="number" id="editPrecoMin" placeholder="3000" value="${tData.precoMin||''}"></div>
       <div class="form-group"><label>Preço Máximo (AOA)</label><input type="number" id="editPrecoMax" placeholder="15000" value="${tData.precoMax||''}"></div>
       <div class="form-group"><label>Tempo Médio</label><input type="text" id="editTempo" placeholder="ex: 3–5h" value="${tData.tempo||''}"></div>
     </div>
-    <div class="form-group"><label>Tipos de Trança</label><div class="tipos-grid" id="tiposGrid">${tipos.map(t=>`<button type="button" class="tipo-chip ${(tData.tiposEscolhidos||[]).includes(t)?'active':''}" onclick="this.classList.toggle('active')">${t}</button>`).join('')}</div></div>
+    <div class="form-group"><label>Tipos de Trança</label><div class="tipos-grid" id="tiposGrid">${tipos.map(t => `<button type="button" class="tipo-chip ${(tData.tiposEscolhidos||[]).includes(t)?'active':''}" onclick="this.classList.toggle('active')">${t}</button>`).join('')}</div></div>
     <div class="form-checks">
       <label class="check-opt"><input type="checkbox" id="editMaterial" ${tData.comMaterial?'checked':''}><span>Material incluído no preço</span></label>
       <label class="check-opt"><input type="checkbox" id="editDisp" ${tData.disponivel!==false?'checked':''}><span>Disponível para marcações</span></label>
     </div>
     <div class="form-group"><label>Fotos e Vídeos do Portfólio</label>
       <div class="upload-area" onclick="document.getElementById('uploadPortfolio').click()">
-        <div class="upload-icon">🖼️</div><p>Clica para adicionar fotos ou vídeos dos teus trabalhos (podes seleccionar vários)</p>
+        <div class="upload-icon">🖼️</div><p>Clica para adicionar fotos ou vídeos dos teus trabalhos</p>
         <input type="file" id="uploadPortfolio" accept="image/*,video/*" multiple onchange="addPortfolioFiles(this)">
       </div>
       <div id="uploadProgressArea"></div>
-      <div class="portfolio-preview" id="portfolioPreview">${existingPortfolioItems.map((item,i)=>`<div class="portfolio-preview-item">${item.type==='video'?`<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${item.url}" alt="trabalho">`}<button class="remove-img" onclick="removeExistingItem(${i})">✕</button></div>`).join('')}</div>
-    </div>`:''}
+      <div class="portfolio-preview" id="portfolioPreview">${existingPortfolioItems.map((item, i) => `<div class="portfolio-preview-item">${item.type==='video'?`<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${item.url}" alt="trabalho">`}<button class="remove-img" onclick="removeExistingItem(${i})">✕</button></div>`).join('')}</div>
+    </div>` : ''}
     <button class="btn-save" id="btnSalvar" onclick="salvarPerfil()">Guardar Perfil ✦</button>
     <button style="background:none;border:none;color:rgba(253,246,236,.5);font-family:'Syne',sans-serif;font-size:.82rem;cursor:pointer;margin-left:16px" onclick="renderPerfil()">Cancelar</button>
   </div>`;
 };
 
-window.previewFotoPerfil=(input)=>{const file=input.files[0];if(!file)return;const isVideo=file.type.startsWith('video/');const url=URL.createObjectURL(file);const prev=document.getElementById('fotoPerfilPreview');if(isVideo){prev.innerHTML=`<video src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)" muted playsinline autoplay loop></video>`;}else{prev.innerHTML=`<img src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`;}};
-window.addPortfolioFiles=(input)=>{const files=Array.from(input.files);uploadedPortfolioFiles=[...uploadedPortfolioFiles,...files];renderPortfolioPreview();};
-function renderPortfolioPreview(){const prev=document.getElementById('portfolioPreview');if(!prev)return;const existing=existingPortfolioItems.map((item,i)=>`<div class="portfolio-preview-item">${item.type==='video'?`<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${item.url}" alt="trabalho">`}<button class="remove-img" onclick="removeExistingItem(${i})">✕</button></div>`).join('');const newFiles=uploadedPortfolioFiles.map((f,i)=>{const url=URL.createObjectURL(f);const isVideo=f.type.startsWith('video/');return `<div class="portfolio-preview-item">${isVideo?`<video src="${url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${url}" alt="novo">`}<button class="remove-img" onclick="removeNewItem(${i})">✕</button></div>`;}).join('');prev.innerHTML=existing+newFiles;}
-window.removeExistingItem=(i)=>{existingPortfolioItems.splice(i,1);renderPortfolioPreview();};
-window.removeNewItem=(i)=>{uploadedPortfolioFiles.splice(i,1);renderPortfolioPreview();};
+window.previewFotoPerfil = (input) => {
+  const file = input.files[0];
+  if(!file) return;
+  const url = URL.createObjectURL(file);
+  document.getElementById('fotoPerfilPreview').innerHTML = `<img src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`;
+};
+window.addPortfolioFiles = (input) => { uploadedPortfolioFiles = [...uploadedPortfolioFiles, ...Array.from(input.files)]; renderPortfolioPreview(); };
+function renderPortfolioPreview() {
+  const prev = document.getElementById('portfolioPreview');
+  if(!prev) return;
+  const existing = existingPortfolioItems.map((item, i) => `<div class="portfolio-preview-item">${item.type==='video'?`<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${item.url}" alt="trabalho">`}<button class="remove-img" onclick="removeExistingItem(${i})">✕</button></div>`).join('');
+  const newFiles = uploadedPortfolioFiles.map((f, i) => { const url = URL.createObjectURL(f); const isVideo = f.type.startsWith('video/'); return `<div class="portfolio-preview-item">${isVideo?`<video src="${url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${url}" alt="novo">`}<button class="remove-img" onclick="removeNewItem(${i})">✕</button></div>`; }).join('');
+  prev.innerHTML = existing + newFiles;
+}
+window.removeExistingItem = (i) => { existingPortfolioItems.splice(i, 1); renderPortfolioPreview(); };
+window.removeNewItem = (i) => { uploadedPortfolioFiles.splice(i, 1); renderPortfolioPreview(); };
 
-window.salvarPerfil=async()=>{
-  if(!currentUser)return;
-  const btn=document.getElementById('btnSalvar');btn.disabled=true;btn.textContent='A guardar...';
-  try{
-    const snap=await getDoc(doc(db,'usuarios',currentUser.uid));
-    const perfil=snap.exists()?snap.data():{};
-    const isTrancista=perfil.tipo==='trancista';
-    let fotoPerfilItem=null;
-    try{const s=await getDoc(doc(db,'trancistas',currentUser.uid));if(s.exists())fotoPerfilItem=s.data().fotoPerfil||null;}catch(e){}
-    const fotoInput=document.getElementById('uploadFotoPerfil');
-    if(fotoInput&&fotoInput.files[0]){btn.textContent='A enviar foto de perfil...';try{fotoPerfilItem=await uploadParaCloudinary(fotoInput.files[0],(p)=>{btn.textContent=`A enviar foto... ${p}%`;});}catch(e){console.error('Erro upload foto:',e);}}
-    let newPortfolioItems=[];
-    if(uploadedPortfolioFiles.length>0){
-      btn.textContent=`A enviar ${uploadedPortfolioFiles.length} ficheiro(s)...`;
-      const progressArea=document.getElementById('uploadProgressArea');
-      if(progressArea)progressArea.innerHTML=uploadedPortfolioFiles.map((f,i)=>`<div class="upload-progress" id="prog_${i}">📤 ${f.name}<div class="upload-progress-bar"><div class="upload-progress-fill" id="progfill_${i}" style="width:0%"></div></div></div>`).join('');
-      newPortfolioItems=await Promise.all(uploadedPortfolioFiles.map((file,i)=>uploadParaCloudinary(file,(p)=>{const fill=document.getElementById('progfill_'+i);if(fill)fill.style.width=p+'%';})));
+// ── GUARDAR PERFIL — funciona para clientes E trancistas ──
+window.salvarPerfil = async () => {
+  if(!currentUser) return;
+  const btn = document.getElementById('btnSalvar');
+  btn.disabled = true; btn.textContent = 'A guardar...';
+  try {
+    const isTrancista = currentUserPerfil?.tipo === 'trancista';
+
+    // Upload foto de perfil (se nova)
+    let fotoPerfilItem = getFotoUrl(isTrancista
+      ? (await getDoc(doc(db,'trancistas',currentUser.uid))).data()
+      : currentUserPerfil
+    ) || null;
+
+    const fotoInput = document.getElementById('uploadFotoPerfil');
+    if(fotoInput && fotoInput.files[0]) {
+      btn.textContent = 'A enviar foto...';
+      try {
+        fotoPerfilItem = await uploadParaCloudinary(fotoInput.files[0], (p) => { btn.textContent = `A enviar foto... ${p}%`; });
+      } catch(e) { console.error('Erro upload foto:', e); }
     }
-    const tiposEscolhidos=isTrancista?Array.from(document.querySelectorAll('#tiposGrid .tipo-chip.active')).map(b=>b.textContent):[];
-    const dadosBase={bio:document.getElementById('editBio')?.value||'',cidade:document.getElementById('editCidade')?.value||'',whatsapp:document.getElementById('editWhatsapp')?.value||'',atualizadoEm:serverTimestamp()};
-    if(fotoPerfilItem&&(typeof fotoPerfilItem==='object'&&fotoPerfilItem.url||typeof fotoPerfilItem==='string'))dadosBase.fotoPerfil=fotoPerfilItem;
-    await setDoc(doc(db,'usuarios',currentUser.uid),dadosBase,{merge:true});
-    if(isTrancista){
-      const dadosTrancista={...dadosBase,especialidade:document.getElementById('editEspecialidade')?.value||'',precoMin:Number(document.getElementById('editPrecoMin')?.value)||0,precoMax:Number(document.getElementById('editPrecoMax')?.value)||0,tempo:document.getElementById('editTempo')?.value||'',tiposEscolhidos,comMaterial:document.getElementById('editMaterial')?.checked||false,disponivel:document.getElementById('editDisp')?.checked||false,nome:currentUser.displayName||'',email:currentUser.email||''};
-      await setDoc(doc(db,'trancistas',currentUser.uid),dadosTrancista,{merge:true});
-      await updateDoc(doc(db,'trancistas',currentUser.uid),{portfolio:existingPortfolioItems});
-      if(newPortfolioItems.length>0)await updateDoc(doc(db,'trancistas',currentUser.uid),{portfolio:arrayUnion(...newPortfolioItems)});
+
+    // Dados base — guardados em TODOS os utilizadores
+    const dadosBase = {
+      bio: document.getElementById('editBio')?.value?.trim() || '',
+      cidade: document.getElementById('editCidade')?.value || '',
+      whatsapp: document.getElementById('editWhatsapp')?.value?.trim() || '',
+      atualizadoEm: serverTimestamp()
+    };
+    if(fotoPerfilItem) dadosBase.fotoPerfil = fotoPerfilItem;
+
+    // Guarda em usuarios (todos)
+    await setDoc(doc(db, 'usuarios', currentUser.uid), dadosBase, { merge: true });
+
+    // Se trancista: guarda também em trancistas
+    if(isTrancista) {
+      let newPortfolioItems = [];
+      if(uploadedPortfolioFiles.length > 0) {
+        btn.textContent = `A enviar ${uploadedPortfolioFiles.length} ficheiro(s)...`;
+        const progressArea = document.getElementById('uploadProgressArea');
+        if(progressArea) progressArea.innerHTML = uploadedPortfolioFiles.map((f, i) =>
+          `<div class="upload-progress" id="prog_${i}">📤 ${f.name}<div class="upload-progress-bar"><div class="upload-progress-fill" id="progfill_${i}" style="width:0%"></div></div></div>`
+        ).join('');
+        newPortfolioItems = await Promise.all(uploadedPortfolioFiles.map((file, i) =>
+          uploadParaCloudinary(file, (p) => { const fill = document.getElementById('progfill_'+i); if(fill) fill.style.width = p+'%'; })
+        ));
+      }
+      const tiposEscolhidos = Array.from(document.querySelectorAll('#tiposGrid .tipo-chip.active')).map(b => b.textContent);
+      const dadosTrancista = {
+        ...dadosBase,
+        nome: currentUser.displayName || '',
+        email: currentUser.email || '',
+        especialidade: document.getElementById('editEspecialidade')?.value?.trim() || '',
+        precoMin: Number(document.getElementById('editPrecoMin')?.value) || 0,
+        precoMax: Number(document.getElementById('editPrecoMax')?.value) || 0,
+        tempo: document.getElementById('editTempo')?.value?.trim() || '',
+        tiposEscolhidos,
+        comMaterial: document.getElementById('editMaterial')?.checked || false,
+        disponivel: document.getElementById('editDisp')?.checked || false,
+      };
+      await setDoc(doc(db, 'trancistas', currentUser.uid), dadosTrancista, { merge: true });
+      await updateDoc(doc(db, 'trancistas', currentUser.uid), { portfolio: existingPortfolioItems });
+      if(newPortfolioItems.length > 0) {
+        await updateDoc(doc(db, 'trancistas', currentUser.uid), { portfolio: arrayUnion(...newPortfolioItems) });
+      }
     }
-    const msg=document.getElementById('perfilMsg');if(msg){msg.className='perfil-msg ok';msg.textContent='✓ Perfil guardado com sucesso!';setTimeout(()=>msg.textContent='',4000);}
+
+    // Recarrega perfil fresco do Firestore
+    const snap = await getDoc(doc(db, 'usuarios', currentUser.uid));
+    currentUserPerfil = snap.exists() ? snap.data() : {};
+
+    const msg = document.getElementById('perfilMsg');
+    if(msg) { msg.className = 'perfil-msg ok'; msg.textContent = '✓ Perfil guardado com sucesso!'; setTimeout(() => msg.textContent = '', 4000); }
+
     await loadAllTrancistas();
     await renderPerfil();
-  }catch(e){console.error('Erro ao guardar:',e);const msg=document.getElementById('perfilMsg');if(msg){msg.className='perfil-msg err';msg.textContent='Erro ao guardar: '+e.message;}if(btn){btn.disabled=false;btn.textContent='Guardar Perfil ✦';}}
+
+    // Actualiza avatar na navbar
+    renderNavAuth(currentUser);
+
+  } catch(e) {
+    console.error('Erro ao guardar:', e);
+    const msg = document.getElementById('perfilMsg');
+    if(msg) { msg.className = 'perfil-msg err'; msg.textContent = 'Erro ao guardar: ' + e.message; }
+    if(btn) { btn.disabled = false; btn.textContent = 'Guardar Perfil ✦'; }
+  }
 };
 
 // ── AUTH ──
-window.doLogin=async()=>{
-  const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='A entrar...';
-  const err=document.getElementById('loginErro');err.style.display='none';
-  try{
-    await signInWithEmailAndPassword(auth,document.getElementById('loginEmail').value,document.getElementById('loginSenha').value);
-    // onAuthStateChanged tratará do redirecionamento
-  }catch(e){
-    err.style.display='block';err.textContent='Email ou senha incorretos.';
-    btn.disabled=false;btn.textContent='Entrar ✦';
+window.doLogin = async () => {
+  const btn = document.getElementById('loginBtn'); btn.disabled = true; btn.textContent = 'A entrar...';
+  const err = document.getElementById('loginErro'); err.style.display = 'none';
+  try {
+    await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginSenha').value);
+  } catch(e) {
+    err.style.display = 'block'; err.textContent = 'Email ou senha incorretos.';
+    btn.disabled = false; btn.textContent = 'Entrar ✦';
   }
 };
-window.doCadastro=async()=>{
-  const btn=document.getElementById('cadastroBtn');btn.disabled=true;btn.textContent='A criar conta...';
-  const err=document.getElementById('cadastroErro');err.style.display='none';
-  const senha=document.getElementById('cadastroSenha').value;
-  if(senha.length<6){err.style.display='block';err.textContent='A senha deve ter pelo menos 6 caracteres.';btn.disabled=false;btn.textContent='Criar Conta Grátis ✦';return;}
-  try{
-    const cred=await createUserWithEmailAndPassword(auth,document.getElementById('cadastroEmail').value,senha);
-    await updateProfile(cred.user,{displayName:document.getElementById('cadastroNome').value});
-    await setDoc(doc(db,'usuarios',cred.user.uid),{nome:document.getElementById('cadastroNome').value,email:document.getElementById('cadastroEmail').value,tipo:registoTipo,criadoEm:serverTimestamp(),pontuacao:0,nota:0,avaliacoes:0});
-    if(registoTipo==='trancista'){
-      await setDoc(doc(db,'trancistas',cred.user.uid),{nome:document.getElementById('cadastroNome').value,email:document.getElementById('cadastroEmail').value,tipo:'trancista',nota:0,avaliacoes:0,pontuacao:0,disponivel:true,portfolio:[],criadoEm:serverTimestamp()});
+window.doCadastro = async () => {
+  const btn = document.getElementById('cadastroBtn'); btn.disabled = true; btn.textContent = 'A criar conta...';
+  const err = document.getElementById('cadastroErro'); err.style.display = 'none';
+  const senha = document.getElementById('cadastroSenha').value;
+  if(senha.length < 6) { err.style.display = 'block'; err.textContent = 'A senha deve ter pelo menos 6 caracteres.'; btn.disabled = false; btn.textContent = 'Criar Conta Grátis ✦'; return; }
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, document.getElementById('cadastroEmail').value, senha);
+    await updateProfile(cred.user, { displayName: document.getElementById('cadastroNome').value });
+    await setDoc(doc(db, 'usuarios', cred.user.uid), {
+      nome: document.getElementById('cadastroNome').value,
+      email: document.getElementById('cadastroEmail').value,
+      tipo: registoTipo,
+      criadoEm: serverTimestamp(),
+      pontuacao: 0, nota: 0, avaliacoes: 0
+    });
+    if(registoTipo === 'trancista') {
+      await setDoc(doc(db, 'trancistas', cred.user.uid), {
+        nome: document.getElementById('cadastroNome').value,
+        email: document.getElementById('cadastroEmail').value,
+        tipo: 'trancista', nota: 0, avaliacoes: 0, pontuacao: 0,
+        disponivel: true, portfolio: [], criadoEm: serverTimestamp()
+      });
     }
-    // onAuthStateChanged tratará do redirecionamento
-  }catch(e){
-    err.style.display='block';
-    err.textContent=e.code==='auth/email-already-in-use'?'Este email já está em uso.':'Erro ao criar conta.';
-    btn.disabled=false;btn.textContent='Criar Conta Grátis ✦';
+  } catch(e) {
+    err.style.display = 'block';
+    err.textContent = e.code === 'auth/email-already-in-use' ? 'Este email já está em uso.' : 'Erro ao criar conta.';
+    btn.disabled = false; btn.textContent = 'Criar Conta Grátis ✦';
   }
 };
-window.doLogout=async()=>{
-  if(marcacoesUnsub){marcacoesUnsub();marcacoesUnsub=null;}
-  if(notifMarcacoesUnsub){notifMarcacoesUnsub();notifMarcacoesUnsub=null;}
+window.doLogout = async () => {
+  if(marcacoesUnsub) { marcacoesUnsub(); marcacoesUnsub = null; }
+  notifReset();
   notifClosePanel();
   await signOut(auth);
   showPage('home');
 };
-window.setTipo=(t)=>{registoTipo=t;document.getElementById('tipoBtnCliente').classList.toggle('active',t==='cliente');document.getElementById('tipoBtnTrancista').classList.toggle('active',t==='trancista');};
-
-// ── UTILS / NAVEGAÇÃO ──
-window.showPage=(page)=>{
-  // Bloqueia login/cadastro se já estiver autenticado
-  if(currentUser&&(page==='login'||page==='cadastro')){
-    page='perfil';
-  }
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
-  const pageEl=document.getElementById('page-'+page);
-  if(pageEl)pageEl.classList.add('active');
-  document.querySelectorAll('.nav-link').forEach(b=>{if(b.getAttribute('onclick')?.includes("'"+page+"'"))b.classList.add('active');});
-  document.getElementById('navLinks')?.classList.remove('open');
-  window.scrollTo(0,0);
-  if(page==='perfil')renderPerfil();
-  if(page==='ranking')renderRanking();
-  if(page==='feed')renderFeed();
-};
-window.toggleMenu=()=>document.getElementById('navLinks').classList.toggle('open');
-window.doHeroSearch=()=>{const v=document.getElementById('heroSearch').value;if(v){const fs=document.getElementById('filtroSearch');if(fs)fs.value=v;}showPage('explorar');};
-window.filterByType=(tipo)=>{filtroTipo=tipo;showPage('explorar');setTimeout(()=>{document.querySelectorAll('.filtro-opt').forEach(b=>{if(b.textContent===tipo)b.classList.add('active');else if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent))b.classList.remove('active');});renderExplorar();},100);};
-window.openLightbox=(url,type)=>{const content=document.getElementById('lightboxContent');if(type==='video')content.innerHTML=`<video class="lightbox-media" src="${url}" controls autoplay></video>`;else content.innerHTML=`<img class="lightbox-media" src="${url}" alt="">`;document.getElementById('lightbox').style.display='flex';};
-window.closeLightbox=()=>{document.getElementById('lightbox').style.display='none';document.getElementById('lightboxContent').innerHTML='';};
-function stars(nota){return `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`;}
-function starsHtml(nota){return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');}
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40);});
+window.setTipo = (t) => { registoTipo = t; document.getElementById('tipoBtnCliente').classList.toggle('active', t==='cliente'); document.getElementById('tipoBtnTrancista').classList.toggle('active', t==='trancista'); };
 
 // ══════════════════════════════════════════════════════════
-// ── PAINEL DE NOTIFICAÇÕES (integrado com Firebase) ──
+// ── PAINEL DE NOTIFICAÇÕES ──
+// Trancistas: badge = pedidos pendentes
+// Clientes: badge = respostas novas (confirmado/recusado)
 // ══════════════════════════════════════════════════════════
 let notifPanelAberto = false;
 let notifAbaActiva = 'marcacoes';
-let notifAcaoPendente = null; // {id, tipo:'aceitar'|'recusar'}
-let notifMarcacoes = []; // dados em tempo real do Firestore
+let notifAcaoPendente = null;
+let notifMarcacoes = [];
 let notifMarcacoesUnsub = null;
 let notifUid = null;
 let notifTipoUser = 'cliente';
@@ -1627,15 +1680,51 @@ let notifTipoUser = 'cliente';
 function notifInit(uid, tipoUser) {
   notifUid = uid;
   notifTipoUser = tipoUser;
-  // Só trancistas têm painel de marcações em tempo real
-  if(notifMarcacoesUnsub){ notifMarcacoesUnsub(); notifMarcacoesUnsub = null; }
+  if(notifMarcacoesUnsub) { notifMarcacoesUnsub(); notifMarcacoesUnsub = null; }
+
+  // Campo correcto por tipo de utilizador
   const campo = tipoUser === 'trancista' ? 'trancistId' : 'clienteId';
-  const q = query(collection(db,'marcacoes'), where(campo,'==',uid), orderBy('criadoEm','desc'));
+  let q;
+  try {
+    q = query(collection(db, 'marcacoes'), where(campo, '==', uid), orderBy('criadoEm', 'desc'));
+  } catch(e) { return; }
+
   notifMarcacoesUnsub = onSnapshot(q, (snap) => {
-    notifMarcacoes = snap.docs.map(d=>({id:d.id,...d.data(), _lida: false}));
-    notifActualizarBadges();
+    notifMarcacoes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    notifActualizarBadgeCount(
+      tipoUser === 'trancista' ? notifMarcacoes.filter(m => m.estado === 'pendente').length : notifMarcacoes.filter(m => m.estado !== 'pendente').length,
+      tipoUser,
+      notifMarcacoes
+    );
     if(notifPanelAberto) notifRenderLista(notifAbaActiva);
-  }, ()=>{});
+  }, (err) => { console.error('notifInit erro:', err); });
+}
+
+function notifReset() {
+  if(notifMarcacoesUnsub) { notifMarcacoesUnsub(); notifMarcacoesUnsub = null; }
+  notifMarcacoes = [];
+  notifUid = null;
+  const badge = document.getElementById('notifBadge');
+  if(badge) badge.style.display = 'none';
+}
+
+function notifActualizarBadgeCount(contagem, tipoUser, todasMarcacoes) {
+  const badge = document.getElementById('notifBadge');
+  if(badge) {
+    badge.textContent = contagem;
+    badge.style.display = contagem > 0 ? 'flex' : 'none';
+  }
+  const el = document.getElementById('ncount-marcacoes');
+  if(el) { el.textContent = contagem; el.className = 'tab-count' + (contagem === 0 ? ' zero' : ''); }
+  const subtitle = document.getElementById('notifSubtitle');
+  if(subtitle) {
+    if(tipoUser === 'trancista') {
+      subtitle.textContent = contagem > 0 ? `${contagem} pedido${contagem>1?'s':''} pendente${contagem>1?'s':''}` : 'Sem pedidos pendentes ✦';
+    } else {
+      const total = todasMarcacoes ? todasMarcacoes.length : 0;
+      subtitle.textContent = total > 0 ? `${total} marcaç${total>1?'ões':'ão'} no total` : 'Sem marcações ainda ✦';
+    }
+  }
 }
 
 window.notifTogglePanel = () => { if(notifPanelAberto) notifClosePanel(); else notifOpenPanel(); };
@@ -1649,37 +1738,30 @@ function notifOpenPanel() {
   notifRenderLista(notifAbaActiva);
   setTimeout(() => document.addEventListener('click', notifClickFora), 10);
 }
-
 window.notifClosePanel = function() {
   const panel = document.getElementById('notifPanel');
   if(!panel) return;
   panel.classList.add('closing');
   notifPanelAberto = false;
   document.removeEventListener('click', notifClickFora);
-  setTimeout(() => panel.style.display = 'none', 180);
+  setTimeout(() => { panel.style.display = 'none'; }, 180);
 };
-
 function notifClickFora(e) {
   const panel = document.getElementById('notifPanel');
   const trigger = document.getElementById('notifTrigger');
   const confirmOv = document.getElementById('confirmOverlay');
   if(!panel || !trigger) return;
-  if(!panel.contains(e.target) && !trigger.contains(e.target) && !confirmOv?.contains(e.target)) {
-    notifClosePanel();
-  }
+  if(!panel.contains(e.target) && !trigger.contains(e.target) && !confirmOv?.contains(e.target)) notifClosePanel();
 }
-
 window.notifSwitchTab = (btn, aba) => {
   document.querySelectorAll('.notif-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   notifAbaActiva = aba;
   notifRenderLista(aba);
 };
-
 function notifRenderLista(aba) {
   const lista = document.getElementById('notifList');
   if(!lista) return;
-
   if(aba === 'marcacoes') {
     if(!notifMarcacoes.length) {
       lista.innerHTML = `<div class="notif-empty"><span>📭</span><p>Sem marcações de momento.</p></div>`;
@@ -1687,36 +1769,29 @@ function notifRenderLista(aba) {
     }
     lista.innerHTML = notifMarcacoes.map(m => notifRenderItemMarcacao(m)).join('');
   } else {
-    // likes, comentarios, avaliacoes — em breve
-    const labels = { likes:'likes', comentarios:'comentários', avaliacoes:'avaliações' };
     const emojis = { likes:'🤍', comentarios:'💬', avaliacoes:'⭐' };
+    const labels = { likes:'likes', comentarios:'comentários', avaliacoes:'avaliações' };
     lista.innerHTML = `<div class="notif-empty"><span>${emojis[aba]||'📭'}</span><p>Sem ${labels[aba]||'notificações'} de momento.<br><span style="font-size:.75rem;opacity:.6">Em breve...</span></p></div>`;
   }
 }
-
 function notifRenderItemMarcacao(m) {
   const isTrancista = notifTipoUser === 'trancista';
-  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{day:'numeric',month:'short'}) : '—';
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT', { day:'numeric', month:'short' }) : '—';
   const criadoFmt = m.criadoEm?.toDate ? tempoRelativo(m.criadoEm.toDate()) : '';
-  const nomeExibido = isTrancista ? (m.clienteNome || 'Cliente') : (m.trancistaNome || 'Trancista');
-  const inicial = nomeExibido[0].toUpperCase();
+  const nomeExibido = isTrancista ? (m.clienteNome||'Cliente') : (m.trancistaNome||'Trancista');
   const texto = isTrancista
     ? `${m.clienteNome||'Cliente'} pediu marcação para <strong>${m.tipo||'—'}</strong> a ${dataFmt}`
-    : `A tua marcação com <strong>${m.trancistaNome||'Trancista'}</strong> para ${dataFmt} está <strong>${m.estado==='confirmado'?'confirmada 🎉':m.estado==='recusado'?'recusada':'pendente'}</strong>`;
-
+    : `Marcação com <strong>${m.trancistaNome||'Trancista'}</strong> para ${dataFmt}: <strong>${m.estado==='confirmado'?'✅ Confirmada':m.estado==='recusado'?'✗ Recusada':'⏳ Pendente'}</strong>`;
   let acoes = '';
   if(isTrancista && m.estado === 'pendente') {
     acoes = `<div class="notif-actions">
       <button class="btn-notif-aceitar" onclick="notifPedirConfirmacao('${m.id}','aceitar')">✅ Aceitar</button>
       <button class="btn-notif-recusar" onclick="notifPedirConfirmacao('${m.id}','recusar')">✗ Recusar</button>
-      <button class="btn-notif-ver" onclick="notifClosePanel();verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver</button>
     </div>`;
   } else if(m.estado !== 'pendente') {
-    const label = m.estado === 'confirmado' ? '✅ Confirmada' : '✗ Recusada';
-    acoes = `<span class="notif-estado ${m.estado}">${label}</span>`;
+    acoes = `<span class="notif-estado ${m.estado}">${m.estado==='confirmado'?'✅ Confirmada':'✗ Recusada'}</span>`;
   }
-
-  const unread = m.estado === 'pendente' ? 'unread' : '';
+  const unread = (isTrancista && m.estado==='pendente') ? 'unread' : '';
   return `<div class="notif-item ${unread}" id="nitem-${m.id}">
     <div class="notif-icon notif-icon--marcacao">📅</div>
     <div class="notif-body">
@@ -1727,86 +1802,77 @@ function notifRenderItemMarcacao(m) {
     </div>
   </div>`;
 }
-
 function tempoRelativo(date) {
   const diff = Math.floor((Date.now() - date.getTime()) / 1000);
   if(diff < 60) return 'Agora mesmo';
   if(diff < 3600) return `Há ${Math.floor(diff/60)} min`;
   if(diff < 86400) return `Há ${Math.floor(diff/3600)}h`;
   if(diff < 172800) return 'Ontem';
-  return date.toLocaleDateString('pt-PT',{day:'numeric',month:'short'});
+  return date.toLocaleDateString('pt-PT', { day:'numeric', month:'short' });
 }
+window.notifMarcarTodasLidas = () => { notifRenderLista(notifAbaActiva); };
 
-function notifActualizarBadges() {
-  const pendentes = notifMarcacoes.filter(m => m.estado === 'pendente').length;
-  const badge = document.getElementById('notifBadge');
-  if(badge) {
-    badge.textContent = pendentes;
-    badge.style.display = pendentes > 0 ? 'flex' : 'none';
-  }
-  const el = document.getElementById('ncount-marcacoes');
-  if(el) { el.textContent = pendentes; el.className = 'tab-count' + (pendentes===0?' zero':''); }
-  const subtitle = document.getElementById('notifSubtitle');
-  if(subtitle) {
-    const total = pendentes;
-    subtitle.textContent = total > 0 ? `${total} pedido${total>1?'s':''} pendente${total>1?'s':''}` : 'Tudo em dia ✦';
-  }
-}
-
-window.notifMarcarTodasLidas = () => {
-  // Apenas visual — as marcações são geridas pelo Firebase
-  notifActualizarBadges();
-  notifRenderLista(notifAbaActiva);
-};
-
-// ── CONFIRMAÇÃO NO PAINEL ──
 window.notifPedirConfirmacao = (id, tipo) => {
   notifAcaoPendente = { id, tipo };
   const m = notifMarcacoes.find(x => x.id === id);
   if(!m) return;
   const isAceitar = tipo === 'aceitar';
-  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{weekday:'long',day:'numeric',month:'long'}) : '—';
-
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT', { weekday:'long', day:'numeric', month:'long' }) : '—';
   document.getElementById('confirmIcon').textContent = isAceitar ? '📅' : '✗';
   document.getElementById('confirmTitulo').textContent = isAceitar ? 'Aceitar marcação?' : 'Recusar marcação?';
   document.getElementById('confirmDesc').textContent = isAceitar
-    ? `Confirmas o pedido de ${m.clienteNome||'cliente'}? Ela será notificada imediatamente.`
-    : `Confirmas a recusa do pedido de ${m.clienteNome||'cliente'}? Esta acção não pode ser desfeita.`;
-
+    ? `Confirmas o pedido de ${m.clienteNome||'cliente'}?`
+    : `Confirmas a recusa do pedido de ${m.clienteNome||'cliente'}?`;
   document.getElementById('confirmDetail').innerHTML = `
     <div class="confirm-detail-row"><span>Cliente</span><strong>${m.clienteNome||'—'}</strong></div>
     <div class="confirm-detail-row"><span>Data</span><strong>📅 ${dataFmt}</strong></div>
     <div class="confirm-detail-row"><span>Tipo</span><strong>✂️ ${m.tipo||'—'}</strong></div>
-    ${m.nota?`<div class="confirm-detail-row"><span>Nota</span><strong style="font-size:.77rem;color:rgba(253,246,236,.6)">"${m.nota}"</strong></div>`:''}`;
-
+    ${m.nota ? `<div class="confirm-detail-row"><span>Nota</span><strong style="font-size:.77rem">"${m.nota}"</strong></div>` : ''}`;
   const simBtn = document.getElementById('confirmSimBtn');
   simBtn.textContent = isAceitar ? '✅ Confirmar Aceitação' : '✗ Confirmar Recusa';
   simBtn.className = isAceitar ? 'confirm-btn-sim' : 'confirm-btn-sim recusar-sim';
-
   const overlay = document.getElementById('confirmOverlay');
   overlay.style.display = 'flex';
   overlay.onclick = (e) => { if(e.target === overlay) notifFecharConfirm(); };
 };
-
 window.notifConfirmarAcao = async () => {
   if(!notifAcaoPendente) return;
   const { id, tipo } = notifAcaoPendente;
   const novoEstado = tipo === 'aceitar' ? 'confirmado' : 'recusado';
   notifFecharConfirm();
-  // Animação de saída no item
   const el = document.getElementById('nitem-'+id);
-  if(el) { el.style.transition = 'opacity .3s,transform .3s'; el.style.opacity='0'; el.style.transform='translateX(10px)'; }
+  if(el) { el.style.transition = 'opacity .3s,transform .3s'; el.style.opacity = '0'; el.style.transform = 'translateX(10px)'; }
   try {
-    await updateDoc(doc(db,'marcacoes',id), { estado: novoEstado, respondidoEm: serverTimestamp() });
-  } catch(e) { alert('Erro ao actualizar: '+e.message); }
+    await updateDoc(doc(db, 'marcacoes', id), { estado: novoEstado, respondidoEm: serverTimestamp() });
+  } catch(e) { alert('Erro ao actualizar: ' + e.message); }
   notifAcaoPendente = null;
 };
+window.notifFecharConfirm = () => { document.getElementById('confirmOverlay').style.display = 'none'; notifAcaoPendente = null; };
 
-window.notifFecharConfirm = () => {
-  document.getElementById('confirmOverlay').style.display = 'none';
-  notifAcaoPendente = null;
+// ── NAVEGAÇÃO ──
+window.showPage = (page) => {
+  if(currentUser && (page === 'login' || page === 'cadastro')) page = 'perfil';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  const pageEl = document.getElementById('page-'+page);
+  if(pageEl) pageEl.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(b => { if(b.getAttribute('onclick')?.includes("'"+page+"'")) b.classList.add('active'); });
+  document.getElementById('navLinks')?.classList.remove('open');
+  window.scrollTo(0, 0);
+  if(page === 'perfil') renderPerfil();
+  if(page === 'ranking') renderRanking();
+  if(page === 'feed') renderFeed();
 };
+window.toggleMenu = () => document.getElementById('navLinks').classList.toggle('open');
+window.doHeroSearch = () => { const v = document.getElementById('heroSearch').value; if(v) { const fs = document.getElementById('filtroSearch'); if(fs) fs.value = v; } showPage('explorar'); };
+window.filterByType = (tipo) => { filtroTipo = tipo; showPage('explorar'); setTimeout(() => { document.querySelectorAll('.filtro-opt').forEach(b => { if(b.textContent === tipo) b.classList.add('active'); else if(['Todos','Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists'].includes(b.textContent)) b.classList.remove('active'); }); renderExplorar(); }, 100); };
+window.openLightbox = (url, type) => { const content = document.getElementById('lightboxContent'); if(type === 'video') content.innerHTML = `<video class="lightbox-media" src="${url}" controls autoplay></video>`; else content.innerHTML = `<img class="lightbox-media" src="${url}" alt="">`; document.getElementById('lightbox').style.display = 'flex'; };
+window.closeLightbox = () => { document.getElementById('lightbox').style.display = 'none'; document.getElementById('lightboxContent').innerHTML = ''; };
 
+function stars(nota) { return `<span class="stars">${[1,2,3,4,5].map(i => `<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`; }
+function starsHtml(nota) { return [1,2,3,4,5].map(i => `<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join(''); }
+
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('navbar--scrolled', window.scrollY > 40); });
 </script>
 </body>
 </html>
