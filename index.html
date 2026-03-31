@@ -7,7 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
-:root{--gold:#D4A843;--gold-light:#F0C96A;--gold-dark:#A07820;--espresso:#1A0F08;--mahogany:#3D1C0A;--caramel:#C8773A;--cream:#FDF6EC;--accent-pink:#E8547A;--accent-teal:#2A9D8F}
+:root {
+  --gold: #D4A843; --gold-light: #F0C96A; --gold-dark: #A07820;
+  --espresso: #1A0F08; --mahogany: #3D1C0A; --caramel: #C8773A;
+  --cream: #FDF6EC; --accent-pink: #E8547A; --accent-teal: #2A9D8F;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--espresso);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -37,7 +41,12 @@ img{max-width:100%;display:block}
 .btn-logout:hover{color:var(--accent-pink)}
 .navbar__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .navbar__burger span{display:block;width:24px;height:2px;background:var(--gold);border-radius:2px;transition:all .3s}
-@media(max-width:768px){.navbar__burger{display:flex}.navbar__links{position:fixed;top:0;right:-100%;height:100vh;width:280px;background:var(--mahogany);flex-direction:column;justify-content:center;align-items:center;gap:32px;transition:right .4s;border-left:1px solid rgba(212,168,67,.15)}.navbar__links.open{right:0}.navbar__links a{font-size:1.1rem}}
+@media(max-width:768px){
+  .navbar__burger{display:flex}
+  .navbar__links{position:fixed;top:0;right:-100%;height:100vh;width:280px;background:var(--mahogany);flex-direction:column;justify-content:center;align-items:center;gap:32px;transition:right .4s;border-left:1px solid rgba(212,168,67,.15)}
+  .navbar__links.open{right:0}
+  .navbar__links a{font-size:1.1rem}
+}
 .page{display:none;min-height:100vh;padding-top:80px}
 .page.active{display:block}
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:120px 0 80px}
@@ -149,6 +158,7 @@ img{max-width:100%;display:block}
 .resultado-info{flex:1}
 .resultado-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
 .resultado-top h3{font-size:1.1rem;color:var(--cream)}
+.resultado-badge{color:white;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:50px}
 .resultado-specialty{font-size:.85rem;color:rgba(253,246,236,.5);margin-bottom:8px}
 .resultado-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sep{color:rgba(253,246,236,.2)}
@@ -382,16 +392,103 @@ img{max-width:100%;display:block}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:300;display:flex;align-items:center;justify-content:center}
 .lightbox-media{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
 .lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:white;font-size:2rem;cursor:pointer}
-.marcacao-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:12px;padding:20px;margin-bottom:12px}
-.marcacao-card--pendente{border-left:3px solid var(--gold)}
-.marcacao-card--confirmado{border-left:3px solid #2ecc71}
-.marcacao-card--recusado{border-left:3px solid var(--accent-pink)}
+
+/* ── MARCAÇÕES STYLES ── */
+.marcacoes-section{margin-bottom:40px}
+.marcacoes-section h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(212,168,67,.1);display:flex;align-items:center;gap:12px}
+.badge-count{background:var(--accent-pink);color:white;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:50px;min-width:22px;text-align:center}
+.marcacao-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:24px;margin-bottom:12px;transition:border-color .2s}
+.marcacao-card--pendente{border-left:4px solid var(--gold)}
+.marcacao-card--confirmado{border-left:4px solid #2ecc71}
+.marcacao-card--recusado{border-left:4px solid rgba(232,84,122,.5);opacity:.7}
+.marcacao-card__top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.marcacao-card__user{display:flex;align-items:center;gap:14px;cursor:pointer}
+.marcacao-card__user:hover .marc-nome{color:var(--gold)}
+.marc-avatar{width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--caramel));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--espresso);flex-shrink:0;overflow:hidden}
+.marc-avatar img{width:100%;height:100%;object-fit:cover}
+.marc-nome{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--cream);transition:color .2s}
+.marc-email{font-size:.78rem;color:rgba(253,246,236,.4)}
+.marc-estado{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;padding:5px 14px;border-radius:50px}
+.marc-estado.pendente{background:rgba(212,168,67,.15);color:var(--gold)}
+.marc-estado.confirmado{background:rgba(46,204,113,.1);color:#2ecc71}
+.marc-estado.recusado{background:rgba(232,84,122,.1);color:var(--accent-pink)}
+.marcacao-card__details{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.marc-detail{font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.6);display:flex;align-items:center;gap:6px}
+.marcacao-card__nota{background:rgba(26,15,8,.4);border-radius:10px;padding:12px 16px;font-size:.88rem;color:rgba(253,246,236,.65);line-height:1.5;margin-bottom:16px;font-style:italic}
+.marcacao-card__actions{display:flex;gap:10px}
+.btn-aceitar{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71;padding:10px 20px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-aceitar:hover{background:rgba(46,204,113,.25)}
+.btn-rejeitar{background:rgba(232,84,122,.1);border:1px solid rgba(232,84,122,.3);color:var(--accent-pink);padding:10px 20px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-rejeitar:hover{background:rgba(232,84,122,.2)}
+.btn-ver-cliente{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.2);color:var(--gold);padding:10px 20px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-ver-cliente:hover{background:rgba(212,168,67,.2)}
+
+/* MARCAÇÕES CLIENTE */
+.marc-cliente-card{background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-radius:16px;padding:20px;margin-bottom:12px}
+.marc-cliente-card--pendente{border-left:4px solid var(--gold)}
+.marc-cliente-card--confirmado{border-left:4px solid #2ecc71}
+.marc-cliente-card--recusado{border-left:4px solid rgba(232,84,122,.4);opacity:.7}
+.marc-cliente-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.marc-cliente-nome{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--cream);margin-bottom:2px}
+.marc-cliente-details{display:flex;gap:16px;flex-wrap:wrap}
+.marc-cliente-detail{font-family:'Syne',sans-serif;font-size:.8rem;color:rgba(253,246,236,.55);display:flex;align-items:center;gap:5px}
+.marc-cliente-nota{font-size:.85rem;color:rgba(253,246,236,.6);font-style:italic;padding:10px 14px;background:rgba(26,15,8,.4);border-radius:8px;margin-top:10px}
+
+/* MODAL CLIENTE */
+.cliente-modal-perfil{text-align:center;padding:20px 0}
+.cliente-modal-avatar{width:80px;height:80px;background:linear-gradient(135deg,var(--gold),var(--caramel));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:1.8rem;color:var(--espresso);margin:0 auto 16px;overflow:hidden}
+.cliente-modal-avatar img{width:100%;height:100%;object-fit:cover}
+.cliente-modal-nome{font-size:1.4rem;color:var(--cream);margin-bottom:4px}
+.cliente-modal-email{color:rgba(253,246,236,.4);font-size:.85rem;margin-bottom:20px}
+.cliente-modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.cliente-stat{background:rgba(26,15,8,.4);border-radius:12px;padding:14px;text-align:center}
+.cliente-stat strong{display:block;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--gold)}
+.cliente-stat span{font-family:'Syne',sans-serif;font-size:.7rem;color:rgba(253,246,236,.4);text-transform:uppercase;letter-spacing:.04em}
+.cliente-hist-title{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(253,246,236,.4);margin-bottom:12px;text-align:left}
+.cliente-hist-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(253,246,236,.05);font-size:.85rem}
+.cliente-hist-item:last-child{border-bottom:none}
+.cliente-hist-item span{color:rgba(253,246,236,.6)}
+.cliente-hist-item strong{font-family:'Syne',sans-serif;color:var(--cream);font-size:.78rem}
+
+/* NOTIFICAÇÃO REALTIME */
+.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:var(--accent-pink);border-radius:50%;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;border:2px solid var(--espresso)}
+.nav-perfil-wrap{position:relative;display:flex;align-items:center}
+
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(212,168,67,.4)}50%{box-shadow:0 0 0 12px rgba(212,168,67,0)}}
 @keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@media(max-width:900px){.explorar__body{grid-template-columns:1fr}.filtros{position:static}.resultado-card{flex-direction:column;align-items:flex-start}.resultado-card__right{width:100%;display:flex;align-items:center;gap:16px;justify-content:space-between}.feed-body{grid-template-columns:1fr}.feed-sidebar{position:static}.tp-body{grid-template-columns:1fr}.tp-sidebar{position:static}.tp-servicos-grid{grid-template-columns:1fr}.cards-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}.steps{grid-template-columns:repeat(2,1fr)}.cta-trancista__inner{grid-template-columns:1fr}.stats__grid{grid-template-columns:1fr;gap:24px}.footer__inner{flex-direction:column;text-align:center}.ranking-list__header,.ranking-row{grid-template-columns:50px 1fr 70px 40px;font-size:.75rem}.ranking-list__header span:nth-child(4),.ranking-row .rank-aval{display:none}.perfil-stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.steps{grid-template-columns:1fr}.hero__title{font-size:2.5rem}.tp-portfolio-grid{grid-template-columns:repeat(2,1fr)}.auth-box{padding:32px 20px}}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.marcacao-card{animation:slideIn .3s ease}
+
+@media(max-width:900px){
+  .explorar__body{grid-template-columns:1fr}
+  .filtros{position:static}
+  .resultado-card{flex-direction:column;align-items:flex-start}
+  .resultado-card__right{width:100%;display:flex;align-items:center;gap:16px;justify-content:space-between}
+  .feed-body{grid-template-columns:1fr}
+  .feed-sidebar{position:static}
+  .tp-body{grid-template-columns:1fr}
+  .tp-sidebar{position:static}
+  .tp-servicos-grid{grid-template-columns:1fr}
+  .cards-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .cta-trancista__inner{grid-template-columns:1fr}
+  .stats__grid{grid-template-columns:1fr;gap:24px}
+  .footer__inner{flex-direction:column;text-align:center}
+  .ranking-list__header,.ranking-row{grid-template-columns:50px 1fr 70px 40px;font-size:.75rem}
+  .ranking-list__header span:nth-child(4),.ranking-row .rank-aval{display:none}
+  .perfil-stats{grid-template-columns:repeat(2,1fr)}
+  .cliente-modal-stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .steps{grid-template-columns:1fr}
+  .hero__title{font-size:2.5rem}
+  .tp-portfolio-grid{grid-template-columns:repeat(2,1fr)}
+  .auth-box{padding:32px 20px}
+  .marcacao-card__top{flex-direction:column;align-items:flex-start}
+  .marcacao-card__actions{flex-wrap:wrap}
+}
 </style>
 </head>
 <body>
@@ -415,12 +512,21 @@ img{max-width:100%;display:block}
 
 <div class="page active" id="page-home">
   <section class="hero">
-    <div class="hero__bg"><div class="hero__orb hero__orb--1"></div><div class="hero__orb hero__orb--2"></div><div class="hero__orb hero__orb--3"></div><div class="hero__pattern"></div></div>
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+      <div class="hero__pattern"></div>
+    </div>
     <div class="hero__content container">
       <div class="hero__badge"><span>✦</span> A plataforma nº 1 de trancistas em Angola</div>
       <h1 class="hero__title">O melhor talento em<br><em>tranças</em> está<br><span class="hero__title-highlight">aqui perto de ti</span></h1>
       <p class="hero__sub">Encontra, avalia e marca com as melhores trancistas.<br>Ranking real. Preços transparentes. Resultados que falam por si.</p>
-      <div class="search-box"><span>🔍</span><input type="text" id="heroSearch" placeholder="Que tipo de trança procuras?"><button class="search-btn" onclick="doHeroSearch()">Pesquisar</button></div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="heroSearch" placeholder="Que tipo de trança procuras?">
+        <button class="search-btn" onclick="doHeroSearch()">Pesquisar</button>
+      </div>
       <div class="hero__tags">
         <button class="tag" onclick="filterByType('Box Braids')">🌀 Box Braids</button>
         <button class="tag" onclick="filterByType('Knotless')">🔗 Knotless</button>
@@ -432,36 +538,52 @@ img{max-width:100%;display:block}
     </div>
     <div class="hero__scroll-hint">↓</div>
   </section>
-  <section class="stats"><div class="container stats__grid">
-    <div class="stat"><span class="stat__num" id="statProf">0</span><span class="stat__label">Trancistas cadastradas</span></div>
-    <div class="stat stat--accent"><span class="stat__num" id="statAval">0</span><span class="stat__label">Avaliações verificadas</span></div>
-    <div class="stat"><span class="stat__num" id="statCid">0</span><span class="stat__label">Cidades cobertas</span></div>
-  </div></section>
-  <section class="ranking-preview"><div class="container">
-    <div class="section-header"><span class="section-tag">🏆 Ranking em Destaque</span><h2>As Melhores<br><em>desta Semana</em></h2><p>Classificadas com base em qualidade, rapidez, preço e atendimento</p></div>
-    <div class="cards-grid" id="homeCards"><div class="empty-state"><span class="empty-icon">✦</span><p>A carregar trancistas...</p></div></div>
-    <div class="section-cta"><button class="btn-gold-lg" onclick="showPage('ranking')">Ver Ranking Completo ✦</button></div>
-  </div></section>
-  <section class="how-it-works"><div class="container">
-    <div class="section-header"><span class="section-tag">Como Funciona</span><h2>Simples.<br><em>Transparente.</em> Justo.</h2></div>
-    <div class="steps">
-      <div class="step"><div class="step__num">01</div><div class="step__icon">🔍</div><h4>Pesquisa</h4><p>Filtra por tipo de trança, preço, localização ou disponibilidade.</p></div>
-      <div class="step"><div class="step__num">02</div><div class="step__icon">📊</div><h4>Compara</h4><p>Vê portfólios, lê avaliações reais e compara lado a lado.</p></div>
-      <div class="step"><div class="step__num">03</div><div class="step__icon">📅</div><h4>Marca</h4><p>Agenda directamente com a trancista escolhida no próprio site.</p></div>
-      <div class="step"><div class="step__num">04</div><div class="step__icon">⭐</div><h4>Avalia</h4><p>Depois do serviço, dá a tua avaliação e alimenta o ranking.</p></div>
+  <section class="stats">
+    <div class="container stats__grid">
+      <div class="stat"><span class="stat__num" id="statProf">0</span><span class="stat__label">Trancistas cadastradas</span></div>
+      <div class="stat stat--accent"><span class="stat__num" id="statAval">0</span><span class="stat__label">Avaliações verificadas</span></div>
+      <div class="stat"><span class="stat__num" id="statCid">0</span><span class="stat__label">Cidades cobertas</span></div>
     </div>
-  </div></section>
-  <section class="cta-trancista"><div class="container cta-trancista__inner"><div class="cta-trancista__text">
-    <span class="section-tag">Para Trancistas</span>
-    <h2>O teu talento<br>merece <em>visibilidade</em></h2>
-    <p>Cria o teu perfil profissional, mostra o teu portfólio com fotos reais, define os teus preços e começa a receber clientes.</p>
-    <button class="btn-gold-lg" onclick="showPage('cadastro')">Criar Perfil Grátis ✦</button>
-  </div></div></section>
-  <footer class="footer"><div class="container footer__inner">
-    <div class="footer__brand"><span class="brand-icon-sm">✦</span><span>Quem<em>Trançou</em>?</span></div>
-    <p class="footer__copy">© 2026 QuemTrançou? · Feito com ❤️ para valorizar as trancistas de Angola</p>
-    <div class="footer__links"><a href="#">Sobre</a><a href="#">Privacidade</a><a href="#">Contacto</a></div>
-  </div></footer>
+  </section>
+  <section class="ranking-preview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🏆 Ranking em Destaque</span>
+        <h2>As Melhores<br><em>desta Semana</em></h2>
+        <p>Classificadas com base em qualidade, rapidez, preço e atendimento</p>
+      </div>
+      <div class="cards-grid" id="homeCards"><div class="empty-state"><span class="empty-icon">✦</span><p>A carregar trancistas...</p></div></div>
+      <div class="section-cta"><button class="btn-gold-lg" onclick="showPage('ranking')">Ver Ranking Completo ✦</button></div>
+    </div>
+  </section>
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header"><span class="section-tag">Como Funciona</span><h2>Simples.<br><em>Transparente.</em> Justo.</h2></div>
+      <div class="steps">
+        <div class="step"><div class="step__num">01</div><div class="step__icon">🔍</div><h4>Pesquisa</h4><p>Filtra por tipo de trança, preço, localização ou disponibilidade.</p></div>
+        <div class="step"><div class="step__num">02</div><div class="step__icon">📊</div><h4>Compara</h4><p>Vê portfólios, lê avaliações reais e compara lado a lado.</p></div>
+        <div class="step"><div class="step__num">03</div><div class="step__icon">📅</div><h4>Marca</h4><p>Agenda directamente com a trancista escolhida no próprio site.</p></div>
+        <div class="step"><div class="step__num">04</div><div class="step__icon">⭐</div><h4>Avalia</h4><p>Depois do serviço, dá a tua avaliação e alimenta o ranking.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-trancista">
+    <div class="container cta-trancista__inner">
+      <div class="cta-trancista__text">
+        <span class="section-tag">Para Trancistas</span>
+        <h2>O teu talento<br>merece <em>visibilidade</em></h2>
+        <p>Cria o teu perfil profissional, mostra o teu portfólio com fotos reais, define os teus preços e começa a receber clientes.</p>
+        <button class="btn-gold-lg" onclick="showPage('cadastro')">Criar Perfil Grátis ✦</button>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand"><span class="brand-icon-sm">✦</span><span>Quem<em>Trançou</em>?</span></div>
+      <p class="footer__copy">© 2026 QuemTrançou? · Feito com ❤️ para valorizar as trancistas de Angola</p>
+      <div class="footer__links"><a href="#">Sobre</a><a href="#">Privacidade</a><a href="#">Contacto</a></div>
+    </div>
+  </footer>
 </div>
 
 <div class="page" id="page-explorar">
@@ -470,7 +592,8 @@ img{max-width:100%;display:block}
     <aside class="filtros">
       <h4>Filtros</h4>
       <div class="filtro-group"><label>Pesquisar</label><input type="text" class="filtro-input" id="filtroSearch" placeholder="Nome ou tipo de trança..." oninput="renderExplorar()"></div>
-      <div class="filtro-group"><label>Tipo de Trança</label>
+      <div class="filtro-group">
+        <label>Tipo de Trança</label>
         <button class="filtro-opt active" onclick="setFiltroTipo(this,'Todos')">Todos</button>
         <button class="filtro-opt" onclick="setFiltroTipo(this,'Box Braids')">Box Braids</button>
         <button class="filtro-opt" onclick="setFiltroTipo(this,'Knotless')">Knotless</button>
@@ -479,7 +602,8 @@ img{max-width:100%;display:block}
         <button class="filtro-opt" onclick="setFiltroTipo(this,'Goddess')">Goddess Braids</button>
         <button class="filtro-opt" onclick="setFiltroTipo(this,'Twists')">Twists</button>
       </div>
-      <div class="filtro-group"><label>Cidade</label>
+      <div class="filtro-group">
+        <label>Cidade</label>
         <button class="filtro-opt active" onclick="setFiltroCidade(this,'Todas')">Todas</button>
         <button class="filtro-opt" onclick="setFiltroCidade(this,'Luanda')">Luanda</button>
         <button class="filtro-opt" onclick="setFiltroCidade(this,'Benguela')">Benguela</button>
@@ -487,10 +611,13 @@ img{max-width:100%;display:block}
         <button class="filtro-opt" onclick="setFiltroCidade(this,'Lubango')">Lubango</button>
       </div>
       <div class="filtro-group"><label class="checkbox-label"><input type="checkbox" id="filtroDisp" onchange="renderExplorar()"><span>Apenas disponíveis agora</span></label></div>
-      <div class="filtro-group"><label>Ordenar por</label>
+      <div class="filtro-group">
+        <label>Ordenar por</label>
         <select class="filtro-select" id="filtroOrdem" onchange="renderExplorar()">
-          <option value="nota">Melhor Avaliação</option><option value="avaliacoes">Mais Avaliadas</option>
-          <option value="preco_asc">Menor Preço</option><option value="preco_desc">Maior Preço</option>
+          <option value="nota">Melhor Avaliação</option>
+          <option value="avaliacoes">Mais Avaliadas</option>
+          <option value="preco_asc">Menor Preço</option>
+          <option value="preco_desc">Maior Preço</option>
         </select>
       </div>
     </aside>
@@ -523,12 +650,14 @@ img{max-width:100%;display:block}
 <div class="page" id="page-trancista"><div id="trancistaPerfil"></div></div>
 <div class="page" id="page-perfil"><div id="perfilContent"></div></div>
 
+<!-- LOGIN — só aparece se NÃO estiver autenticado -->
 <div class="page" id="page-login">
   <div class="auth-page">
     <div class="auth-bg"><div class="auth-orb auth-orb--1"></div><div class="auth-orb auth-orb--2"></div></div>
     <div class="auth-box">
       <div class="auth-brand"><span>✦</span> Quem<em>Trançou</em>?</div>
-      <h2>Bem-vinda de volta</h2><p class="auth-sub">Entra na tua conta para continuar</p>
+      <h2>Bem-vinda de volta</h2>
+      <p class="auth-sub">Entra na tua conta para continuar</p>
       <div class="auth-erro" id="loginErro" style="display:none"></div>
       <div class="auth-form">
         <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="o@teu.email"></div>
@@ -540,12 +669,14 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
+<!-- CADASTRO — só aparece se NÃO estiver autenticado -->
 <div class="page" id="page-cadastro">
   <div class="auth-page">
     <div class="auth-bg"><div class="auth-orb auth-orb--1"></div><div class="auth-orb auth-orb--2"></div></div>
     <div class="auth-box">
       <div class="auth-brand"><span>✦</span> Quem<em>Trançou</em>?</div>
-      <h2>Cria a tua conta</h2><p class="auth-sub">Grátis. Sempre.</p>
+      <h2>Cria a tua conta</h2>
+      <p class="auth-sub">Grátis. Sempre.</p>
       <div class="auth-erro" id="cadastroErro" style="display:none"></div>
       <div class="auth-form">
         <div class="tipo-selector">
@@ -566,7 +697,8 @@ img{max-width:100%;display:block}
 <div class="modal-overlay" id="modalMarcacao" style="display:none" onclick="closeModal('modalMarcacao')">
   <div class="modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeModal('modalMarcacao')">✕</button>
-    <h3 id="modalNome">Marcar</h3><p class="modal-sub">Escolhe a data e tipo de serviço</p>
+    <h3 id="modalNome">Marcar</h3>
+    <p class="modal-sub">Escolhe a data e tipo de serviço</p>
     <div class="form-group"><label>Data preferida</label><input type="date" id="modalData"></div>
     <div class="form-group"><label>Tipo de trança</label><select id="modalTipo"></select></div>
     <div class="form-group"><label>Notas adicionais</label><textarea rows="3" id="modalNota" placeholder="Descreve o que pretendes..."></textarea></div>
@@ -594,105 +726,149 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, query, orderBy, where, onSnapshot, serverTimestamp, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const app = initializeApp({
-  apiKey:"AIzaSyBKlsoxb03nDoerHYCtfFFoQ8PFUXa5asA",
-  authDomain:"quem-trancou.firebaseapp.com",
-  projectId:"quem-trancou",
-  storageBucket:"quem-trancou.firebasestorage.app",
-  messagingSenderId:"858295754308",
-  appId:"1:858295754308:web:f4341b11921bf7ab3c2611"
+  apiKey: "AIzaSyBKlsoxb03nDoerHYCtfFFoQ8PFUXa5asA",
+  authDomain: "quem-trancou.firebaseapp.com",
+  projectId: "quem-trancou",
+  storageBucket: "quem-trancou.firebasestorage.app",
+  messagingSenderId: "858295754308",
+  appId: "1:858295754308:web:f4341b11921bf7ab3c2611"
 });
 const auth = getAuth(app);
 const db = getFirestore(app);
-const CLOUD_NAME = 'dgvjdkgmg';
-const UPLOAD_PRESET = 'quem-trancou';
 
-async function uploadCloudinary(file, onProgress) {
+const CLOUDINARY_CLOUD_NAME = 'dgvjdkgmg';
+const CLOUDINARY_UPLOAD_PRESET = 'quem-trancou';
+
+async function uploadParaCloudinary(file, onProgress) {
   const isVideo = file.type.startsWith('video/');
-  const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${isVideo?'video':'image'}/upload`;
+  const resourceType = isVideo ? 'video' : 'image';
+  const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('upload_preset', UPLOAD_PRESET);
-    xhr.upload.onprogress = e => { if(e.lengthComputable && onProgress) onProgress(Math.round(e.loaded/e.total*100)); };
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    xhr.upload.onprogress = (e) => { if(e.lengthComputable && onProgress) onProgress(Math.round((e.loaded/e.total)*100)); };
     xhr.onload = () => {
-      if(xhr.status===200){const d=JSON.parse(xhr.responseText);resolve({url:d.secure_url,type:isVideo?'video':'image',publicId:d.public_id});}
+      if(xhr.status===200) { const d=JSON.parse(xhr.responseText); resolve({url:d.secure_url,type:isVideo?'video':'image',publicId:d.public_id}); }
       else reject(new Error('Erro no upload: '+xhr.responseText));
     };
-    xhr.onerror = () => reject(new Error('Falha Cloudinary'));
-    xhr.open('POST', url); xhr.send(fd);
+    xhr.onerror = () => reject(new Error('Falha na ligação ao Cloudinary'));
+    xhr.open('POST', url);
+    xhr.send(formData);
   });
 }
 
+// ── STATE ──
 let currentUser = null;
+let currentUserPerfil = null; // dados do Firestore do utilizador actual
 let allTrancistas = [];
-let filtroTipo = 'Todos', filtroCidade = 'Todas';
+let filtroTipo = 'Todos';
+let filtroCidade = 'Todas';
 let currentTrancistaPerfil = null;
 let registoTipo = 'cliente';
-let uploadedPortfolioFiles = [], existingPortfolioItems = [];
-let marcacoesUnsub = null;
+let uploadedPortfolioFiles = [];
+let existingPortfolioItems = [];
+let marcacoesUnsub = null; // listener em tempo real das marcações
 
-// ── AUTH STATE ──
+// ── AUTH STATE — lógica central ──
 onAuthStateChanged(auth, async user => {
   currentUser = user;
-  const navAuth = document.getElementById('navAuth');
+
   if(user) {
-    const ini = (user.displayName||user.email||'?')[0].toUpperCase();
-    navAuth.innerHTML = `
-      <button class="nav-link" onclick="showPage('perfil')" style="display:flex;align-items:center;gap:8px">
-        <span style="width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--espresso);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem">${ini}</span>Perfil
-      </button>
-      <button class="btn-logout" onclick="doLogout()">Sair</button>`;
-    // Redireciona se estava em login/cadastro
-    const pa = document.querySelector('.page.active');
-    if(pa && (pa.id==='page-login'||pa.id==='page-cadastro')) showPage('perfil');
+    // Carrega perfil do utilizador autenticado
+    try {
+      const snap = await getDoc(doc(db,'usuarios',user.uid));
+      currentUserPerfil = snap.exists() ? snap.data() : {};
+    } catch(e){ currentUserPerfil = {}; }
+
+    // Conta marcações pendentes para badge
+    const pendentes = await contarMarcacoesPendentes(user.uid, currentUserPerfil?.tipo);
+    renderNavAuth(user, pendentes);
+
+    // Se estava em login ou cadastro, redireciona para o perfil
+    const pAtiva = document.querySelector('.page.active');
+    if(pAtiva && (pAtiva.id==='page-login' || pAtiva.id==='page-cadastro')) {
+      showPage('perfil');
+    }
   } else {
-    navAuth.innerHTML = `
-      <a href="#" class="btn-nav-ghost" onclick="showPage('login')">Entrar</a>
-      <a href="#" class="btn-nav-gold" onclick="showPage('cadastro')">Criar conta</a>`;
+    currentUserPerfil = null;
+    renderNavAuth(null, 0);
   }
+
   loadAllTrancistas();
 });
 
+function renderNavAuth(user, pendentes) {
+  const navAuth = document.getElementById('navAuth');
+  if(user) {
+    const initial = (user.displayName || user.email || '?')[0].toUpperCase();
+    const badgeHtml = pendentes > 0 ? `<span class="notif-badge">${pendentes}</span>` : '';
+    navAuth.innerHTML = `
+      <div class="nav-perfil-wrap">
+        <button class="nav-link" onclick="showPage('perfil')" style="display:flex;align-items:center;gap:8px;position:relative">
+          <span style="width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--espresso);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem">${initial}</span>
+          Perfil
+          ${badgeHtml}
+        </button>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Sair</button>`;
+  } else {
+    navAuth.innerHTML = `
+      <a href="#" class="btn-nav-ghost" onclick="event.preventDefault();showPage('login')">Entrar</a>
+      <a href="#" class="btn-nav-gold" onclick="event.preventDefault();showPage('cadastro')">Criar conta</a>`;
+  }
+}
+
+async function contarMarcacoesPendentes(uid, tipo) {
+  if(!uid) return 0;
+  try {
+    const campo = tipo === 'trancista' ? 'trancistId' : 'clienteId';
+    const snap = await getDocs(query(
+      collection(db,'marcacoes'),
+      where(campo,'==',uid),
+      where('estado','==','pendente')
+    ));
+    return snap.size;
+  } catch(e){ return 0; }
+}
+
+// ── LOAD TRANCISTAS ──
 async function loadAllTrancistas() {
   try {
     const snap = await getDocs(query(collection(db,'trancistas'),orderBy('nota','desc')));
     allTrancistas = snap.docs.map(d=>({id:d.id,...d.data()}));
-  } catch(e){ allTrancistas=[]; }
-  renderHomeCards(); renderExplorar(); renderRanking(); renderFeed(); animateStats();
+  } catch(e) { allTrancistas=[]; }
+  renderHomeCards();
+  renderExplorar();
+  renderRanking();
+  renderFeed();
+  animateStats();
 }
 
+// ── STATS ──
 function animateStats() {
   const total=allTrancistas.length;
   const avals=allTrancistas.reduce((s,t)=>s+(t.avaliacoes||0),0);
-  const cids=[...new Set(allTrancistas.map(t=>t.cidade).filter(Boolean))].length;
-  animCount('statProf',total); animCount('statAval',avals); animCount('statCid',cids);
+  const cidades=[...new Set(allTrancistas.map(t=>t.cidade).filter(Boolean))].length;
+  animCount('statProf',total); animCount('statAval',avals); animCount('statCid',cidades);
 }
 function animCount(id,target) {
   if(!target){document.getElementById(id).textContent='0';return;}
-  let i=0; const steps=50;
-  const t=setInterval(()=>{ i++; document.getElementById(id).textContent=Math.floor(target*(i/steps)).toLocaleString()+'+'; if(i>=steps)clearInterval(t); },30);
+  let i=0;const steps=50;
+  const timer=setInterval(()=>{i++;document.getElementById(id).textContent=Math.floor(target*(i/steps)).toLocaleString()+'+';if(i>=steps)clearInterval(timer);},30);
 }
 
-function getFotoPerfilUrl(t) {
-  if(!t.fotoPerfil) return null;
-  if(typeof t.fotoPerfil==='string') return t.fotoPerfil;
-  if(t.fotoPerfil.url) return t.fotoPerfil.url;
-  return null;
-}
-function stars(nota) {
-  return `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`;
-}
-function starsHtml(nota) {
-  return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');
-}
-
+// ── HOME CARDS ──
 function renderHomeCards() {
-  const el=document.getElementById('homeCards');
-  const top3=allTrancistas.slice(0,3);
-  if(!top3.length){el.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="empty-icon">✦</span><p>Ainda não há trancistas cadastradas.<br>Sê a primeira!</p><button class="btn-gold-lg" onclick="showPage('cadastro')">Criar Perfil Grátis ✦</button></div>`;return;}
+  const el = document.getElementById('homeCards');
+  const top3 = allTrancistas.slice(0,3);
+  if(!top3.length) {
+    el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="empty-icon">✦</span><p>Ainda não há trancistas cadastradas.<br>Sê a primeira!</p><button class="btn-gold-lg" onclick="showPage('cadastro')">Criar Perfil Grátis ✦</button></div>`;
+    return;
+  }
   const cores=['#E8547A','#2A9D8F','#D4A843'];
-  el.innerHTML=top3.map((t,i)=>{
+  el.innerHTML = top3.map((t,i)=>{
     const foto=getFotoPerfilUrl(t);
     return `<div class="card" style="--accent:${t.cor||cores[i]}" onclick="showTrancista('${t.id}')">
       <div class="card__rank">#${i+1}</div>
@@ -708,6 +884,14 @@ function renderHomeCards() {
   }).join('');
 }
 
+function getFotoPerfilUrl(t) {
+  if(!t||!t.fotoPerfil) return null;
+  if(typeof t.fotoPerfil==='string') return t.fotoPerfil;
+  if(t.fotoPerfil.url) return t.fotoPerfil.url;
+  return null;
+}
+
+// ── EXPLORAR ──
 function renderExplorar() {
   const busca=(document.getElementById('filtroSearch')||{}).value||'';
   const disp=(document.getElementById('filtroDisp')||{}).checked||false;
@@ -748,10 +932,11 @@ function renderExplorar() {
     </div>`;
   }).join('');
 }
-window.setFiltroTipo=(btn,val)=>{filtroTipo=val;document.querySelectorAll('.filtro-group .filtro-opt').forEach(b=>{if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent))b.classList.remove('active')});btn.classList.add('active');renderExplorar();};
-window.setFiltroCidade=(btn,val)=>{filtroCidade=val;document.querySelectorAll('.filtro-group .filtro-opt').forEach(b=>{if(['Todas','Luanda','Benguela','Huambo','Lubango'].includes(b.textContent))b.classList.remove('active')});btn.classList.add('active');renderExplorar();};
+window.setFiltroTipo=(btn,val)=>{filtroTipo=val;document.querySelectorAll('.filtro-group .filtro-opt').forEach(b=>{if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent))b.classList.remove('active');});btn.classList.add('active');renderExplorar();};
+window.setFiltroCidade=(btn,val)=>{filtroCidade=val;document.querySelectorAll('.filtro-group .filtro-opt').forEach(b=>{if(['Todas','Luanda','Benguela','Huambo','Lubango'].includes(b.textContent))b.classList.remove('active');});btn.classList.add('active');renderExplorar();};
 window.renderExplorar=renderExplorar;
 
+// ── RANKING ──
 function renderRanking() {
   const sorted=[...allTrancistas].sort((a,b)=>(b.nota||0)-(a.nota||0));
   const podiumEl=document.getElementById('podium');
@@ -761,43 +946,42 @@ function renderRanking() {
   const top3=sorted.slice(0,3);
   const order=top3.length>=3?[top3[1],top3[0],top3[2]]:top3;
   const heights=['podium-block--2','podium-block--1','podium-block--3'];
-  const bigs=[false,true,false],crowns=[false,true,false],labels=['2º','1º','3º'];
+  const bigs=[false,true,false];
+  const crowns=[false,true,false];
+  const labels=['2º','1º','3º'];
   podiumEl.innerHTML=order.map((t,i)=>{
     const foto=getFotoPerfilUrl(t);
     return `<div class="podium__spot" style="--c:${t.cor||cores[i]}" onclick="showTrancista('${t.id}')">
       ${crowns[i]?'<div class="crown">👑</div>':''}
-      <div class="podium-avatar ${bigs[i]?'podium-avatar--big':''}" style="border-color:${t.cor||cores[i]}">${foto?`<img src="${foto}" alt="${t.nome}">`:`<span>✦</span>`}</div>
+      <div class="podium-avatar ${bigs[i]?'podium-avatar--big':''}" style="border-color:${t.cor||cores[i]}">
+        ${foto?`<img src="${foto}" alt="${t.nome}">`:`<span>✦</span>`}
+      </div>
       <div class="podium-name">${t.nome||'Trancista'}</div>
       <div class="podium-pts" style="color:${t.cor||cores[i]}">${(t.pontuacao||0).toLocaleString()} pts</div>
       <div class="podium-block ${heights[i]}"><span>${labels[i]}</span></div>
     </div>`;
   }).join('');
-  listEl.innerHTML=`<div class="ranking-list__header"><span>Pos.</span><span>Trancista</span><span>Nota</span><span>Avaliações</span><span></span></div>`+
-  sorted.map((t,i)=>{
-    const foto=getFotoPerfilUrl(t);
-    return `<div class="ranking-row" onclick="showTrancista('${t.id}')">
+  listEl.innerHTML=`<div class="ranking-list__header"><span>Pos.</span><span>Trancista</span><span>Nota</span><span>Avaliações</span><span></span></div>
+    ${sorted.map((t,i)=>{const foto=getFotoPerfilUrl(t);return `<div class="ranking-row" onclick="showTrancista('${t.id}')">
       <span class="rank-pos" style="color:${i===0?'#FFD700':i===1?'#C0C0C0':i===2?'#CD7F32':'inherit'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</span>
-      <div class="rank-trancista"><div class="rank-avatar" style="border-color:${t.cor||'var(--gold)'}"> ${foto?`<img src="${foto}" alt="${t.nome}">`:`✦`}</div>
-      <div><strong>${t.nome||'Trancista'}</strong><span class="rank-city">📍 ${t.cidade||''}</span></div></div>
+      <div class="rank-trancista"><div class="rank-avatar" style="border-color:${t.cor||'var(--gold)'}">
+        ${foto?`<img src="${foto}" alt="${t.nome}">`:`✦`}
+      </div><div><strong>${t.nome||'Trancista'}</strong><span class="rank-city">📍 ${t.cidade||''}</span></div></div>
       <span class="rank-nota">⭐ ${(t.nota||0).toFixed(1)}</span>
       <span class="rank-aval">${t.avaliacoes||0}</span>
       <span class="rank-cta">→</span>
-    </div>`;
-  }).join('');
+    </div>`;}).join('')}`;
 }
 window.setRankTab=(btn)=>{document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderRanking();};
 
+// ── FEED ──
 function renderFeed() {
   const el=document.getElementById('feedPosts');
   const trancistas=allTrancistas.filter(t=>(t.portfolio||[]).length>0);
   if(!trancistas.length){el.innerHTML=`<div class="empty-state"><span class="empty-icon">📸</span><p>Ainda não há publicações.</p></div>`;}
-  else {
+  else{
     const posts=[];
-    trancistas.forEach(t=>(t.portfolio||[]).forEach((item,i)=>{
-      const url=typeof item==='string'?item:item.url;
-      const type=typeof item==='string'?'image':(item.type||'image');
-      posts.push({trancista:t,url,type,id:t.id+'_'+i});
-    }));
+    trancistas.forEach(t=>{(t.portfolio||[]).forEach((item,i)=>{const url=typeof item==='string'?item:item.url;const type=typeof item==='string'?'image':(item.type||'image');posts.push({trancista:t,url,type,id:t.id+'_'+i});});});
     posts.sort(()=>Math.random()-.5);
     el.innerHTML=posts.slice(0,12).map(p=>{
       const foto=getFotoPerfilUrl(p.trancista);
@@ -807,8 +991,7 @@ function renderFeed() {
           <div class="post-avatar">${foto?`<img src="${foto}" alt="${p.trancista.nome}">`:`✦`}</div>
           <div class="post-meta"><strong>${p.trancista.nome||'Trancista'}</strong><span class="post-info">📍 ${p.trancista.cidade||'Angola'}</span></div>
           ${p.trancista.especialidade?`<span class="post-tipo" style="background:${(p.trancista.cor||'var(--gold)')+'22'};color:${p.trancista.cor||'var(--gold)'}">${p.trancista.especialidade}</span>`:''}
-        </div>
-        ${mediaHtml}
+        </div>${mediaHtml}
         <div class="post-body"><p>${p.trancista.bio||'Trabalho da trancista.'}</p></div>
         <div class="post-footer">
           <button class="like-btn" id="like_${p.id}" onclick="toggleLike('${p.id}')">🤍 0</button>
@@ -818,18 +1001,17 @@ function renderFeed() {
       </div>`;
     }).join('');
   }
-  const tipos={};
-  allTrancistas.forEach(t=>(t.tiposEscolhidos||[]).forEach(x=>tipos[x]=(tipos[x]||0)+1));
+  const tipos={};allTrancistas.forEach(t=>(t.tiposEscolhidos||[]).forEach(x=>tipos[x]=(tipos[x]||0)+1));
   const top=Object.entries(tipos).sort((a,b)=>b[1]-a[1]).slice(0,5);
   document.getElementById('tendencias').innerHTML=top.map(([nome],i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(253,246,236,.05);font-family:'Syne',sans-serif;font-size:.85rem;color:rgba(253,246,236,.7)"><span style="color:var(--gold);font-weight:700;width:24px">#${i+1}</span><span>${nome}</span></div>`).join('')||'<p style="color:rgba(253,246,236,.3);font-size:.85rem">Em breve...</p>';
 }
 window.toggleLike=(id)=>{const btn=document.getElementById('like_'+id);if(!btn)return;const liked=btn.classList.toggle('liked');const n=parseInt(btn.textContent.replace(/\D/g,''))||0;btn.textContent=(liked?'❤️':'🤍')+' '+(liked?n+1:n-1);};
 
 // ── TRANCISTA PERFIL ──
-window.showTrancista = async (id) => {
+window.showTrancista=async(id)=>{
   showPage('trancista');
   const el=document.getElementById('trancistaPerfil');
-  if(!el) return;
+  if(!el)return;
   el.innerHTML=`<div class="tp-loading"><span>✦</span> A carregar perfil...</div>`;
   let t=allTrancistas.find(x=>x.id===id);
   if(!t){try{const snap=await getDoc(doc(db,'trancistas',id));if(snap.exists())t={id,...snap.data()};}catch(e){}}
@@ -837,8 +1019,6 @@ window.showTrancista = async (id) => {
   currentTrancistaPerfil=t;
   const portfolio=t.portfolio||[];
   const foto=getFotoPerfilUrl(t);
-  const isOwner=currentUser&&currentUser.uid===id;
-
   el.innerHTML=`<div class="tp-page" style="padding-top:0">
     <div class="tp-hero" style="--c:${t.cor||'var(--gold)'}">
       <div class="tp-hero__bg"></div>
@@ -849,23 +1029,14 @@ window.showTrancista = async (id) => {
           <p class="tp-specialty">${t.especialidade||''}</p>
           <div class="tp-rating"><span class="tp-stars">${starsHtml(t.nota||0)}</span><strong>${(t.nota||0).toFixed(1)}</strong><span>(${t.avaliacoes||0} avaliações)</span><span class="sep">·</span><span>📍 ${t.cidade||'Angola'}</span></div>
         </div>
-        ${isOwner
-          ?`<button class="tp-marcar-btn" onclick="showPage('perfil')" style="background:rgba(212,168,67,.15);color:var(--gold);border:1px solid rgba(212,168,67,.3);box-shadow:none">⚙️ Gerir Perfil</button>`
-          :`<button class="tp-marcar-btn" onclick="openMarcacao()">📅 Marcar Agora</button>`}
+        <button class="tp-marcar-btn" onclick="openMarcacao()">📅 Marcar Agora</button>
       </div>
     </div>
     <div class="container tp-body">
       <div class="tp-main">
         ${t.bio?`<section class="tp-section"><h3>Sobre</h3><p>${t.bio}</p></section>`:''}
-        ${portfolio.length?`<section class="tp-section"><h3>Portfólio de Trabalhos</h3><div class="tp-portfolio-grid">${portfolio.map(item=>{
-          const url=typeof item==='string'?item:item.url;
-          const type=typeof item==='string'?'image':(item.type||'image');
-          return type==='video'
-            ?`<div class="tp-portfolio-item" onclick="openLightbox('${url}','video')"><video src="${url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`
-            :`<div class="tp-portfolio-item" onclick="openLightbox('${url}','image')"><img src="${url}" alt="Trabalho"></div>`;
-        }).join('')}</div></section>`:''}
-        <section class="tp-section">
-          <h3>Serviços & Preços</h3>
+        ${portfolio.length?`<section class="tp-section"><h3>Portfólio de Trabalhos</h3><div class="tp-portfolio-grid">${portfolio.map(item=>{const url=typeof item==='string'?item:item.url;const type=typeof item==='string'?'image':(item.type||'image');if(type==='video')return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','video')"><video src="${url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','image')"><img src="${url}" alt="Trabalho"></div>`;}).join('')}</div></section>`:''}
+        <section class="tp-section"><h3>Serviços & Preços</h3>
           <div class="tp-servicos-grid">
             ${(t.precoMin||t.precoMax)?`<div class="tp-detalhe"><span class="tp-detalhe-icon">💰</span><div><strong>Preço</strong><span>AOA ${Number(t.precoMin||0).toLocaleString()} – ${Number(t.precoMax||0).toLocaleString()}</span></div></div>`:''}
             ${t.tempo?`<div class="tp-detalhe"><span class="tp-detalhe-icon">⏱</span><div><strong>Tempo médio</strong><span>${t.tempo}</span></div></div>`:''}
@@ -883,12 +1054,9 @@ window.showTrancista = async (id) => {
           <div class="tp-stat-row"><span>Fotos/Vídeos</span><strong>${portfolio.length}</strong></div>
         </div>
         <div class="tp-cta-card" style="--c:${t.cor||'var(--gold)'}">
-          <h4>${isOwner?'O teu perfil':'Pronta para marcar?'}</h4>
-          <p>${isOwner?'Gere o teu perfil e marcações':(t.disponivel?'Disponível agora':'Momentaneamente ocupada')}</p>
-          ${isOwner
-            ?`<button class="tp-cta-btn" onclick="showPage('perfil')">⚙️ Ir para o meu Perfil</button>`
-            :`<button class="tp-cta-btn" onclick="openMarcacao()">📅 Marcar Agora</button>`}
-          ${!isOwner&&t.whatsapp?`<a href="https://wa.me/${t.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank">💬 WhatsApp</a>`:''}
+          <h4>Pronta para marcar?</h4><p>${t.disponivel?'Disponível agora':'Momentaneamente ocupada'}</p>
+          <button class="tp-cta-btn" onclick="openMarcacao()">📅 Marcar Agora</button>
+          ${t.whatsapp?`<a href="https://wa.me/${t.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank">💬 WhatsApp</a>`:''}
         </div>
       </aside>
     </div>
@@ -900,103 +1068,57 @@ window.openMarcacao=()=>{
   const t=currentTrancistaPerfil;if(!t)return;
   document.getElementById('modalNome').textContent='Marcar com '+t.nome;
   document.getElementById('modalData').min=new Date().toISOString().split('T')[0];
-  document.getElementById('modalTipo').innerHTML=(t.tiposEscolhidos||['Box Braids']).map(x=>`<option>${x}</option>`).join('');
+  const sel=document.getElementById('modalTipo');
+  sel.innerHTML=(t.tiposEscolhidos||['Box Braids']).map(x=>`<option>${x}</option>`).join('');
   document.getElementById('modalMarcacao').style.display='flex';
 };
 window.closeModal=(id)=>document.getElementById(id).style.display='none';
-
 window.enviarMarcacao=async()=>{
   if(!currentUser||!currentTrancistaPerfil)return;
+  const dataVal=document.getElementById('modalData').value;
+  if(!dataVal){alert('Por favor escolhe uma data.');return;}
   await addDoc(collection(db,'marcacoes'),{
-    clienteId:currentUser.uid,clienteNome:currentUser.displayName||currentUser.email,
-    clienteEmail:currentUser.email||'',
-    trancistId:currentTrancistaPerfil.id,trancistaNome:currentTrancistaPerfil.nome,
-    data:document.getElementById('modalData').value,
+    clienteId:currentUser.uid,
+    clienteNome:currentUser.displayName||currentUser.email,
+    clienteEmail:currentUser.email,
+    trancistId:currentTrancistaPerfil.id,
+    trancistaNome:currentTrancistaPerfil.nome,
+    data:dataVal,
     tipo:document.getElementById('modalTipo').value,
     nota:document.getElementById('modalNota').value,
-    criadoEm:serverTimestamp(),estado:'pendente'
+    criadoEm:serverTimestamp(),
+    estado:'pendente'
   });
   closeModal('modalMarcacao');
   alert('✦ Pedido enviado! A trancista irá contactar-te em breve.');
 };
 
-// ── VER PERFIL DO CLIENTE ──
-window.verPerfilCliente=async(clienteId,clienteNome,clienteEmail)=>{
-  const el=document.getElementById('modalClienteContent');
-  el.innerHTML=`<div style="text-align:center;padding:20px;color:var(--gold)">A carregar...</div>`;
-  document.getElementById('modalCliente').style.display='flex';
-  let d={nome:clienteNome,email:clienteEmail};
-  try{const snap=await getDoc(doc(db,'usuarios',clienteId));if(snap.exists())d={...d,...snap.data()};}catch(e){}
-  const ini=(d.nome||'?')[0].toUpperCase();
-  el.innerHTML=`
-    <div style="text-align:center;margin-bottom:24px">
-      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--espresso);margin:0 auto 16px">${ini}</div>
-      <h3 style="color:var(--cream);margin-bottom:4px">${d.nome||'Cliente'}</h3>
-      <p style="color:rgba(253,246,236,.4);font-size:.85rem">${d.email||''}</p>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      ${d.cidade?`<div style="display:flex;align-items:center;gap:12px;background:rgba(26,15,8,.4);border-radius:10px;padding:14px"><span>📍</span><div><p style="font-family:'Syne',sans-serif;font-size:.72rem;color:rgba(253,246,236,.4);margin-bottom:2px">CIDADE</p><p style="color:var(--cream);font-size:.9rem">${d.cidade}</p></div></div>`:''}
-      ${d.whatsapp
-        ?`<a href="https://wa.me/${d.whatsapp.replace(/\D/g,'')}" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);border-radius:10px;padding:14px;text-decoration:none"><span>💬</span><div><p style="font-family:'Syne',sans-serif;font-size:.72rem;color:rgba(37,211,102,.6);margin-bottom:2px">WHATSAPP</p><p style="color:#25d366;font-size:.9rem;font-weight:600">${d.whatsapp}</p></div></a>`
-        :`<div style="display:flex;align-items:center;gap:12px;background:rgba(26,15,8,.4);border-radius:10px;padding:14px"><span>📧</span><div><p style="font-family:'Syne',sans-serif;font-size:.72rem;color:rgba(253,246,236,.4);margin-bottom:2px">EMAIL</p><p style="color:var(--cream);font-size:.9rem">${d.email||'Não disponível'}</p></div></div>`}
-    </div>`;
-};
-
-// ── MARCAÇÕES TEMPO REAL ──
-window.carregarMarcacoes=()=>{
-  const el=document.getElementById('listaMarcacoes');
-  if(!el||!currentUser)return;
-  if(marcacoesUnsub){marcacoesUnsub();marcacoesUnsub=null;}
-  const q=query(collection(db,'marcacoes'),where('trancistId','==',currentUser.uid),orderBy('criadoEm','desc'));
-  marcacoesUnsub=onSnapshot(q,snap=>{
-    if(!snap.docs.length){el.innerHTML=`<p style="color:rgba(253,246,236,.4);font-family:'Syne',sans-serif;font-size:.85rem;padding:20px 0">Ainda não tens pedidos de marcação. Quando uma cliente marcar contigo, aparece aqui em tempo real.</p>`;return;}
-    el.innerHTML=snap.docs.map(d=>{
-      const m={id:d.id,...d.data()};
-      const cor=m.estado==='confirmado'?'#2ecc71':m.estado==='recusado'?'var(--accent-pink)':'var(--gold)';
-      const dataFmt=m.criadoEm?.toDate?m.criadoEm.toDate().toLocaleDateString('pt-AO',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-      const nomeEsc=(m.clienteNome||'').replace(/'/g,"\\'");
-      const emailEsc=(m.clienteEmail||'').replace(/'/g,"\\'");
-      return `<div class="marcacao-card marcacao-card--${m.estado||'pendente'}">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-          <div style="display:flex;align-items:center;gap:10px">
-            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;color:var(--espresso);flex-shrink:0">${(m.clienteNome||'?')[0].toUpperCase()}</div>
-            <div><strong style="font-family:'Syne',sans-serif;color:var(--cream);font-size:.95rem;display:block">${m.clienteNome||'Cliente'}</strong><span style="font-family:'Syne',sans-serif;font-size:.72rem;color:rgba(253,246,236,.35)">${dataFmt}</span></div>
-          </div>
-          <span style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;background:${cor}22;color:${cor}">${m.estado==='confirmado'?'✓ Confirmado':m.estado==='recusado'?'✗ Recusado':'⏳ Pendente'}</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px">
-          <span style="font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.6)">📅 ${m.data||'Data não definida'}</span>
-          <span style="font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.6)">✂️ ${m.tipo||''}</span>
-        </div>
-        ${m.nota?`<p style="font-size:.85rem;color:rgba(253,246,236,.55);margin-bottom:12px;font-style:italic">"${m.nota}"</p>`:''}
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button onclick="verPerfilCliente('${m.clienteId}','${nomeEsc}','${emailEsc}')" style="background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.2);color:var(--gold);padding:8px 16px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer">👤 Ver Cliente</button>
-          ${m.estado==='pendente'||!m.estado?`
-          <button onclick="responderMarcacao('${m.id}','confirmado')" style="background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.3);color:#2ecc71;padding:8px 16px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer">✓ Confirmar</button>
-          <button onclick="responderMarcacao('${m.id}','recusado')" style="background:rgba(232,84,122,.1);border:1px solid rgba(232,84,122,.3);color:var(--accent-pink);padding:8px 16px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer">✗ Recusar</button>`:''}
-        </div>
-      </div>`;
-    }).join('');
-  });
-};
-window.responderMarcacao=async(id,estado)=>{try{await updateDoc(doc(db,'marcacoes',id),{estado});}catch(e){alert('Erro ao responder.');}};
-
+// ══════════════════════════════════════════════
 // ── MEU PERFIL ──
+// ══════════════════════════════════════════════
 window.renderPerfil=async()=>{
   if(!currentUser){showPage('login');return;}
-  const el=document.getElementById('perfilContent');if(!el)return;
+  const el=document.getElementById('perfilContent');
+  if(!el)return;
+
   const snap=await getDoc(doc(db,'usuarios',currentUser.uid));
   const perfil=snap.exists()?snap.data():{};
   const isTrancista=perfil.tipo==='trancista';
+  currentUserPerfil=perfil;
+
   let tData={};
-  if(isTrancista){try{const s=await getDoc(doc(db,'trancistas',currentUser.uid));if(s.exists())tData=s.data();}catch(e){}}
+  if(isTrancista){
+    try{const s=await getDoc(doc(db,'trancistas',currentUser.uid));if(s.exists())tData=s.data();}catch(e){}
+  }
   existingPortfolioItems=(tData.portfolio||[]).map(item=>typeof item==='string'?{url:item,type:'image'}:item);
   uploadedPortfolioFiles=[];
+
   const foto=getFotoPerfilUrl(tData);
-  const ini=(currentUser.displayName||'?')[0].toUpperCase();
+  const initial=(currentUser.displayName||'?')[0].toUpperCase();
+
   el.innerHTML=`<div class="perfil-page" style="padding-top:0">
     <div class="perfil-hero"><div class="container perfil-hero__inner">
-      <div class="perfil-avatar-big">${foto?`<img src="${foto}" alt="foto">`:`${ini}`}</div>
+      <div class="perfil-avatar-big">${foto?`<img src="${foto}" alt="foto">`:`${initial}`}</div>
       <div class="perfil-hero__info">
         <h1>${currentUser.displayName||'Utilizador'}</h1>
         <p class="perfil-email">${currentUser.email}</p>
@@ -1012,21 +1134,19 @@ window.renderPerfil=async()=>{
     </div></div>
     <div class="container perfil-body">
       <div id="perfilMsg"></div>
-      ${isTrancista?`
-      <div style="margin-bottom:40px">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:20px">📋 Pedidos de Marcação</h3>
-        <div id="listaMarcacoes"><p style="color:rgba(253,246,236,.4);font-family:'Syne',sans-serif;font-size:.85rem">A carregar pedidos...</p></div>
-      </div>
-      <div class="perfil-stats">
+      ${isTrancista?`<div class="perfil-stats">
         <div class="pstat"><span class="pstat__n">${(tData.nota||0).toFixed(1)}</span><span>Nota média</span></div>
         <div class="pstat"><span class="pstat__n">${tData.avaliacoes||0}</span><span>Avaliações</span></div>
         <div class="pstat"><span class="pstat__n">${(tData.portfolio||[]).length}</span><span>Fotos/Vídeos</span></div>
         <div class="pstat"><span class="pstat__n">${tData.pontuacao||0}</span><span>Pontos</span></div>
       </div>`:''}
       <div id="perfilFormArea">${renderPerfilVer(tData,isTrancista)}</div>
+      <div id="marcacoesArea"></div>
     </div>
   </div>`;
-  if(isTrancista) carregarMarcacoes();
+
+  // Carrega marcações em tempo real
+  carregarMarcacoesRealtime(currentUser.uid, isTrancista);
 };
 
 function renderPerfilVer(tData,isTrancista){
@@ -1035,14 +1155,194 @@ function renderPerfilVer(tData,isTrancista){
     ${tData.cidade?`<div class="info-card"><h4>Localização</h4><p>📍 ${tData.cidade}, Angola</p></div>`:''}
     ${isTrancista&&(tData.tiposEscolhidos||[]).length?`<div class="info-card"><h4>Tipos de Trança</h4><div class="chips-display">${tData.tiposEscolhidos.map(t=>`<span class="chip-display">${t}</span>`).join('')}</div></div>`:''}
     ${isTrancista&&(tData.precoMin||tData.precoMax)?`<div class="info-card"><h4>Preços</h4><p>💰 AOA ${Number(tData.precoMin||0).toLocaleString()} – ${Number(tData.precoMax||0).toLocaleString()}</p>${tData.tempo?`<p>⏱ ${tData.tempo}</p>`:''}</div>`:''}
-    ${existingPortfolioItems.length?`<div class="info-card"><h4>Portfólio</h4><div class="tp-portfolio-grid">${existingPortfolioItems.map(item=>{
-      if(item.type==='video')return`<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','video')"><video src="${item.url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;
-      return`<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','image')"><img src="${item.url}" alt="trabalho"></div>`;
-    }).join('')}</div></div>`:''}
+    ${existingPortfolioItems.length?`<div class="info-card"><h4>Portfólio</h4><div class="tp-portfolio-grid">${existingPortfolioItems.map(item=>{if(item.type==='video')return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','video')"><video src="${item.url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','image')"><img src="${item.url}" alt="trabalho"></div>`;}).join('')}</div></div>`:''}
     ${!tData.bio&&!tData.cidade?`<div class="perfil-empty"><span>✏️</span><p>O teu perfil está quase vazio. Clica em "Editar Perfil" para o completar!</p></div>`:''}
   </div>`;
 }
 
+// ══════════════════════════════════════════════
+// ── MARCAÇÕES EM TEMPO REAL ──
+// ══════════════════════════════════════════════
+function carregarMarcacoesRealtime(uid, isTrancista) {
+  // Cancela listener anterior se existir
+  if(marcacoesUnsub) { marcacoesUnsub(); marcacoesUnsub=null; }
+
+  const campo = isTrancista ? 'trancistId' : 'clienteId';
+  const q = query(
+    collection(db,'marcacoes'),
+    where(campo,'==',uid),
+    orderBy('criadoEm','desc')
+  );
+
+  marcacoesUnsub = onSnapshot(q, (snapshot) => {
+    const marcacoes = snapshot.docs.map(d=>({id:d.id,...d.data()}));
+    const area = document.getElementById('marcacoesArea');
+    if(!area) return;
+
+    if(!marcacoes.length){
+      area.innerHTML=`<div class="marcacoes-section"><h3>${isTrancista?'📅 Pedidos de Marcação':'📋 As Minhas Marcações'}</h3><div class="perfil-empty"><span>📭</span><p>${isTrancista?'Ainda não tens pedidos de marcação.':'Ainda não fizeste nenhuma marcação.'}</p></div></div>`;
+      return;
+    }
+
+    const pendentes = marcacoes.filter(m=>m.estado==='pendente');
+    const confirmadas = marcacoes.filter(m=>m.estado==='confirmado');
+    const recusadas = marcacoes.filter(m=>m.estado==='recusado');
+
+    // Atualiza badge na navbar
+    const badge = document.querySelector('.notif-badge');
+    if(badge) badge.textContent = pendentes.length || '';
+    if(badge && !pendentes.length) badge.style.display='none';
+    else if(badge) badge.style.display='flex';
+
+    if(isTrancista) {
+      area.innerHTML = `
+        <div class="marcacoes-section">
+          <h3>📅 Pedidos de Marcação ${pendentes.length?`<span class="badge-count">${pendentes.length} pendente${pendentes.length>1?'s':''}</span>`:''}
+          </h3>
+          ${pendentes.length?pendentes.map(m=>renderMarcacaoTrancista(m,true)).join(''):''}
+          ${confirmadas.length?`<div style="margin-top:28px"><h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(253,246,236,.5);margin-bottom:16px;border-bottom:1px solid rgba(212,168,67,.06);padding-bottom:10px">✅ Confirmadas (${confirmadas.length})</h3>${confirmadas.map(m=>renderMarcacaoTrancista(m,false)).join('')}</div>`:''}
+          ${recusadas.length?`<div style="margin-top:28px"><h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:rgba(253,246,236,.3);margin-bottom:16px;border-bottom:1px solid rgba(212,168,67,.04);padding-bottom:10px">✗ Recusadas (${recusadas.length})</h3>${recusadas.map(m=>renderMarcacaoTrancista(m,false)).join('')}</div>`:''}
+        </div>`;
+    } else {
+      area.innerHTML = `
+        <div class="marcacoes-section">
+          <h3>📋 As Minhas Marcações ${pendentes.length?`<span class="badge-count">${pendentes.length}</span>`:''}
+          </h3>
+          ${marcacoes.map(m=>renderMarcacaoCliente(m)).join('')}
+        </div>`;
+    }
+  }, (err)=>{
+    console.error('Erro no listener de marcações:', err);
+  });
+}
+
+function renderMarcacaoTrancista(m, comAcoes) {
+  const inicialCliente = (m.clienteNome||'?')[0].toUpperCase();
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{weekday:'short',day:'numeric',month:'long'}) : '—';
+  const criadoFmt = m.criadoEm?.toDate ? m.criadoEm.toDate().toLocaleDateString('pt-PT') : '';
+  return `<div class="marcacao-card marcacao-card--${m.estado}">
+    <div class="marcacao-card__top">
+      <div class="marcacao-card__user" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">
+        <div class="marc-avatar">${inicialCliente}</div>
+        <div>
+          <div class="marc-nome">👤 ${m.clienteNome||'Cliente'}</div>
+          <div class="marc-email">${m.clienteEmail||''}</div>
+        </div>
+      </div>
+      <span class="marc-estado ${m.estado}">${m.estado==='pendente'?'⏳ Pendente':m.estado==='confirmado'?'✅ Confirmado':'✗ Recusado'}</span>
+    </div>
+    <div class="marcacao-card__details">
+      <span class="marc-detail">📅 ${dataFmt}</span>
+      <span class="marc-detail">✂️ ${m.tipo||'—'}</span>
+      ${criadoFmt?`<span class="marc-detail">🕐 Pedido em ${criadoFmt}</span>`:''}
+    </div>
+    ${m.nota?`<div class="marcacao-card__nota">"${m.nota}"</div>`:''}
+    ${comAcoes&&m.estado==='pendente'?`<div class="marcacao-card__actions">
+      <button class="btn-aceitar" onclick="responderMarcacao('${m.id}','confirmado')">✅ Aceitar</button>
+      <button class="btn-rejeitar" onclick="responderMarcacao('${m.id}','recusado')">✗ Recusar</button>
+      <button class="btn-ver-cliente" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver Perfil</button>
+    </div>`:''}
+    ${m.estado!=='pendente'?`<div class="marcacao-card__actions"><button class="btn-ver-cliente" onclick="verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver Perfil da Cliente</button></div>`:''}
+  </div>`;
+}
+
+function renderMarcacaoCliente(m) {
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{weekday:'short',day:'numeric',month:'long'}) : '—';
+  return `<div class="marc-cliente-card marc-cliente-card--${m.estado}">
+    <div class="marc-cliente-top">
+      <div>
+        <div class="marc-cliente-nome">✂️ ${m.trancistaNome||'Trancista'}</div>
+        <div class="marc-cliente-details">
+          <span class="marc-cliente-detail">📅 ${dataFmt}</span>
+          <span class="marc-cliente-detail">🪡 ${m.tipo||'—'}</span>
+        </div>
+      </div>
+      <span class="marc-estado ${m.estado}">${m.estado==='pendente'?'⏳ Pendente':m.estado==='confirmado'?'✅ Confirmado':'✗ Recusado'}</span>
+    </div>
+    ${m.nota?`<div class="marc-cliente-nota">"${m.nota}"</div>`:''}
+  </div>`;
+}
+
+// ── RESPONDER MARCAÇÃO (aceitar / recusar) ──
+window.responderMarcacao = async (marcacaoId, novoEstado) => {
+  try {
+    await updateDoc(doc(db,'marcacoes',marcacaoId),{
+      estado: novoEstado,
+      respondidoEm: serverTimestamp()
+    });
+    // Atualiza badge
+    const pendentes = await contarMarcacoesPendentes(currentUser.uid, currentUserPerfil?.tipo);
+    renderNavAuth(currentUser, pendentes);
+  } catch(e) {
+    alert('Erro ao actualizar marcação: '+e.message);
+  }
+};
+
+// ── VER PERFIL DE CLIENTE ──
+window.verPerfilCliente = async (clienteId, clienteNome, clienteEmail) => {
+  const modal = document.getElementById('modalCliente');
+  const content = document.getElementById('modalClienteContent');
+  if(!modal||!content) return;
+
+  content.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--gold)">⏳ A carregar...</div>`;
+  modal.style.display = 'flex';
+
+  try {
+    // Busca dados do utilizador
+    let userData = { nome: clienteNome, email: clienteEmail };
+    try {
+      const uSnap = await getDoc(doc(db,'usuarios',clienteId));
+      if(uSnap.exists()) userData = {...userData,...uSnap.data()};
+    } catch(e){}
+
+    // Busca histórico de marcações deste cliente com esta trancista
+    const historico = [];
+    try {
+      const mSnap = await getDocs(query(
+        collection(db,'marcacoes'),
+        where('clienteId','==',clienteId),
+        where('trancistId','==',currentUser.uid),
+        orderBy('criadoEm','desc')
+      ));
+      mSnap.docs.forEach(d=>historico.push({id:d.id,...d.data()}));
+    } catch(e){}
+
+    const totalMarcacoes = historico.length;
+    const confirmadas = historico.filter(m=>m.estado==='confirmado').length;
+    const inicial = (userData.nome||clienteNome||'?')[0].toUpperCase();
+    const foto = userData.fotoPerfil ? (typeof userData.fotoPerfil==='string'?userData.fotoPerfil:userData.fotoPerfil.url) : null;
+
+    content.innerHTML = `
+      <div class="cliente-modal-perfil">
+        <div class="cliente-modal-avatar">${foto?`<img src="${foto}" alt="${userData.nome}">`:`${inicial}`}</div>
+        <h3 class="cliente-modal-nome">${userData.nome||clienteNome||'Cliente'}</h3>
+        <p class="cliente-modal-email">${userData.email||clienteEmail||''}</p>
+        ${userData.cidade?`<p style="font-family:'Syne',sans-serif;font-size:.8rem;color:var(--gold);margin-bottom:16px">📍 ${userData.cidade}</p>`:''}
+        <div class="cliente-modal-stats">
+          <div class="cliente-stat"><strong>${totalMarcacoes}</strong><span>Marcações</span></div>
+          <div class="cliente-stat"><strong>${confirmadas}</strong><span>Confirmadas</span></div>
+          <div class="cliente-stat"><strong>${totalMarcacoes>0?Math.round((confirmadas/totalMarcacoes)*100):0}%</strong><span>Taxa confirm.</span></div>
+        </div>
+        ${historico.length?`
+        <div style="width:100%;text-align:left">
+          <div class="cliente-hist-title">Histórico de marcações contigo</div>
+          ${historico.slice(0,5).map(m=>{
+            const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{day:'numeric',month:'short',year:'numeric'}) : '—';
+            const estadoCor = m.estado==='confirmado'?'#2ecc71':m.estado==='recusado'?'var(--accent-pink)':'var(--gold)';
+            return `<div class="cliente-hist-item">
+              <div><span>${dataFmt}</span><br><span style="font-size:.75rem;color:rgba(253,246,236,.4)">${m.tipo||'—'}</span></div>
+              <strong style="color:${estadoCor}">${m.estado==='confirmado'?'✅':m.estado==='recusado'?'✗':'⏳'} ${m.estado}</strong>
+            </div>`;
+          }).join('')}
+        </div>`:''}
+        ${userData.whatsapp?`<a href="https://wa.me/${userData.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank" style="margin-top:20px">💬 Contactar no WhatsApp</a>`:''}
+      </div>`;
+  } catch(e) {
+    content.innerHTML = `<div style="text-align:center;padding:40px;color:var(--accent-pink)">Erro ao carregar perfil.</div>`;
+  }
+};
+
+// ── EDITAR PERFIL ──
 window.toggleEditarPerfil=async()=>{
   if(!currentUser)return;
   const snap=await getDoc(doc(db,'usuarios',currentUser.uid));
@@ -1054,8 +1354,7 @@ window.toggleEditarPerfil=async()=>{
   uploadedPortfolioFiles=[];
   const tipos=['Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists','Senegalese','Locs'];
   const cidades=['Luanda','Benguela','Huambo','Lobito','Lubango','Malanje','Cabinda','Kuito'];
-  document.getElementById('perfilFormArea').innerHTML=`<div class="perfil-form">
-    <h3>Editar Perfil</h3>
+  document.getElementById('perfilFormArea').innerHTML=`<div class="perfil-form"><h3>Editar Perfil</h3>
     <div class="form-group"><label>Foto de Perfil</label>
       <div class="upload-area" onclick="document.getElementById('uploadFotoPerfil').click()">
         <div class="upload-icon">📸</div><p>Clica para fazer upload da tua foto de perfil</p>
@@ -1082,7 +1381,7 @@ window.toggleEditarPerfil=async()=>{
     </div>
     <div class="form-group"><label>Fotos e Vídeos do Portfólio</label>
       <div class="upload-area" onclick="document.getElementById('uploadPortfolio').click()">
-        <div class="upload-icon">🖼️</div><p>Clica para adicionar fotos ou vídeos dos teus trabalhos</p>
+        <div class="upload-icon">🖼️</div><p>Clica para adicionar fotos ou vídeos dos teus trabalhos (podes seleccionar vários)</p>
         <input type="file" id="uploadPortfolio" accept="image/*,video/*" multiple onchange="addPortfolioFiles(this)">
       </div>
       <div id="uploadProgressArea"></div>
@@ -1093,22 +1392,9 @@ window.toggleEditarPerfil=async()=>{
   </div>`;
 };
 
-window.previewFotoPerfil=(input)=>{
-  const file=input.files[0];if(!file)return;
-  const isVideo=file.type.startsWith('video/');
-  const url=URL.createObjectURL(file);
-  const prev=document.getElementById('fotoPerfilPreview');
-  prev.innerHTML=isVideo
-    ?`<video src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)" muted playsinline autoplay loop></video>`
-    :`<img src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`;
-};
-window.addPortfolioFiles=(input)=>{uploadedPortfolioFiles=[...uploadedPortfolioFiles,...Array.from(input.files)];renderPortfolioPreview();};
-function renderPortfolioPreview(){
-  const prev=document.getElementById('portfolioPreview');if(!prev)return;
-  const existing=existingPortfolioItems.map((item,i)=>`<div class="portfolio-preview-item">${item.type==='video'?`<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${item.url}" alt="trabalho">`}<button class="remove-img" onclick="removeExistingItem(${i})">✕</button></div>`).join('');
-  const newFiles=uploadedPortfolioFiles.map((f,i)=>{const url=URL.createObjectURL(f);const isVideo=f.type.startsWith('video/');return`<div class="portfolio-preview-item">${isVideo?`<video src="${url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${url}" alt="novo">`}<button class="remove-img" onclick="removeNewItem(${i})">✕</button></div>`;}).join('');
-  prev.innerHTML=existing+newFiles;
-}
+window.previewFotoPerfil=(input)=>{const file=input.files[0];if(!file)return;const isVideo=file.type.startsWith('video/');const url=URL.createObjectURL(file);const prev=document.getElementById('fotoPerfilPreview');if(isVideo){prev.innerHTML=`<video src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)" muted playsinline autoplay loop></video>`;}else{prev.innerHTML=`<img src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`;}};
+window.addPortfolioFiles=(input)=>{const files=Array.from(input.files);uploadedPortfolioFiles=[...uploadedPortfolioFiles,...files];renderPortfolioPreview();};
+function renderPortfolioPreview(){const prev=document.getElementById('portfolioPreview');if(!prev)return;const existing=existingPortfolioItems.map((item,i)=>`<div class="portfolio-preview-item">${item.type==='video'?`<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${item.url}" alt="trabalho">`}<button class="remove-img" onclick="removeExistingItem(${i})">✕</button></div>`).join('');const newFiles=uploadedPortfolioFiles.map((f,i)=>{const url=URL.createObjectURL(f);const isVideo=f.type.startsWith('video/');return `<div class="portfolio-preview-item">${isVideo?`<video src="${url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`:`<img src="${url}" alt="novo">`}<button class="remove-img" onclick="removeNewItem(${i})">✕</button></div>`;}).join('');prev.innerHTML=existing+newFiles;}
 window.removeExistingItem=(i)=>{existingPortfolioItems.splice(i,1);renderPortfolioPreview();};
 window.removeNewItem=(i)=>{uploadedPortfolioFiles.splice(i,1);renderPortfolioPreview();};
 
@@ -1120,38 +1406,30 @@ window.salvarPerfil=async()=>{
     const perfil=snap.exists()?snap.data():{};
     const isTrancista=perfil.tipo==='trancista';
     let fotoPerfilItem=null;
-    try{const ts=await getDoc(doc(db,'trancistas',currentUser.uid));if(ts.exists())fotoPerfilItem=ts.data().fotoPerfil||null;}catch(e){}
+    try{const s=await getDoc(doc(db,'trancistas',currentUser.uid));if(s.exists())fotoPerfilItem=s.data().fotoPerfil||null;}catch(e){}
     const fotoInput=document.getElementById('uploadFotoPerfil');
-    if(fotoInput&&fotoInput.files[0]){
-      btn.textContent='A enviar foto...';
-      try{fotoPerfilItem=await uploadCloudinary(fotoInput.files[0],(p)=>{btn.textContent=`A enviar foto... ${p}%`;});}catch(e){console.error(e);}
-    }
+    if(fotoInput&&fotoInput.files[0]){btn.textContent='A enviar foto de perfil...';try{fotoPerfilItem=await uploadParaCloudinary(fotoInput.files[0],(p)=>{btn.textContent=`A enviar foto... ${p}%`;});}catch(e){console.error('Erro upload foto:',e);}}
     let newPortfolioItems=[];
     if(uploadedPortfolioFiles.length>0){
       btn.textContent=`A enviar ${uploadedPortfolioFiles.length} ficheiro(s)...`;
-      const pa=document.getElementById('uploadProgressArea');
-      if(pa)pa.innerHTML=uploadedPortfolioFiles.map((f,i)=>`<div class="upload-progress" id="prog_${i}">📤 ${f.name}<div class="upload-progress-bar"><div class="upload-progress-fill" id="progfill_${i}" style="width:0%"></div></div></div>`).join('');
-      newPortfolioItems=await Promise.all(uploadedPortfolioFiles.map((file,i)=>uploadCloudinary(file,(p)=>{const fill=document.getElementById('progfill_'+i);if(fill)fill.style.width=p+'%';})));
+      const progressArea=document.getElementById('uploadProgressArea');
+      if(progressArea)progressArea.innerHTML=uploadedPortfolioFiles.map((f,i)=>`<div class="upload-progress" id="prog_${i}">📤 ${f.name}<div class="upload-progress-bar"><div class="upload-progress-fill" id="progfill_${i}" style="width:0%"></div></div></div>`).join('');
+      newPortfolioItems=await Promise.all(uploadedPortfolioFiles.map((file,i)=>uploadParaCloudinary(file,(p)=>{const fill=document.getElementById('progfill_'+i);if(fill)fill.style.width=p+'%';})));
     }
     const tiposEscolhidos=isTrancista?Array.from(document.querySelectorAll('#tiposGrid .tipo-chip.active')).map(b=>b.textContent):[];
     const dadosBase={bio:document.getElementById('editBio')?.value||'',cidade:document.getElementById('editCidade')?.value||'',whatsapp:document.getElementById('editWhatsapp')?.value||'',atualizadoEm:serverTimestamp()};
-    if(fotoPerfilItem&&typeof fotoPerfilItem==='object'&&fotoPerfilItem.url)dadosBase.fotoPerfil=fotoPerfilItem;
+    if(fotoPerfilItem&&(typeof fotoPerfilItem==='object'&&fotoPerfilItem.url||typeof fotoPerfilItem==='string'))dadosBase.fotoPerfil=fotoPerfilItem;
     await setDoc(doc(db,'usuarios',currentUser.uid),dadosBase,{merge:true});
     if(isTrancista){
-      const dadosT={...dadosBase,especialidade:document.getElementById('editEspecialidade')?.value||'',precoMin:Number(document.getElementById('editPrecoMin')?.value)||0,precoMax:Number(document.getElementById('editPrecoMax')?.value)||0,tempo:document.getElementById('editTempo')?.value||'',tiposEscolhidos,comMaterial:document.getElementById('editMaterial')?.checked||false,disponivel:document.getElementById('editDisp')?.checked||false,nome:currentUser.displayName||'',email:currentUser.email||''};
-      await setDoc(doc(db,'trancistas',currentUser.uid),dadosT,{merge:true});
+      const dadosTrancista={...dadosBase,especialidade:document.getElementById('editEspecialidade')?.value||'',precoMin:Number(document.getElementById('editPrecoMin')?.value)||0,precoMax:Number(document.getElementById('editPrecoMax')?.value)||0,tempo:document.getElementById('editTempo')?.value||'',tiposEscolhidos,comMaterial:document.getElementById('editMaterial')?.checked||false,disponivel:document.getElementById('editDisp')?.checked||false,nome:currentUser.displayName||'',email:currentUser.email||''};
+      await setDoc(doc(db,'trancistas',currentUser.uid),dadosTrancista,{merge:true});
       await updateDoc(doc(db,'trancistas',currentUser.uid),{portfolio:existingPortfolioItems});
       if(newPortfolioItems.length>0)await updateDoc(doc(db,'trancistas',currentUser.uid),{portfolio:arrayUnion(...newPortfolioItems)});
     }
-    const msg=document.getElementById('perfilMsg');
-    if(msg){msg.className='perfil-msg ok';msg.textContent='✓ Perfil guardado com sucesso!';setTimeout(()=>msg.textContent='',4000);}
-    await loadAllTrancistas();await renderPerfil();
-  }catch(e){
-    console.error(e);
-    const msg=document.getElementById('perfilMsg');
-    if(msg){msg.className='perfil-msg err';msg.textContent='Erro ao guardar: '+e.message;}
-    if(btn){btn.disabled=false;btn.textContent='Guardar Perfil ✦';}
-  }
+    const msg=document.getElementById('perfilMsg');if(msg){msg.className='perfil-msg ok';msg.textContent='✓ Perfil guardado com sucesso!';setTimeout(()=>msg.textContent='',4000);}
+    await loadAllTrancistas();
+    await renderPerfil();
+  }catch(e){console.error('Erro ao guardar:',e);const msg=document.getElementById('perfilMsg');if(msg){msg.className='perfil-msg err';msg.textContent='Erro ao guardar: '+e.message;}if(btn){btn.disabled=false;btn.textContent='Guardar Perfil ✦';}}
 };
 
 // ── AUTH ──
@@ -1160,13 +1438,12 @@ window.doLogin=async()=>{
   const err=document.getElementById('loginErro');err.style.display='none';
   try{
     await signInWithEmailAndPassword(auth,document.getElementById('loginEmail').value,document.getElementById('loginSenha').value);
-    // onAuthStateChanged trata o redirect
+    // onAuthStateChanged tratará do redirecionamento
   }catch(e){
     err.style.display='block';err.textContent='Email ou senha incorretos.';
     btn.disabled=false;btn.textContent='Entrar ✦';
   }
 };
-
 window.doCadastro=async()=>{
   const btn=document.getElementById('cadastroBtn');btn.disabled=true;btn.textContent='A criar conta...';
   const err=document.getElementById('cadastroErro');err.style.display='none';
@@ -1179,14 +1456,13 @@ window.doCadastro=async()=>{
     if(registoTipo==='trancista'){
       await setDoc(doc(db,'trancistas',cred.user.uid),{nome:document.getElementById('cadastroNome').value,email:document.getElementById('cadastroEmail').value,tipo:'trancista',nota:0,avaliacoes:0,pontuacao:0,disponivel:true,portfolio:[],criadoEm:serverTimestamp()});
     }
-    // onAuthStateChanged trata o redirect
+    // onAuthStateChanged tratará do redirecionamento
   }catch(e){
     err.style.display='block';
     err.textContent=e.code==='auth/email-already-in-use'?'Este email já está em uso.':'Erro ao criar conta.';
     btn.disabled=false;btn.textContent='Criar Conta Grátis ✦';
   }
 };
-
 window.doLogout=async()=>{
   if(marcacoesUnsub){marcacoesUnsub();marcacoesUnsub=null;}
   await signOut(auth);
@@ -1194,29 +1470,30 @@ window.doLogout=async()=>{
 };
 window.setTipo=(t)=>{registoTipo=t;document.getElementById('tipoBtnCliente').classList.toggle('active',t==='cliente');document.getElementById('tipoBtnTrancista').classList.toggle('active',t==='trancista');};
 
-// ── UTILS ──
+// ── UTILS / NAVEGAÇÃO ──
 window.showPage=(page)=>{
-  // Lógica de redireccionamento
-  if(page==='perfil'&&!currentUser){page='login';}
-  if((page==='login'||page==='cadastro')&&currentUser){page='perfil';}
-
+  // Bloqueia login/cadastro se já estiver autenticado
+  if(currentUser&&(page==='login'||page==='cadastro')){
+    page='perfil';
+  }
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
   const pageEl=document.getElementById('page-'+page);
   if(pageEl)pageEl.classList.add('active');
-  document.querySelectorAll('.nav-link').forEach(b=>{if(b.textContent.toLowerCase().includes(page)||b.getAttribute('onclick')?.includes(page))b.classList.add('active');});
+  document.querySelectorAll('.nav-link').forEach(b=>{if(b.getAttribute('onclick')?.includes("'"+page+"'"))b.classList.add('active');});
   document.getElementById('navLinks')?.classList.remove('open');
   window.scrollTo(0,0);
   if(page==='perfil')renderPerfil();
   if(page==='ranking')renderRanking();
   if(page==='feed')renderFeed();
 };
-
 window.toggleMenu=()=>document.getElementById('navLinks').classList.toggle('open');
 window.doHeroSearch=()=>{const v=document.getElementById('heroSearch').value;if(v){const fs=document.getElementById('filtroSearch');if(fs)fs.value=v;}showPage('explorar');};
 window.filterByType=(tipo)=>{filtroTipo=tipo;showPage('explorar');setTimeout(()=>{document.querySelectorAll('.filtro-opt').forEach(b=>{if(b.textContent===tipo)b.classList.add('active');else if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent))b.classList.remove('active');});renderExplorar();},100);};
-window.openLightbox=(url,type)=>{const c=document.getElementById('lightboxContent');c.innerHTML=type==='video'?`<video class="lightbox-media" src="${url}" controls autoplay></video>`:`<img class="lightbox-media" src="${url}" alt="">`;document.getElementById('lightbox').style.display='flex';};
+window.openLightbox=(url,type)=>{const content=document.getElementById('lightboxContent');if(type==='video')content.innerHTML=`<video class="lightbox-media" src="${url}" controls autoplay></video>`;else content.innerHTML=`<img class="lightbox-media" src="${url}" alt="">`;document.getElementById('lightbox').style.display='flex';};
 window.closeLightbox=()=>{document.getElementById('lightbox').style.display='none';document.getElementById('lightboxContent').innerHTML='';};
+function stars(nota){return `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`;}
+function starsHtml(nota){return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');}
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40);});
 </script>
 </body>
