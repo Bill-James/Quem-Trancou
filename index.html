@@ -1278,6 +1278,10 @@ window.renderPerfil = async () => {
       <div class="container perfil-body">
         <div id="perfilMsg"></div>
         ${isTrancista?`
+        <div style="margin-bottom:32px">
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:16px">📋 Pedidos de Marcação</h3>
+  <div id="listaMarcacoes"><p style="color:rgba(253,246,236,.4);font-family:'Syne',sans-serif;font-size:.85rem">A carregar pedidos...</p></div>
+</div>` : ''}
         <div class="perfil-stats">
           <div class="pstat"><span class="pstat__n">${(tData.nota||0).toFixed(1)}</span><span>Nota média</span></div>
           <div class="pstat"><span class="pstat__n">${tData.avaliacoes||0}</span><span>Avaliações</span></div>
@@ -1289,6 +1293,7 @@ window.renderPerfil = async () => {
         </div>
       </div>
     </div>`;
+  if(isTrancista) carregarMarcacoes();
 };
 
 function renderPerfilVer(tData, isTrancista) {
@@ -1668,7 +1673,39 @@ function stars(nota) {
 function starsHtml(nota) {
   return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');
 }
+window.carregarMarcacoes = async () => {
+  const el = document.getElementById('listaMarcacoes');
+  if(!el || !currentUser) return;
+  const q = query(collection(db,'marcacoes'), where('trancistId','==',currentUser.uid), orderBy('criadoEm','desc'));
+  onSnapshot(q, (snap) => {
+    if(!snap.docs.length) {
+      el.innerHTML = `<p style="color:rgba(253,246,236,.4);font-family:'Syne',sans-serif;font-size:.85rem">Ainda não tens pedidos de marcação.</p>`;
+      return;
+    }
+    el.innerHTML = snap.docs.map(d => {
+      const m = { id: d.id, ...d.data() };
+      const cor = m.estado==='confirmado' ? '#2ecc71' : m.estado==='recusado' ? 'var(--accent-pink)' : 'var(--gold)';
+      return `
+      <div style="background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.1);border-left:3px solid ${cor};border-radius:12px;padding:20px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <strong style="font-family:'Syne',sans-serif;color:var(--cream);font-size:.95rem">👤 ${m.clienteNome||'Cliente'}</strong>
+          <span style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;background:${cor}22;color:${cor}">${m.estado==='confirmado'?'✓ Confirmado':m.estado==='recusado'?'✗ Recusado':'⏳ Pendente'}</span>
+        </div>
+        <p style="font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.5);margin-bottom:6px">📅 ${m.data||'Data não definida'} · ✂️ ${m.tipo||''}</p>
+        ${m.nota?`<p style="font-size:.85rem;color:rgba(253,246,236,.6);margin-bottom:10px">"${m.nota}"</p>`:''}
+        ${m.estado==='pendente'||!m.estado ? `
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button onclick="responderMarcacao('${m.id}','confirmado')" style="background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.3);color:#2ecc71;padding:8px 18px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer">✓ Confirmar</button>
+          <button onclick="responderMarcacao('${m.id}','recusado')" style="background:rgba(232,84,122,.1);border:1px solid rgba(232,84,122,.3);color:var(--accent-pink);padding:8px 18px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer">✗ Recusar</button>
+        </div>` : ''}
+      </div>`;
+    }).join('');
+  });
+};
 
+window.responderMarcacao = async (id, estado) => {
+  await updateDoc(doc(db,'marcacoes',id),{ estado });
+};
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40);
 });
