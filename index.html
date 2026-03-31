@@ -289,8 +289,10 @@ img{max-width:100%;display:block}
 .tp-section h3{font-size:1.2rem;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(212,168,67,.1)}
 .tp-section p{color:rgba(253,246,236,.7);line-height:1.7}
 .tp-portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.tp-portfolio-img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;cursor:pointer;transition:transform .2s,box-shadow .2s;border:1px solid rgba(212,168,67,.1)}
-.tp-portfolio-img:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.tp-portfolio-item{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(212,168,67,.1)}
+.tp-portfolio-item img,.tp-portfolio-item video{width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.tp-portfolio-item:hover img,.tp-portfolio-item:hover video{transform:scale(1.05)}
+.tp-portfolio-item .media-type-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:white;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:50px}
 .tp-servicos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}
 .tp-detalhe{display:flex;align-items:center;gap:14px;background:rgba(61,28,10,.5);border:1px solid rgba(212,168,67,.08);border-radius:12px;padding:16px}
 .tp-detalhe-icon{font-size:1.4rem}
@@ -376,16 +378,20 @@ img{max-width:100%;display:block}
 .perfil-empty span{font-size:3rem;display:block;margin-bottom:16px}
 .perfil-empty p{font-family:'Syne',sans-serif;font-size:.9rem}
 
-/* Upload fotos */
+/* Upload fotos/vídeos - Cloudinary */
 .upload-area{border:2px dashed rgba(212,168,67,.3);border-radius:16px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px}
 .upload-area:hover{border-color:var(--gold);background:rgba(212,168,67,.05)}
 .upload-area input{display:none}
 .upload-area p{font-family:'Syne',sans-serif;font-size:.85rem;color:rgba(253,246,236,.5);margin-top:8px}
 .upload-area .upload-icon{font-size:2.5rem;margin-bottom:8px}
+.upload-progress{background:rgba(26,15,8,.6);border:1px solid rgba(212,168,67,.15);border-radius:10px;padding:12px 16px;margin-bottom:12px;font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.6)}
+.upload-progress-bar{height:4px;background:rgba(212,168,67,.2);border-radius:2px;margin-top:8px;overflow:hidden}
+.upload-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .3s}
 .portfolio-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
-.portfolio-preview-img{position:relative;aspect-ratio:1}
-.portfolio-preview-img img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.portfolio-preview-img .remove-img{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.7);border:none;color:white;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.portfolio-preview-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden}
+.portfolio-preview-item img,.portfolio-preview-item video{width:100%;height:100%;object-fit:cover}
+.portfolio-preview-item .remove-img{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.7);border:none;color:white;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;z-index:2}
+.portfolio-preview-item .media-badge{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.6);color:white;font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px}
 
 /* AUTH */
 .auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 40px;position:relative;overflow:hidden}
@@ -424,7 +430,7 @@ img{max-width:100%;display:block}
 
 /* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:300;display:flex;align-items:center;justify-content:center}
-.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
+.lightbox-media{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
 .lightbox-close{position:absolute;top:20px;right:20px;background:none;border:none;color:white;font-size:2rem;cursor:pointer}
 
 /* KEYFRAMES */
@@ -746,15 +752,14 @@ img{max-width:100%;display:block}
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" style="display:none" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <img id="lightboxImg" src="" alt="">
+  <div id="lightboxContent"></div>
 </div>
 
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, query, orderBy, limit, serverTimestamp, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, query, orderBy, serverTimestamp, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyBKlsoxb03nDoerHYCtfFFoQ8PFUXa5asA",
@@ -766,7 +771,49 @@ const app = initializeApp({
 });
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app);
+
+// ── CLOUDINARY CONFIG ──
+// SUBSTITUI estes dois valores pelos teus do Cloudinary:
+// 1. Vai a cloudinary.com → regista-te grátis
+// 2. No dashboard copia o "Cloud Name"
+// 3. Em Settings → Upload → Add upload preset → modo "Unsigned" → copia o nome
+const CLOUDINARY_CLOUD_NAME = 'dgvjdkgmg';   // ex: 'dxabcdefg'
+const CLOUDINARY_UPLOAD_PRESET = 'quem-trancou';     // ex: 'quemtrancou_unsigned'
+
+// ── UPLOAD CLOUDINARY (imagens e vídeos) ──
+async function uploadParaCloudinary(file, onProgress) {
+  const isVideo = file.type.startsWith('video/');
+  const resourceType = isVideo ? 'video' : 'image';
+  const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable && onProgress) {
+        onProgress(Math.round((e.loaded / e.total) * 100));
+      }
+    };
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        resolve({
+          url: data.secure_url,
+          type: isVideo ? 'video' : 'image',
+          publicId: data.public_id
+        });
+      } else {
+        reject(new Error('Erro no upload: ' + xhr.responseText));
+      }
+    };
+    xhr.onerror = () => reject(new Error('Falha na ligação ao Cloudinary'));
+    xhr.open('POST', url);
+    xhr.send(formData);
+  });
+}
 
 // ── STATE ──
 let currentUser = null;
@@ -775,16 +822,16 @@ let filtroTipo = 'Todos';
 let filtroCidade = 'Todas';
 let currentTrancistaPerfil = null;
 let registoTipo = 'cliente';
+// Ficheiros novos a fazer upload (array de File)
 let uploadedPortfolioFiles = [];
-let existingPortfolioUrls = [];
+// URLs já guardados no Firestore (strings com {url, type})
+let existingPortfolioItems = [];
 
 // ── AUTH STATE ──
 onAuthStateChanged(auth, async user => {
   currentUser = user;
   const navAuth = document.getElementById('navAuth');
   if (user) {
-    const snap = await getDoc(doc(db, 'usuarios', user.uid));
-    const data = snap.exists() ? snap.data() : {};
     const initial = (user.displayName || user.email || '?')[0].toUpperCase();
     navAuth.innerHTML = `
       <button class="nav-link" onclick="showPage('perfil')" style="display:flex;align-items:center;gap:8px">
@@ -829,7 +876,7 @@ function animCount(id, target) {
   let i = 0; const steps = 50;
   const timer = setInterval(() => {
     i++;
-    document.getElementById(id).textContent = Math.floor(target * (i/steps)).toLocaleString() + (id==='statProf'||id==='statAval'?'+':'');
+    document.getElementById(id).textContent = Math.floor(target * (i/steps)).toLocaleString() + '+';
     if(i>=steps) clearInterval(timer);
   }, 30);
 }
@@ -842,12 +889,13 @@ function renderHomeCards() {
     el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="empty-icon">✦</span><p>Ainda não há trancistas cadastradas.<br>Sê a primeira!</p><button class="btn-gold-lg" onclick="showPage('cadastro')">Criar Perfil Grátis ✦</button></div>`;
     return;
   }
-  const badges = ['🥇 Top da Semana','⚡ Mais Rápida','💰 Melhor Preço'];
   const cores = ['#E8547A','#2A9D8F','#D4A843'];
-  el.innerHTML = top3.map((t,i) => `
+  el.innerHTML = top3.map((t,i) => {
+    const foto = getFotoPerfilUrl(t);
+    return `
     <div class="card" style="--accent:${t.cor||cores[i]}" onclick="showTrancista('${t.id}')">
       <div class="card__rank">#${i+1}</div>
-      ${t.fotoPerfil ? `<img class="card__avatar-img" src="${t.fotoPerfil}" alt="${t.nome}">` : `<div class="card__avatar-placeholder">✦</div>`}
+      ${foto ? `<img class="card__avatar-img" src="${foto}" alt="${t.nome}">` : `<div class="card__avatar-placeholder">✦</div>`}
       <div class="card__info">
         <h3>${t.nome||'Trancista'}</h3>
         <p class="card__specialty">${t.especialidade||''}</p>
@@ -858,7 +906,16 @@ function renderHomeCards() {
         <div class="card__detail"><span>⏱</span><span>${t.tempo||'—'}</span></div>
       </div>
       <div class="card__cta">Ver Perfil →</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+}
+
+// Obtém URL da foto de perfil seja string ou objecto {url, type}
+function getFotoPerfilUrl(t) {
+  if (!t.fotoPerfil) return null;
+  if (typeof t.fotoPerfil === 'string') return t.fotoPerfil;
+  if (t.fotoPerfil.url) return t.fotoPerfil.url;
+  return null;
 }
 
 // ── EXPLORAR ──
@@ -886,10 +943,14 @@ function renderExplorar() {
     el.innerHTML = `<div class="empty-state"><span class="empty-icon">😔</span><p>Nenhuma trancista encontrada com esses filtros.</p></div>`;
     return;
   }
-  el.innerHTML = lista.map(t => `
+  el.innerHTML = lista.map(t => {
+    const foto = getFotoPerfilUrl(t);
+    return `
     <div class="resultado-card" style="--accent:${t.cor||'var(--gold)'}" onclick="showTrancista('${t.id}')">
       <div class="resultado-card__left">
-        ${t.fotoPerfil ? `<div class="resultado-avatar"><img src="${t.fotoPerfil}" alt="${t.nome}"></div>` : `<div class="resultado-avatar-placeholder">✦${t.disponivel?'<span class="disponivel-dot"></span>':''}</div>`}
+        ${foto
+          ? `<div class="resultado-avatar"><img src="${foto}" alt="${t.nome}"></div>`
+          : `<div class="resultado-avatar-placeholder">✦${t.disponivel?'<span class="disponivel-dot"></span>':''}</div>`}
         <div class="resultado-info">
           <div class="resultado-top"><h3>${t.nome||'Trancista'}</h3></div>
           <p class="resultado-specialty">${t.especialidade||''}</p>
@@ -905,32 +966,36 @@ function renderExplorar() {
         <div class="resultado-status ${t.disponivel?'disponivel':'indisponivel'}">${t.disponivel?'✓ Disponível':'✗ Ocupada'}</div>
         <span class="resultado-cta">Ver perfil →</span>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 window.setFiltroTipo = (btn, val) => {
   filtroTipo = val;
-  document.querySelectorAll('.filtro-group .filtro-opt').forEach(b => { if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent)) b.classList.remove('active'); });
+  document.querySelectorAll('.filtro-group .filtro-opt').forEach(b => {
+    if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent)) b.classList.remove('active');
+  });
   btn.classList.add('active');
   renderExplorar();
 };
 window.setFiltroCidade = (btn, val) => {
   filtroCidade = val;
-  document.querySelectorAll('.filtro-group .filtro-opt').forEach(b => { if(['Todas','Luanda','Benguela','Huambo','Lubango'].includes(b.textContent)) b.classList.remove('active'); });
+  document.querySelectorAll('.filtro-group .filtro-opt').forEach(b => {
+    if(['Todas','Luanda','Benguela','Huambo','Lubango'].includes(b.textContent)) b.classList.remove('active');
+  });
   btn.classList.add('active');
   renderExplorar();
 };
 window.renderExplorar = renderExplorar;
 
 // ── RANKING ──
-let rankTab = 'geral';
 function renderRanking() {
   const sorted = [...allTrancistas].sort((a,b) => (b.nota||0)-(a.nota||0));
   const podiumEl = document.getElementById('podium');
   const listEl = document.getElementById('rankingList');
   if(!sorted.length) {
     podiumEl.innerHTML = '';
-    listEl.innerHTML = `<div class="empty-state"><span class="empty-icon">🏆</span><p>Ainda não há trancistas no ranking.<br>Regista-te e sê a primeira!</p></div>`;
+    listEl.innerHTML = `<div class="empty-state"><span class="empty-icon">🏆</span><p>Ainda não há trancistas no ranking.</p></div>`;
     return;
   }
   const cores = ['#E8547A','#2A9D8F','#D4A843'];
@@ -940,35 +1005,40 @@ function renderRanking() {
   const bigs = [false,true,false];
   const crowns = [false,true,false];
   const labels = ['2º','1º','3º'];
-  podiumEl.innerHTML = order.map((t,i) => `
+  podiumEl.innerHTML = order.map((t,i) => {
+    const foto = getFotoPerfilUrl(t);
+    return `
     <div class="podium__spot" style="--c:${t.cor||cores[i]}" onclick="showTrancista('${t.id}')">
       ${crowns[i]?'<div class="crown">👑</div>':''}
       <div class="podium-avatar ${bigs[i]?'podium-avatar--big':''}" style="border-color:${t.cor||cores[i]}">
-        ${t.fotoPerfil?`<img src="${t.fotoPerfil}" alt="${t.nome}">`:`<span>✦</span>`}
+        ${foto?`<img src="${foto}" alt="${t.nome}">`:`<span>✦</span>`}
       </div>
       <div class="podium-name">${t.nome||'Trancista'}</div>
       <div class="podium-pts" style="color:${t.cor||cores[i]}">${(t.pontuacao||0).toLocaleString()} pts</div>
       <div class="podium-block ${heights[i]}"><span>${labels[i]}</span></div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   listEl.innerHTML = `
     <div class="ranking-list__header"><span>Pos.</span><span>Trancista</span><span>Nota</span><span>Avaliações</span><span></span></div>
-    ${sorted.map((t,i) => `
-    <div class="ranking-row" onclick="showTrancista('${t.id}')">
-      <span class="rank-pos" style="color:${i===0?'#FFD700':i===1?'#C0C0C0':i===2?'#CD7F32':'inherit'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</span>
-      <div class="rank-trancista">
-        <div class="rank-avatar" style="border-color:${t.cor||'var(--gold)'}">
-          ${t.fotoPerfil?`<img src="${t.fotoPerfil}" alt="${t.nome}">`:`✦`}
+    ${sorted.map((t,i) => {
+      const foto = getFotoPerfilUrl(t);
+      return `
+      <div class="ranking-row" onclick="showTrancista('${t.id}')">
+        <span class="rank-pos" style="color:${i===0?'#FFD700':i===1?'#C0C0C0':i===2?'#CD7F32':'inherit'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}</span>
+        <div class="rank-trancista">
+          <div class="rank-avatar" style="border-color:${t.cor||'var(--gold)'}">
+            ${foto?`<img src="${foto}" alt="${t.nome}">`:`✦`}
+          </div>
+          <div><strong>${t.nome||'Trancista'}</strong><span class="rank-city">📍 ${t.cidade||''}</span></div>
         </div>
-        <div><strong>${t.nome||'Trancista'}</strong><span class="rank-city">📍 ${t.cidade||''}</span></div>
-      </div>
-      <span class="rank-nota">⭐ ${(t.nota||0).toFixed(1)}</span>
-      <span class="rank-aval">${t.avaliacoes||0}</span>
-      <span class="rank-cta">→</span>
-    </div>`).join('')}`;
+        <span class="rank-nota">⭐ ${(t.nota||0).toFixed(1)}</span>
+        <span class="rank-aval">${t.avaliacoes||0}</span>
+        <span class="rank-cta">→</span>
+      </div>`;
+    }).join('')}`;
 }
 window.setRankTab = (btn, val) => {
-  rankTab = val;
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderRanking();
@@ -977,39 +1047,45 @@ window.setRankTab = (btn, val) => {
 // ── FEED ──
 function renderFeed() {
   const el = document.getElementById('feedPosts');
+  // Suporte a portfolio como array de strings OU array de {url,type}
   const trancistas = allTrancistas.filter(t => (t.portfolio||[]).length > 0);
   if(!trancistas.length) {
-    el.innerHTML = `<div class="empty-state"><span class="empty-icon">📸</span><p>Ainda não há publicações.<br>Trancistas: adicionem fotos ao vosso perfil!</p></div>`;
+    el.innerHTML = `<div class="empty-state"><span class="empty-icon">📸</span><p>Ainda não há publicações.</p></div>`;
   } else {
     const posts = [];
     trancistas.forEach(t => {
-      (t.portfolio||[]).forEach((url,i) => {
-        posts.push({ trancista: t, url, id: t.id+'_'+i });
+      (t.portfolio||[]).forEach((item,i) => {
+        const url = typeof item === 'string' ? item : item.url;
+        const type = typeof item === 'string' ? 'image' : (item.type||'image');
+        posts.push({ trancista: t, url, type, id: t.id+'_'+i });
       });
     });
     posts.sort(() => Math.random()-0.5);
-    el.innerHTML = posts.slice(0,12).map(p => `
+    el.innerHTML = posts.slice(0,12).map(p => {
+      const foto = getFotoPerfilUrl(p.trancista);
+      const mediaHtml = p.type === 'video'
+        ? `<video class="post-img" src="${p.url}" controls muted playsinline onclick="openLightbox('${p.url}','video')"></video>`
+        : `<img class="post-img" src="${p.url}" alt="Trabalho" onclick="openLightbox('${p.url}','image')">`;
+      return `
       <div class="post-card">
         <div class="post-header">
-          <div class="post-avatar">
-            ${p.trancista.fotoPerfil?`<img src="${p.trancista.fotoPerfil}" alt="${p.trancista.nome}">`:`✦`}
-          </div>
+          <div class="post-avatar">${foto?`<img src="${foto}" alt="${p.trancista.nome}">`:`✦`}</div>
           <div class="post-meta">
             <strong>${p.trancista.nome||'Trancista'}</strong>
             <span class="post-info">📍 ${p.trancista.cidade||'Angola'}</span>
           </div>
           ${p.trancista.especialidade?`<span class="post-tipo" style="background:${(p.trancista.cor||'var(--gold)')+'22'};color:${p.trancista.cor||'var(--gold)'}">${p.trancista.especialidade}</span>`:''}
         </div>
-        <img class="post-img" src="${p.url}" alt="Trabalho" onclick="openLightbox('${p.url}')">
+        ${mediaHtml}
         <div class="post-body"><p>${p.trancista.bio||'Trabalho da trancista.'}</p></div>
         <div class="post-footer">
           <button class="like-btn" id="like_${p.id}" onclick="toggleLike('${p.id}')">🤍 0</button>
           <button class="comment-btn">💬 Comentar</button>
           <button class="share-btn" onclick="showTrancista('${p.trancista.id}')">👤 Ver Perfil</button>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
-  // Tendências
   const tipos = {};
   allTrancistas.forEach(t => (t.tiposEscolhidos||[]).forEach(x => tipos[x]=(tipos[x]||0)+1));
   const top = Object.entries(tipos).sort((a,b)=>b[1]-a[1]).slice(0,5);
@@ -1030,21 +1106,24 @@ window.toggleLike = (id) => {
 window.showTrancista = async (id) => {
   showPage('trancista');
   const el = document.getElementById('trancistaPerfil');
+  if(!el) return;
   el.innerHTML = `<div class="tp-loading"><span>✦</span> A carregar perfil...</div>`;
   let t = allTrancistas.find(x=>x.id===id);
   if(!t) {
-    try { const snap = await getDoc(doc(db,'trancistas',id)); if(snap.exists()) t = {id,... snap.data()}; } catch(e){}
+    try { const snap = await getDoc(doc(db,'trancistas',id)); if(snap.exists()) t = {id,...snap.data()}; } catch(e){}
   }
   if(!t) { el.innerHTML = `<div class="tp-loading">Perfil não encontrado.</div>`; return; }
   currentTrancistaPerfil = t;
   const portfolio = t.portfolio||[];
+  const foto = getFotoPerfilUrl(t);
+
   el.innerHTML = `
     <div class="tp-page" style="padding-top:0">
       <div class="tp-hero" style="--c:${t.cor||'var(--gold)'}">
         <div class="tp-hero__bg"></div>
         <div class="container tp-hero__inner">
           <div class="tp-avatar">
-            ${t.fotoPerfil?`<img src="${t.fotoPerfil}" alt="${t.nome}">`:`✦`}
+            ${foto?`<img src="${foto}" alt="${t.nome}">`:`✦`}
           </div>
           <div class="tp-hero__info">
             <div class="tp-hero__top">
@@ -1069,7 +1148,19 @@ window.showTrancista = async (id) => {
           <section class="tp-section">
             <h3>Portfólio de Trabalhos</h3>
             <div class="tp-portfolio-grid">
-              ${portfolio.map(url=>`<img class="tp-portfolio-img" src="${url}" alt="Trabalho" onclick="openLightbox('${url}')">`).join('')}
+              ${portfolio.map(item => {
+                const url = typeof item === 'string' ? item : item.url;
+                const type = typeof item === 'string' ? 'image' : (item.type||'image');
+                if(type === 'video') {
+                  return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','video')">
+                    <video src="${url}" muted playsinline></video>
+                    <span class="media-type-badge">▶ Vídeo</span>
+                  </div>`;
+                }
+                return `<div class="tp-portfolio-item" onclick="openLightbox('${url}','image')">
+                  <img src="${url}" alt="Trabalho">
+                </div>`;
+              }).join('')}
             </div>
           </section>`:''}
           <section class="tp-section">
@@ -1103,7 +1194,7 @@ window.showTrancista = async (id) => {
             <h4>Estatísticas</h4>
             <div class="tp-stat-row"><span>Nota média</span><strong>${(t.nota||0).toFixed(1)} ⭐</strong></div>
             <div class="tp-stat-row"><span>Avaliações</span><strong>${t.avaliacoes||0}</strong></div>
-            <div class="tp-stat-row"><span>Fotos no portfólio</span><strong>${portfolio.length}</strong></div>
+            <div class="tp-stat-row"><span>Fotos/Vídeos</span><strong>${portfolio.length}</strong></div>
           </div>
           <div class="tp-cta-card" style="--c:${t.cor||'var(--gold)'}">
             <h4>Pronta para marcar?</h4>
@@ -1144,23 +1235,31 @@ window.enviarMarcacao = async () => {
 // ── MEU PERFIL ──
 window.renderPerfil = async () => {
   if(!currentUser) { showPage('login'); return; }
+  // FIX: verificar se o elemento existe antes de escrever
+  const el = document.getElementById('perfilContent');
+  if(!el) return;
+
   const snap = await getDoc(doc(db,'usuarios',currentUser.uid));
   const perfil = snap.exists() ? snap.data() : {};
   const isTrancista = perfil.tipo==='trancista';
-  let tSnap = null;
+  let tData = {};
   if(isTrancista) {
-    try { tSnap = await getDoc(doc(db,'trancistas',currentUser.uid)); } catch(e){}
+    try { const s=await getDoc(doc(db,'trancistas',currentUser.uid)); if(s.exists()) tData=s.data(); } catch(e){}
   }
-  const tData = tSnap&&tSnap.exists() ? tSnap.data() : {};
-  existingPortfolioUrls = tData.portfolio||[];
-  const el = document.getElementById('perfilContent');
+  // Normaliza portfolio para array de {url, type}
+  existingPortfolioItems = (tData.portfolio||[]).map(item =>
+    typeof item === 'string' ? { url: item, type: 'image' } : item
+  );
+  uploadedPortfolioFiles = [];
+
+  const foto = getFotoPerfilUrl(tData);
   const initial = (currentUser.displayName||'?')[0].toUpperCase();
   el.innerHTML = `
     <div class="perfil-page" style="padding-top:0">
       <div class="perfil-hero">
         <div class="container perfil-hero__inner">
           <div class="perfil-avatar-big">
-            ${tData.fotoPerfil?`<img src="${tData.fotoPerfil}" alt="foto">`:`${initial}`}
+            ${foto?`<img src="${foto}" alt="foto">`:`${initial}`}
           </div>
           <div class="perfil-hero__info">
             <h1>${currentUser.displayName||'Utilizador'}</h1>
@@ -1171,7 +1270,7 @@ window.renderPerfil = async () => {
             </div>
           </div>
           <div class="perfil-hero__actions">
-            <button class="btn-edit" id="btnEditar" onclick="toggleEditarPerfil()">✏️ Editar Perfil</button>
+            <button class="btn-edit" onclick="toggleEditarPerfil()">✏️ Editar Perfil</button>
             <button class="btn-sair" onclick="doLogout()">Sair</button>
           </div>
         </div>
@@ -1182,23 +1281,26 @@ window.renderPerfil = async () => {
         <div class="perfil-stats">
           <div class="pstat"><span class="pstat__n">${(tData.nota||0).toFixed(1)}</span><span>Nota média</span></div>
           <div class="pstat"><span class="pstat__n">${tData.avaliacoes||0}</span><span>Avaliações</span></div>
-          <div class="pstat"><span class="pstat__n">${(tData.portfolio||[]).length}</span><span>Fotos</span></div>
+          <div class="pstat"><span class="pstat__n">${(tData.portfolio||[]).length}</span><span>Fotos/Vídeos</span></div>
           <div class="pstat"><span class="pstat__n">${tData.pontuacao||0}</span><span>Pontos</span></div>
         </div>`:''}
         <div id="perfilFormArea">
-          ${renderPerfilVer(perfil, tData, isTrancista)}
+          ${renderPerfilVer(tData, isTrancista)}
         </div>
       </div>
     </div>`;
 };
 
-function renderPerfilVer(perfil, tData, isTrancista) {
+function renderPerfilVer(tData, isTrancista) {
   return `<div class="perfil-info">
     ${tData.bio?`<div class="info-card"><h4>Sobre mim</h4><p>${tData.bio}</p></div>`:''}
     ${tData.cidade?`<div class="info-card"><h4>Localização</h4><p>📍 ${tData.cidade}, Angola</p></div>`:''}
     ${isTrancista&&(tData.tiposEscolhidos||[]).length?`<div class="info-card"><h4>Tipos de Trança</h4><div class="chips-display">${tData.tiposEscolhidos.map(t=>`<span class="chip-display">${t}</span>`).join('')}</div></div>`:''}
     ${isTrancista&&(tData.precoMin||tData.precoMax)?`<div class="info-card"><h4>Preços</h4><p>💰 AOA ${Number(tData.precoMin||0).toLocaleString()} – ${Number(tData.precoMax||0).toLocaleString()}</p>${tData.tempo?`<p>⏱ ${tData.tempo}</p>`:''}</div>`:''}
-    ${(tData.portfolio||[]).length?`<div class="info-card"><h4>Portfólio</h4><div class="tp-portfolio-grid">${tData.portfolio.map(url=>`<img class="tp-portfolio-img" src="${url}" onclick="openLightbox('${url}')">`).join('')}</div></div>`:''}
+    ${existingPortfolioItems.length?`<div class="info-card"><h4>Portfólio</h4><div class="tp-portfolio-grid">${existingPortfolioItems.map(item=>{
+      if(item.type==='video') return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','video')"><video src="${item.url}" muted playsinline></video><span class="media-type-badge">▶ Vídeo</span></div>`;
+      return `<div class="tp-portfolio-item" onclick="openLightbox('${item.url}','image')"><img src="${item.url}" alt="trabalho"></div>`;
+    }).join('')}</div></div>`:''}
     ${!tData.bio&&!tData.cidade?`<div class="perfil-empty"><span>✏️</span><p>O teu perfil está quase vazio. Clica em "Editar Perfil" para o completar!</p></div>`:''}
   </div>`;
 }
@@ -1209,11 +1311,17 @@ window.toggleEditarPerfil = async () => {
   const perfil = snap.exists()?snap.data():{};
   const isTrancista = perfil.tipo==='trancista';
   let tData = {};
-  if(isTrancista) { try{ const s=await getDoc(doc(db,'trancistas',currentUser.uid)); if(s.exists()) tData=s.data(); }catch(e){} }
-  existingPortfolioUrls = tData.portfolio||[];
+  if(isTrancista) {
+    try{ const s=await getDoc(doc(db,'trancistas',currentUser.uid)); if(s.exists()) tData=s.data(); }catch(e){}
+  }
+  existingPortfolioItems = (tData.portfolio||[]).map(item =>
+    typeof item === 'string' ? { url: item, type: 'image' } : item
+  );
   uploadedPortfolioFiles = [];
+
   const tipos = ['Box Braids','Knotless','Cornrows','Fulani Braids','Goddess Braids','Twists','Senegalese','Locs'];
   const cidades = ['Luanda','Benguela','Huambo','Lobito','Lubango','Malanje','Cabinda','Kuito'];
+
   document.getElementById('perfilFormArea').innerHTML = `
     <div class="perfil-form">
       <h3>Editar Perfil</h3>
@@ -1221,10 +1329,10 @@ window.toggleEditarPerfil = async () => {
         <label>Foto de Perfil</label>
         <div class="upload-area" onclick="document.getElementById('uploadFotoPerfil').click()">
           <div class="upload-icon">📸</div>
-          <p>Clica para fazer upload da tua foto de perfil</p>
-          <input type="file" id="uploadFotoPerfil" accept="image/*" onchange="previewFotoPerfil(this)">
+          <p>Clica para fazer upload da tua foto de perfil (imagem ou vídeo)</p>
+          <input type="file" id="uploadFotoPerfil" accept="image/*,video/*" onchange="previewFotoPerfil(this)">
         </div>
-        <div id="fotoPerfilPreview">${tData.fotoPerfil?`<img src="${tData.fotoPerfil}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`:''}</div>
+        <div id="fotoPerfilPreview">${getFotoPerfilUrl(tData)?`<img src="${getFotoPerfilUrl(tData)}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`:''}</div>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -1264,17 +1372,20 @@ window.toggleEditarPerfil = async () => {
         <label class="check-opt"><input type="checkbox" id="editDisp" ${tData.disponivel!==false?'checked':''}><span>Disponível para marcações</span></label>
       </div>
       <div class="form-group">
-        <label>Fotos do Portfólio</label>
+        <label>Fotos e Vídeos do Portfólio</label>
         <div class="upload-area" onclick="document.getElementById('uploadPortfolio').click()">
           <div class="upload-icon">🖼️</div>
-          <p>Clica para adicionar fotos dos teus trabalhos (podes seleccionar várias)</p>
-          <input type="file" id="uploadPortfolio" accept="image/*" multiple onchange="addPortfolioFiles(this)">
+          <p>Clica para adicionar fotos ou vídeos dos teus trabalhos (podes seleccionar vários)</p>
+          <input type="file" id="uploadPortfolio" accept="image/*,video/*" multiple onchange="addPortfolioFiles(this)">
         </div>
+        <div id="uploadProgressArea"></div>
         <div class="portfolio-preview" id="portfolioPreview">
-          ${existingPortfolioUrls.map((url,i)=>`
-          <div class="portfolio-preview-img">
-            <img src="${url}" alt="trabalho">
-            <button class="remove-img" onclick="removeExistingPhoto(${i})">✕</button>
+          ${existingPortfolioItems.map((item,i)=>`
+          <div class="portfolio-preview-item">
+            ${item.type==='video'
+              ? `<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`
+              : `<img src="${item.url}" alt="trabalho">`}
+            <button class="remove-img" onclick="removeExistingItem(${i})">✕</button>
           </div>`).join('')}
         </div>
       </div>`:''}
@@ -1285,11 +1396,14 @@ window.toggleEditarPerfil = async () => {
 
 window.previewFotoPerfil = (input) => {
   const file = input.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('fotoPerfilPreview').innerHTML = `<img src="${e.target.result}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`;
-  };
-  reader.readAsDataURL(file);
+  const isVideo = file.type.startsWith('video/');
+  const url = URL.createObjectURL(file);
+  const prev = document.getElementById('fotoPerfilPreview');
+  if(isVideo) {
+    prev.innerHTML = `<video src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)" muted playsinline autoplay loop></video>`;
+  } else {
+    prev.innerHTML = `<img src="${url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">`;
+  }
 };
 
 window.addPortfolioFiles = (input) => {
@@ -1301,89 +1415,147 @@ window.addPortfolioFiles = (input) => {
 function renderPortfolioPreview() {
   const prev = document.getElementById('portfolioPreview');
   if(!prev) return;
-  const existing = existingPortfolioUrls.map((url,i)=>`
-    <div class="portfolio-preview-img">
-      <img src="${url}" alt="trabalho">
-      <button class="remove-img" onclick="removeExistingPhoto(${i})">✕</button>
+  const existing = existingPortfolioItems.map((item,i)=>`
+    <div class="portfolio-preview-item">
+      ${item.type==='video'
+        ? `<video src="${item.url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`
+        : `<img src="${item.url}" alt="trabalho">`}
+      <button class="remove-img" onclick="removeExistingItem(${i})">✕</button>
     </div>`).join('');
   const newFiles = uploadedPortfolioFiles.map((f,i) => {
     const url = URL.createObjectURL(f);
-    return `<div class="portfolio-preview-img"><img src="${url}" alt="novo"><button class="remove-img" onclick="removeNewPhoto(${i})">✕</button></div>`;
+    const isVideo = f.type.startsWith('video/');
+    return `<div class="portfolio-preview-item">
+      ${isVideo
+        ? `<video src="${url}" muted playsinline></video><span class="media-badge">▶ Vídeo</span>`
+        : `<img src="${url}" alt="novo">`}
+      <button class="remove-img" onclick="removeNewItem(${i})">✕</button>
+    </div>`;
   }).join('');
   prev.innerHTML = existing + newFiles;
 }
 
-window.removeExistingPhoto = (i) => {
-  existingPortfolioUrls.splice(i,1);
+window.removeExistingItem = (i) => {
+  existingPortfolioItems.splice(i,1);
   renderPortfolioPreview();
 };
-window.removeNewPhoto = (i) => {
+window.removeNewItem = (i) => {
   uploadedPortfolioFiles.splice(i,1);
   renderPortfolioPreview();
 };
 
+// ── GUARDAR PERFIL (com Cloudinary) ──
 window.salvarPerfil = async () => {
   if(!currentUser) return;
   const btn = document.getElementById('btnSalvar');
-  btn.disabled = true; btn.textContent = 'A guardar...';
+  btn.disabled = true;
+  btn.textContent = 'A guardar...';
+
   try {
     const snap = await getDoc(doc(db,'usuarios',currentUser.uid));
     const perfil = snap.exists()?snap.data():{};
     const isTrancista = perfil.tipo==='trancista';
 
-    // Upload foto perfil
-    let fotoPerfil = null;
+    // FIX: Upload foto de perfil via Cloudinary
+    let fotoPerfilItem = getFotoPerfilUrl({ fotoPerfil: (await getDoc(doc(db,'trancistas',currentUser.uid)).catch(()=>({exists:()=>false,data:()=>({})}))).data()?.fotoPerfil });
     const fotoInput = document.getElementById('uploadFotoPerfil');
-    if(fotoInput&&fotoInput.files[0]) {
-      const fRef = ref(storage,`perfis/${currentUser.uid}/foto_perfil`);
-      await uploadBytes(fRef, fotoInput.files[0]);
-      fotoPerfil = await getDownloadURL(fRef);
+    if(fotoInput && fotoInput.files[0]) {
+      btn.textContent = 'A enviar foto de perfil...';
+      try {
+        const resultado = await uploadParaCloudinary(fotoInput.files[0], (p) => {
+          btn.textContent = `A enviar foto... ${p}%`;
+        });
+        fotoPerfilItem = resultado; // {url, type, publicId}
+      } catch(e) {
+        console.error('Erro upload foto perfil:', e);
+      }
     }
 
-    // Upload portfolio
-    const newUrls = [];
-    for(let i=0; i<uploadedPortfolioFiles.length; i++) {
-      const f = uploadedPortfolioFiles[i];
-      const fRef = ref(storage,`perfis/${currentUser.uid}/portfolio_${Date.now()}_${i}`);
-      await uploadBytes(fRef, f);
-      const url = await getDownloadURL(fRef);
-      newUrls.push(url);
-    }
-    const allPortfolio = [...existingPortfolioUrls, ...newUrls];
+    // FIX: Upload portfolio em paralelo com Promise.all
+    let newPortfolioItems = [];
+    if(uploadedPortfolioFiles.length > 0) {
+      btn.textContent = `A enviar ${uploadedPortfolioFiles.length} ficheiro(s)...`;
+      const progressArea = document.getElementById('uploadProgressArea');
+      if(progressArea) {
+        progressArea.innerHTML = uploadedPortfolioFiles.map((f,i)=>`
+          <div class="upload-progress" id="prog_${i}">
+            📤 ${f.name}
+            <div class="upload-progress-bar"><div class="upload-progress-fill" id="progfill_${i}" style="width:0%"></div></div>
+          </div>`).join('');
+      }
 
-    const tiposEscolhidos = isTrancista ? Array.from(document.querySelectorAll('#tiposGrid .tipo-chip.active')).map(b=>b.textContent) : [];
-    const dados = {
+      // FIX: Promise.all garante que TODOS os uploads terminam antes de salvar
+      newPortfolioItems = await Promise.all(
+        uploadedPortfolioFiles.map((file, i) =>
+          uploadParaCloudinary(file, (p) => {
+            const fill = document.getElementById('progfill_'+i);
+            if(fill) fill.style.width = p+'%';
+          })
+        )
+      );
+    }
+
+    const tiposEscolhidos = isTrancista
+      ? Array.from(document.querySelectorAll('#tiposGrid .tipo-chip.active')).map(b=>b.textContent)
+      : [];
+
+    const dadosBase = {
       bio: document.getElementById('editBio')?.value||'',
       cidade: document.getElementById('editCidade')?.value||'',
       whatsapp: document.getElementById('editWhatsapp')?.value||'',
-      ...(fotoPerfil&&{fotoPerfil}),
       atualizadoEm: serverTimestamp(),
     };
-    if(isTrancista) Object.assign(dados, {
-      especialidade: document.getElementById('editEspecialidade')?.value||'',
-      precoMin: Number(document.getElementById('editPrecoMin')?.value)||0,
-      precoMax: Number(document.getElementById('editPrecoMax')?.value)||0,
-      tempo: document.getElementById('editTempo')?.value||'',
-      tiposEscolhidos,
-      comMaterial: document.getElementById('editMaterial')?.checked||false,
-      disponivel: document.getElementById('editDisp')?.checked||false,
-      portfolio: allPortfolio,
-      nome: currentUser.displayName||'',
-      email: currentUser.email||'',
-    });
-    await setDoc(doc(db,'usuarios',currentUser.uid), dados, {merge:true});
-    if(isTrancista) await setDoc(doc(db,'trancistas',currentUser.uid), {
-      ...dados, nome: currentUser.displayName||'', email: currentUser.email||'',
-    }, {merge:true});
+
+    // Apenas actualiza fotoPerfil se houve upload novo
+    if(fotoPerfilItem && typeof fotoPerfilItem === 'object' && fotoPerfilItem.url) {
+      dadosBase.fotoPerfil = fotoPerfilItem;
+    }
+
+    // Guarda dados base no usuarios
+    await setDoc(doc(db,'usuarios',currentUser.uid), dadosBase, {merge:true});
+
+    if(isTrancista) {
+      const dadosTrancista = {
+        ...dadosBase,
+        especialidade: document.getElementById('editEspecialidade')?.value||'',
+        precoMin: Number(document.getElementById('editPrecoMin')?.value)||0,
+        precoMax: Number(document.getElementById('editPrecoMax')?.value)||0,
+        tempo: document.getElementById('editTempo')?.value||'',
+        tiposEscolhidos,
+        comMaterial: document.getElementById('editMaterial')?.checked||false,
+        disponivel: document.getElementById('editDisp')?.checked||false,
+        nome: currentUser.displayName||'',
+        email: currentUser.email||'',
+      };
+
+      // FIX: Guarda primeiro os dados sem o portfolio
+      await setDoc(doc(db,'trancistas',currentUser.uid), dadosTrancista, {merge:true});
+
+      // FIX: Actualiza o array portfolio sem perder itens existentes
+      // Primeiro repõe os existentes (que podem ter sido removidos pelo utilizador)
+      await updateDoc(doc(db,'trancistas',currentUser.uid), {
+        portfolio: existingPortfolioItems
+      });
+
+      // FIX: Adiciona os novos com arrayUnion para não duplicar
+      if(newPortfolioItems.length > 0) {
+        await updateDoc(doc(db,'trancistas',currentUser.uid), {
+          portfolio: arrayUnion(...newPortfolioItems)
+        });
+      }
+    }
+
     const msg = document.getElementById('perfilMsg');
-    if(msg) { msg.className='perfil-msg ok'; msg.textContent='✓ Perfil guardado com sucesso!'; setTimeout(()=>msg.textContent='',3000); }
+    if(msg) { msg.className='perfil-msg ok'; msg.textContent='✓ Perfil guardado com sucesso!'; setTimeout(()=>msg.textContent='',4000); }
+
     await loadAllTrancistas();
     await renderPerfil();
+
   } catch(e) {
-    console.error(e);
+    console.error('Erro ao guardar perfil:', e);
     const msg = document.getElementById('perfilMsg');
-    if(msg) { msg.className='perfil-msg err'; msg.textContent='Erro ao guardar. Tenta novamente.'; }
-    btn.disabled=false; btn.textContent='Guardar Perfil ✦';
+    if(msg) { msg.className='perfil-msg err'; msg.textContent='Erro ao guardar: '+e.message; }
+    if(btn) { btn.disabled=false; btn.textContent='Guardar Perfil ✦'; }
   }
 };
 
@@ -1403,7 +1575,10 @@ window.doCadastro = async () => {
   const btn = document.getElementById('cadastroBtn'); btn.disabled=true; btn.textContent='A criar conta...';
   const err = document.getElementById('cadastroErro'); err.style.display='none';
   const senha = document.getElementById('cadastroSenha').value;
-  if(senha.length<6) { err.style.display='block'; err.textContent='A senha deve ter pelo menos 6 caracteres.'; btn.disabled=false; btn.textContent='Criar Conta Grátis ✦'; return; }
+  if(senha.length<6) {
+    err.style.display='block'; err.textContent='A senha deve ter pelo menos 6 caracteres.';
+    btn.disabled=false; btn.textContent='Criar Conta Grátis ✦'; return;
+  }
   try {
     const cred = await createUserWithEmailAndPassword(auth, document.getElementById('cadastroEmail').value, senha);
     await updateProfile(cred.user,{displayName: document.getElementById('cadastroNome').value});
@@ -1430,8 +1605,11 @@ window.setTipo = (t) => {
 window.showPage = (page) => {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+page)?.classList.add('active');
-  document.querySelectorAll('.nav-link').forEach(b=>{ if(b.textContent.toLowerCase().includes(page)||b.getAttribute('onclick')?.includes(page)) b.classList.add('active'); });
+  const pageEl = document.getElementById('page-'+page);
+  if(pageEl) pageEl.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(b=>{
+    if(b.textContent.toLowerCase().includes(page)||b.getAttribute('onclick')?.includes(page)) b.classList.add('active');
+  });
   document.getElementById('navLinks')?.classList.remove('open');
   window.scrollTo(0,0);
   if(page==='perfil') renderPerfil();
@@ -1441,22 +1619,35 @@ window.showPage = (page) => {
 window.toggleMenu = () => document.getElementById('navLinks').classList.toggle('open');
 window.doHeroSearch = () => {
   const v = document.getElementById('heroSearch').value;
-  if(v) { document.getElementById('filtroSearch').value=v; }
+  if(v) { const fs = document.getElementById('filtroSearch'); if(fs) fs.value=v; }
   showPage('explorar');
 };
 window.filterByType = (tipo) => {
   filtroTipo = tipo;
   showPage('explorar');
   setTimeout(()=>{
-    document.querySelectorAll('.filtro-opt').forEach(b=>{ if(b.textContent===tipo){b.classList.add('active');} else if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent)) b.classList.remove('active'); });
+    document.querySelectorAll('.filtro-opt').forEach(b=>{
+      if(b.textContent===tipo) b.classList.add('active');
+      else if(['Todos','Box Braids','Knotless','Cornrows','Fulani','Goddess','Twists'].includes(b.textContent)) b.classList.remove('active');
+    });
     renderExplorar();
   },100);
 };
-window.openLightbox = (url) => {
-  document.getElementById('lightboxImg').src=url;
-  document.getElementById('lightbox').style.display='flex';
+
+// FIX: Lightbox suporta imagens E vídeos
+window.openLightbox = (url, type) => {
+  const content = document.getElementById('lightboxContent');
+  if(type === 'video') {
+    content.innerHTML = `<video class="lightbox-media" src="${url}" controls autoplay></video>`;
+  } else {
+    content.innerHTML = `<img class="lightbox-media" src="${url}" alt="">`;
+  }
+  document.getElementById('lightbox').style.display = 'flex';
 };
-window.closeLightbox = () => document.getElementById('lightbox').style.display='none';
+window.closeLightbox = () => {
+  document.getElementById('lightbox').style.display = 'none';
+  document.getElementById('lightboxContent').innerHTML = '';
+};
 
 function stars(nota) {
   return `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`;
@@ -1465,8 +1656,9 @@ function starsHtml(nota) {
   return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');
 }
 
-// Navbar scroll
-window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40); });
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40);
+});
 </script>
 </body>
 </html>
