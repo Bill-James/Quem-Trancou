@@ -450,9 +450,88 @@ img{max-width:100%;display:block}
 .cliente-hist-item span{color:rgba(253,246,236,.6)}
 .cliente-hist-item strong{font-family:'Syne',sans-serif;color:var(--cream);font-size:.78rem}
 
-/* NOTIFICAÇÃO REALTIME */
-.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:var(--accent-pink);border-radius:50%;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;border:2px solid var(--espresso)}
+/* NOTIFICAÇÃO — TRIGGER */
+.notif-trigger{position:relative;cursor:pointer;display:flex;align-items:center;gap:10px}
+.notif-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:var(--espresso);border:2px solid transparent;transition:border-color .2s,transform .2s;flex-shrink:0}
+.notif-trigger:hover .notif-avatar{border-color:var(--gold);transform:scale(1.05)}
+.notif-trigger-label{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;color:rgba(253,246,236,.75);letter-spacing:.04em;text-transform:uppercase}
+.notif-badge{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;background:var(--accent-pink);border-radius:50px;font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:white;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--espresso);animation:badge-pop .3s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes badge-pop{from{transform:scale(0)}to{transform:scale(1)}}
 .nav-perfil-wrap{position:relative;display:flex;align-items:center}
+
+/* NOTIFICAÇÃO — PAINEL FLUTUANTE */
+.notif-panel{position:fixed;top:70px;right:24px;width:420px;max-height:calc(100vh - 90px);background:var(--mahogany);border:1px solid rgba(212,168,67,.18);border-radius:20px;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(212,168,67,.06);z-index:999;display:flex;flex-direction:column;overflow:hidden;transform-origin:top right;animation:panel-in .25s cubic-bezier(.34,1.2,.64,1) forwards}
+@keyframes panel-in{from{opacity:0;transform:scale(.92) translateY(-8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.notif-panel.closing{animation:panel-out .18s ease forwards}
+@keyframes panel-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.94) translateY(-6px)}}
+.notif-header{padding:20px 24px 0;flex-shrink:0}
+.notif-header__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.notif-header__top h3{font-size:1.2rem;color:var(--cream)}
+.notif-header__top .mark-all{background:none;border:none;font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;color:rgba(212,168,67,.6);cursor:pointer;letter-spacing:.04em;transition:color .2s}
+.notif-header__top .mark-all:hover{color:var(--gold)}
+.notif-header p{font-size:.82rem;color:rgba(253,246,236,.4);margin-bottom:16px}
+.notif-tabs{display:flex;gap:0;border-bottom:1px solid rgba(212,168,67,.1);flex-shrink:0}
+.notif-tab{flex:1;background:none;border:none;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.03em;color:rgba(253,246,236,.4);padding:12px 6px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.notif-tab:hover{color:var(--cream)}
+.notif-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;background:var(--accent-pink);color:white;border-radius:50px;font-size:.6rem;font-weight:800;padding:0 3px;margin-left:4px;vertical-align:middle}
+.tab-count.zero{background:rgba(253,246,236,.12);color:rgba(253,246,236,.4)}
+.notif-list{overflow-y:auto;flex:1;padding:8px 0}
+.notif-list::-webkit-scrollbar{width:4px}
+.notif-list::-webkit-scrollbar-track{background:transparent}
+.notif-list::-webkit-scrollbar-thumb{background:rgba(212,168,67,.2);border-radius:2px}
+.notif-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid rgba(253,246,236,.04);transition:background .15s;cursor:default;position:relative}
+.notif-item:last-child{border-bottom:none}
+.notif-item:hover{background:rgba(212,168,67,.04)}
+.notif-item.unread::before{content:'';position:absolute;left:10px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.notif-item.unread{background:rgba(212,168,67,.03)}
+.notif-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;border:1.5px solid}
+.notif-icon--marcacao{background:rgba(212,168,67,.12);border-color:rgba(212,168,67,.3)}
+.notif-icon--like{background:rgba(232,84,122,.12);border-color:rgba(232,84,122,.3)}
+.notif-icon--comentario{background:rgba(42,157,143,.12);border-color:rgba(42,157,143,.3)}
+.notif-icon--avaliacao{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3)}
+.notif-body{flex:1;min-width:0}
+.notif-body strong{display:block;font-family:'Syne',sans-serif;font-size:.84rem;font-weight:700;color:var(--cream);margin-bottom:2px}
+.notif-body p{font-size:.79rem;color:rgba(253,246,236,.55);line-height:1.4;margin-bottom:5px}
+.notif-body .notif-time{font-family:'Syne',sans-serif;font-size:.7rem;color:rgba(253,246,236,.3);font-weight:600}
+.notif-actions{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.btn-notif-aceitar{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71;padding:5px 13px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-notif-aceitar:hover{background:rgba(46,204,113,.28)}
+.btn-notif-recusar{background:rgba(232,84,122,.1);border:1px solid rgba(232,84,122,.3);color:var(--accent-pink);padding:5px 13px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-notif-recusar:hover{background:rgba(232,84,122,.2)}
+.btn-notif-ver{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.2);color:var(--gold);padding:5px 13px;border-radius:50px;font-family:'Syne',sans-serif;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-notif-ver:hover{background:rgba(212,168,67,.22)}
+.notif-estado{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:4px 11px;border-radius:50px;margin-top:5px;display:inline-block}
+.notif-estado.confirmado{background:rgba(46,204,113,.12);color:#2ecc71}
+.notif-estado.recusado{background:rgba(232,84,122,.1);color:var(--accent-pink)}
+.notif-empty{text-align:center;padding:48px 20px}
+.notif-empty span{font-size:2.5rem;display:block;margin-bottom:10px}
+.notif-empty p{font-family:'Syne',sans-serif;font-size:.82rem;color:rgba(253,246,236,.3)}
+.notif-footer{padding:14px 24px;border-top:1px solid rgba(212,168,67,.1);flex-shrink:0;text-align:center}
+.notif-footer button{background:none;border:none;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;color:rgba(212,168,67,.6);cursor:pointer;letter-spacing:.04em;transition:color .2s}
+.notif-footer button:hover{color:var(--gold)}
+
+/* MINI-MODAL DE CONFIRMAÇÃO */
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:1100;display:flex;align-items:center;justify-content:center;padding:20px}
+.confirm-overlay-anim{animation:fade-in .2s ease}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+.confirm-modal{background:var(--mahogany);border:1px solid rgba(212,168,67,.2);border-radius:20px;padding:36px 32px;max-width:380px;width:100%;text-align:center;animation:modal-in .25s cubic-bezier(.34,1.2,.64,1)}
+@keyframes modal-in{from{transform:scale(.9) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.confirm-icon{font-size:2.6rem;margin-bottom:12px;display:block}
+.confirm-modal h4{font-size:1.2rem;color:var(--cream);margin-bottom:8px}
+.confirm-modal>p{color:rgba(253,246,236,.55);font-size:.87rem;line-height:1.5;margin-bottom:20px}
+.confirm-detail{background:rgba(26,15,8,.5);border:1px solid rgba(212,168,67,.12);border-radius:12px;padding:14px 16px;margin-bottom:22px;text-align:left}
+.confirm-detail-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.82rem}
+.confirm-detail-row span{color:rgba(253,246,236,.45);font-family:'Syne',sans-serif}
+.confirm-detail-row strong{color:var(--cream);font-family:'Syne',sans-serif;font-weight:700}
+.confirm-btns{display:flex;gap:12px}
+.confirm-btn-sim{flex:1;background:linear-gradient(135deg,#2ecc71,#27ae60);color:var(--espresso);border:none;padding:13px;border-radius:50px;font-family:'Syne',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;transition:opacity .2s,transform .2s}
+.confirm-btn-sim:hover{opacity:.9;transform:translateY(-1px)}
+.confirm-btn-sim.recusar-sim{background:linear-gradient(135deg,var(--accent-pink),#c0392b);color:white}
+.confirm-btn-nao{flex:1;background:rgba(253,246,236,.07);border:1px solid rgba(253,246,236,.12);color:rgba(253,246,236,.6);padding:13px;border-radius:50px;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s}
+.confirm-btn-nao:hover{background:rgba(253,246,236,.12)}
+
+@media(max-width:460px){.notif-panel{right:0;left:0;width:100%;border-radius:20px 20px 0 0;top:auto;bottom:0;max-height:80vh}}
 
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
@@ -720,6 +799,39 @@ img{max-width:100%;display:block}
   <div id="lightboxContent"></div>
 </div>
 
+<!-- PAINEL DE NOTIFICAÇÕES FLUTUANTE -->
+<div class="notif-panel" id="notifPanel" style="display:none">
+  <div class="notif-header">
+    <div class="notif-header__top">
+      <h3>Notificações</h3>
+      <button class="mark-all" onclick="notifMarcarTodasLidas()">Marcar todas como lidas</button>
+    </div>
+    <p id="notifSubtitle">A carregar...</p>
+  </div>
+  <div class="notif-tabs">
+    <button class="notif-tab active" data-tab="marcacoes" onclick="notifSwitchTab(this,'marcacoes')">📅 Marcações<span class="tab-count zero" id="ncount-marcacoes">0</span></button>
+    <button class="notif-tab" data-tab="likes" onclick="notifSwitchTab(this,'likes')">❤️ Likes<span class="tab-count zero" id="ncount-likes">0</span></button>
+    <button class="notif-tab" data-tab="comentarios" onclick="notifSwitchTab(this,'comentarios')">💬 Com.<span class="tab-count zero" id="ncount-comentarios">0</span></button>
+    <button class="notif-tab" data-tab="avaliacoes" onclick="notifSwitchTab(this,'avaliacoes')">⭐ Aval.<span class="tab-count zero" id="ncount-avaliacoes">0</span></button>
+  </div>
+  <div class="notif-list" id="notifList"></div>
+  <div class="notif-footer"><button onclick="notifClosePanel();showPage('perfil')">Ver todas as marcações →</button></div>
+</div>
+
+<!-- MINI-MODAL CONFIRMAÇÃO NOTIFICAÇÃO -->
+<div class="confirm-overlay" id="confirmOverlay" style="display:none">
+  <div class="confirm-modal">
+    <span class="confirm-icon" id="confirmIcon">📅</span>
+    <h4 id="confirmTitulo">Aceitar marcação?</h4>
+    <p id="confirmDesc">Tens a certeza?</p>
+    <div class="confirm-detail" id="confirmDetail"></div>
+    <div class="confirm-btns">
+      <button class="confirm-btn-nao" onclick="notifFecharConfirm()">Cancelar</button>
+      <button class="confirm-btn-sim" id="confirmSimBtn" onclick="notifConfirmarAcao()">✅ Aceitar</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -803,16 +915,19 @@ function renderNavAuth(user, pendentes) {
   const navAuth = document.getElementById('navAuth');
   if(user) {
     const initial = (user.displayName || user.email || '?')[0].toUpperCase();
-    const badgeHtml = pendentes > 0 ? `<span class="notif-badge">${pendentes}</span>` : '';
+    const nome = (user.displayName || user.email || '').split(' ')[0] || 'Perfil';
+    const badgeHtml = pendentes > 0 ? `<span class="notif-badge" id="notifBadge">${pendentes}</span>` : `<span class="notif-badge" id="notifBadge" style="display:none">0</span>`;
     navAuth.innerHTML = `
       <div class="nav-perfil-wrap">
-        <button class="nav-link" onclick="showPage('perfil')" style="display:flex;align-items:center;gap:8px;position:relative">
-          <span style="width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--espresso);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem">${initial}</span>
-          Perfil
+        <div class="notif-trigger" id="notifTrigger" onclick="notifTogglePanel()">
+          <div class="notif-avatar" id="notifAvatar">${initial}</div>
+          <span class="notif-trigger-label">${nome}</span>
           ${badgeHtml}
-        </button>
+        </div>
       </div>
       <button class="btn-logout" onclick="doLogout()">Sair</button>`;
+    // Inicializa o painel de notificações com dados do Firebase
+    notifInit(user.uid, currentUserPerfil?.tipo || 'cliente');
   } else {
     navAuth.innerHTML = `
       <a href="#" class="btn-nav-ghost" onclick="event.preventDefault();showPage('login')">Entrar</a>
@@ -1465,6 +1580,8 @@ window.doCadastro=async()=>{
 };
 window.doLogout=async()=>{
   if(marcacoesUnsub){marcacoesUnsub();marcacoesUnsub=null;}
+  if(notifMarcacoesUnsub){notifMarcacoesUnsub();notifMarcacoesUnsub=null;}
+  notifClosePanel();
   await signOut(auth);
   showPage('home');
 };
@@ -1495,6 +1612,201 @@ window.closeLightbox=()=>{document.getElementById('lightbox').style.display='non
 function stars(nota){return `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`;}
 function starsHtml(nota){return [1,2,3,4,5].map(i=>`<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join('');}
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('navbar--scrolled',window.scrollY>40);});
+
+// ══════════════════════════════════════════════════════════
+// ── PAINEL DE NOTIFICAÇÕES (integrado com Firebase) ──
+// ══════════════════════════════════════════════════════════
+let notifPanelAberto = false;
+let notifAbaActiva = 'marcacoes';
+let notifAcaoPendente = null; // {id, tipo:'aceitar'|'recusar'}
+let notifMarcacoes = []; // dados em tempo real do Firestore
+let notifMarcacoesUnsub = null;
+let notifUid = null;
+let notifTipoUser = 'cliente';
+
+function notifInit(uid, tipoUser) {
+  notifUid = uid;
+  notifTipoUser = tipoUser;
+  // Só trancistas têm painel de marcações em tempo real
+  if(notifMarcacoesUnsub){ notifMarcacoesUnsub(); notifMarcacoesUnsub = null; }
+  const campo = tipoUser === 'trancista' ? 'trancistId' : 'clienteId';
+  const q = query(collection(db,'marcacoes'), where(campo,'==',uid), orderBy('criadoEm','desc'));
+  notifMarcacoesUnsub = onSnapshot(q, (snap) => {
+    notifMarcacoes = snap.docs.map(d=>({id:d.id,...d.data(), _lida: false}));
+    notifActualizarBadges();
+    if(notifPanelAberto) notifRenderLista(notifAbaActiva);
+  }, ()=>{});
+}
+
+window.notifTogglePanel = () => { if(notifPanelAberto) notifClosePanel(); else notifOpenPanel(); };
+
+function notifOpenPanel() {
+  const panel = document.getElementById('notifPanel');
+  if(!panel) return;
+  panel.style.display = 'flex';
+  panel.classList.remove('closing');
+  notifPanelAberto = true;
+  notifRenderLista(notifAbaActiva);
+  setTimeout(() => document.addEventListener('click', notifClickFora), 10);
+}
+
+window.notifClosePanel = function() {
+  const panel = document.getElementById('notifPanel');
+  if(!panel) return;
+  panel.classList.add('closing');
+  notifPanelAberto = false;
+  document.removeEventListener('click', notifClickFora);
+  setTimeout(() => panel.style.display = 'none', 180);
+};
+
+function notifClickFora(e) {
+  const panel = document.getElementById('notifPanel');
+  const trigger = document.getElementById('notifTrigger');
+  const confirmOv = document.getElementById('confirmOverlay');
+  if(!panel || !trigger) return;
+  if(!panel.contains(e.target) && !trigger.contains(e.target) && !confirmOv?.contains(e.target)) {
+    notifClosePanel();
+  }
+}
+
+window.notifSwitchTab = (btn, aba) => {
+  document.querySelectorAll('.notif-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  notifAbaActiva = aba;
+  notifRenderLista(aba);
+};
+
+function notifRenderLista(aba) {
+  const lista = document.getElementById('notifList');
+  if(!lista) return;
+
+  if(aba === 'marcacoes') {
+    if(!notifMarcacoes.length) {
+      lista.innerHTML = `<div class="notif-empty"><span>📭</span><p>Sem marcações de momento.</p></div>`;
+      return;
+    }
+    lista.innerHTML = notifMarcacoes.map(m => notifRenderItemMarcacao(m)).join('');
+  } else {
+    // likes, comentarios, avaliacoes — em breve
+    const labels = { likes:'likes', comentarios:'comentários', avaliacoes:'avaliações' };
+    const emojis = { likes:'🤍', comentarios:'💬', avaliacoes:'⭐' };
+    lista.innerHTML = `<div class="notif-empty"><span>${emojis[aba]||'📭'}</span><p>Sem ${labels[aba]||'notificações'} de momento.<br><span style="font-size:.75rem;opacity:.6">Em breve...</span></p></div>`;
+  }
+}
+
+function notifRenderItemMarcacao(m) {
+  const isTrancista = notifTipoUser === 'trancista';
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{day:'numeric',month:'short'}) : '—';
+  const criadoFmt = m.criadoEm?.toDate ? tempoRelativo(m.criadoEm.toDate()) : '';
+  const nomeExibido = isTrancista ? (m.clienteNome || 'Cliente') : (m.trancistaNome || 'Trancista');
+  const inicial = nomeExibido[0].toUpperCase();
+  const texto = isTrancista
+    ? `${m.clienteNome||'Cliente'} pediu marcação para <strong>${m.tipo||'—'}</strong> a ${dataFmt}`
+    : `A tua marcação com <strong>${m.trancistaNome||'Trancista'}</strong> para ${dataFmt} está <strong>${m.estado==='confirmado'?'confirmada 🎉':m.estado==='recusado'?'recusada':'pendente'}</strong>`;
+
+  let acoes = '';
+  if(isTrancista && m.estado === 'pendente') {
+    acoes = `<div class="notif-actions">
+      <button class="btn-notif-aceitar" onclick="notifPedirConfirmacao('${m.id}','aceitar')">✅ Aceitar</button>
+      <button class="btn-notif-recusar" onclick="notifPedirConfirmacao('${m.id}','recusar')">✗ Recusar</button>
+      <button class="btn-notif-ver" onclick="notifClosePanel();verPerfilCliente('${m.clienteId}','${m.clienteNome||''}','${m.clienteEmail||''}')">👤 Ver</button>
+    </div>`;
+  } else if(m.estado !== 'pendente') {
+    const label = m.estado === 'confirmado' ? '✅ Confirmada' : '✗ Recusada';
+    acoes = `<span class="notif-estado ${m.estado}">${label}</span>`;
+  }
+
+  const unread = m.estado === 'pendente' ? 'unread' : '';
+  return `<div class="notif-item ${unread}" id="nitem-${m.id}">
+    <div class="notif-icon notif-icon--marcacao">📅</div>
+    <div class="notif-body">
+      <strong>${nomeExibido}</strong>
+      <p>${texto}</p>
+      ${acoes}
+      <span class="notif-time">${criadoFmt}</span>
+    </div>
+  </div>`;
+}
+
+function tempoRelativo(date) {
+  const diff = Math.floor((Date.now() - date.getTime()) / 1000);
+  if(diff < 60) return 'Agora mesmo';
+  if(diff < 3600) return `Há ${Math.floor(diff/60)} min`;
+  if(diff < 86400) return `Há ${Math.floor(diff/3600)}h`;
+  if(diff < 172800) return 'Ontem';
+  return date.toLocaleDateString('pt-PT',{day:'numeric',month:'short'});
+}
+
+function notifActualizarBadges() {
+  const pendentes = notifMarcacoes.filter(m => m.estado === 'pendente').length;
+  const badge = document.getElementById('notifBadge');
+  if(badge) {
+    badge.textContent = pendentes;
+    badge.style.display = pendentes > 0 ? 'flex' : 'none';
+  }
+  const el = document.getElementById('ncount-marcacoes');
+  if(el) { el.textContent = pendentes; el.className = 'tab-count' + (pendentes===0?' zero':''); }
+  const subtitle = document.getElementById('notifSubtitle');
+  if(subtitle) {
+    const total = pendentes;
+    subtitle.textContent = total > 0 ? `${total} pedido${total>1?'s':''} pendente${total>1?'s':''}` : 'Tudo em dia ✦';
+  }
+}
+
+window.notifMarcarTodasLidas = () => {
+  // Apenas visual — as marcações são geridas pelo Firebase
+  notifActualizarBadges();
+  notifRenderLista(notifAbaActiva);
+};
+
+// ── CONFIRMAÇÃO NO PAINEL ──
+window.notifPedirConfirmacao = (id, tipo) => {
+  notifAcaoPendente = { id, tipo };
+  const m = notifMarcacoes.find(x => x.id === id);
+  if(!m) return;
+  const isAceitar = tipo === 'aceitar';
+  const dataFmt = m.data ? new Date(m.data+'T12:00:00').toLocaleDateString('pt-PT',{weekday:'long',day:'numeric',month:'long'}) : '—';
+
+  document.getElementById('confirmIcon').textContent = isAceitar ? '📅' : '✗';
+  document.getElementById('confirmTitulo').textContent = isAceitar ? 'Aceitar marcação?' : 'Recusar marcação?';
+  document.getElementById('confirmDesc').textContent = isAceitar
+    ? `Confirmas o pedido de ${m.clienteNome||'cliente'}? Ela será notificada imediatamente.`
+    : `Confirmas a recusa do pedido de ${m.clienteNome||'cliente'}? Esta acção não pode ser desfeita.`;
+
+  document.getElementById('confirmDetail').innerHTML = `
+    <div class="confirm-detail-row"><span>Cliente</span><strong>${m.clienteNome||'—'}</strong></div>
+    <div class="confirm-detail-row"><span>Data</span><strong>📅 ${dataFmt}</strong></div>
+    <div class="confirm-detail-row"><span>Tipo</span><strong>✂️ ${m.tipo||'—'}</strong></div>
+    ${m.nota?`<div class="confirm-detail-row"><span>Nota</span><strong style="font-size:.77rem;color:rgba(253,246,236,.6)">"${m.nota}"</strong></div>`:''}`;
+
+  const simBtn = document.getElementById('confirmSimBtn');
+  simBtn.textContent = isAceitar ? '✅ Confirmar Aceitação' : '✗ Confirmar Recusa';
+  simBtn.className = isAceitar ? 'confirm-btn-sim' : 'confirm-btn-sim recusar-sim';
+
+  const overlay = document.getElementById('confirmOverlay');
+  overlay.style.display = 'flex';
+  overlay.onclick = (e) => { if(e.target === overlay) notifFecharConfirm(); };
+};
+
+window.notifConfirmarAcao = async () => {
+  if(!notifAcaoPendente) return;
+  const { id, tipo } = notifAcaoPendente;
+  const novoEstado = tipo === 'aceitar' ? 'confirmado' : 'recusado';
+  notifFecharConfirm();
+  // Animação de saída no item
+  const el = document.getElementById('nitem-'+id);
+  if(el) { el.style.transition = 'opacity .3s,transform .3s'; el.style.opacity='0'; el.style.transform='translateX(10px)'; }
+  try {
+    await updateDoc(doc(db,'marcacoes',id), { estado: novoEstado, respondidoEm: serverTimestamp() });
+  } catch(e) { alert('Erro ao actualizar: '+e.message); }
+  notifAcaoPendente = null;
+};
+
+window.notifFecharConfirm = () => {
+  document.getElementById('confirmOverlay').style.display = 'none';
+  notifAcaoPendente = null;
+};
+
 </script>
 </body>
 </html>
