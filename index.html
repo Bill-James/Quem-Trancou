@@ -1115,8 +1115,9 @@ function renderFeed() {
         </div>${mediaHtml}
         <div class="post-body"><p>${p.trancista.bio||'Trabalho da trancista.'}</p></div>
         <div class="post-footer">
-          <button class="like-btn" id="like_${p.id}" onclick="toggleLike('${p.id}')">🤍 0</button>
-          <button class="comment-btn">💬 Comentar</button>
+          <button class="like-btn" id="like_${p.id}" data-count="0" onclick="toggleLike('${p.id}','${p.trancista.id}')">🤍 0</button>
+<button class="comment-btn" onclick="abrirComentarios('${p.id}','${p.trancista.id}')">💬 Comentar</button>
+<div class="comentarios-area" id="coments_${p.id}" style="display:none"></div>
           <button class="share-btn" onclick="showTrancista('${p.trancista.id}')">👤 Ver Perfil</button>
         </div>
       </div>`;
