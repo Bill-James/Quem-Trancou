@@ -1195,7 +1195,7 @@ window.showTrancista = async (id) => {
           <p class="tp-specialty">${t.especialidade||''}</p>
           <div class="tp-rating"><span class="tp-stars">${starsHtml(t.nota||0)}</span><strong>${(t.nota||0).toFixed(1)}</strong><span>(${t.avaliacoes||0} avaliações)</span><span class="sep">·</span><span>📍 ${t.cidade||'Angola'}</span></div>
         </div>
-        <button class="tp-marcar-btn" onclick="openMarcacao()">📅 Marcar Agora</button>
+        ${currentUser?.uid !== id ? `<button class="tp-marcar-btn" onclick="openMarcacao()">📅 Marcar Agora</button>` : ''}
       </div>
     </div>
     <div class="container tp-body">
@@ -1226,7 +1226,7 @@ window.showTrancista = async (id) => {
         </div>
         <div class="tp-cta-card" style="--c:${t.cor||'var(--gold)'}">
           <h4>Pronta para marcar?</h4><p>${t.disponivel ? 'Disponível agora' : 'Momentaneamente ocupada'}</p>
-          <button class="tp-cta-btn" onclick="openMarcacao()">📅 Marcar Agora</button>
+          ${currentUser?.uid !== id ? `<button class="tp-cta-btn" onclick="openMarcacao()">📅 Marcar Agora</button>` : `<p style="color:var(--gold);font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700">Este é o teu perfil ✦</p>`}
           ${t.whatsapp ? `<a href="https://wa.me/${t.whatsapp.replace(/\D/g,'')}" class="tp-wa-btn" target="_blank">💬 WhatsApp</a>` : ''}
         </div>
       </aside>
