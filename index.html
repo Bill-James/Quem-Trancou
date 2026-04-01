@@ -1122,6 +1122,24 @@ function renderFeed() {
         </div>
       </div>`;
     }).join('');
+    // Carrega likes reais da base de dados
+posts.slice(0,12).forEach(async p => {
+  try {
+    const snap = await getDoc(doc(db, 'feed_likes', p.id));
+    if(snap.exists()) {
+      const data = snap.data();
+      const count = data.count || 0;
+      const btn = document.getElementById('like_'+p.id);
+      if(btn) {
+        btn.dataset.count = count;
+        const userId = currentUser ? currentUser.uid : null;
+        const jaDeuLike = userId && data.users && data.users[userId];
+        btn.textContent = (jaDeuLike ? '❤️' : '🤍') + ' ' + count;
+        if(jaDeuLike) btn.classList.add('liked');
+      }
+    }
+  } catch(e) {}
+});
   }
   const tipos = {};
   allTrancistas.forEach(t => (t.tiposEscolhidos||[]).forEach(x => tipos[x] = (tipos[x]||0) + 1));
