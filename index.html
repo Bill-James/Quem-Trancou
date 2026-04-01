@@ -1140,7 +1140,9 @@ window.toggleLike = async (postId, trancistId) => {
   btn.classList.toggle('liked');
   try {
     if(jaLikado) {
-      await updateDoc(postRef, { count: Math.max(0, (parseInt(btn.dataset.count)||1) - 1), [`users.${userId}`]: false });
+      const snapAtual = await getDoc(postRef);
+const countAtual = snapAtual.exists() ? (snapAtual.data().count || 0) : 0;
+await updateDoc(postRef, { count: Math.max(0, countAtual - 1), [`users.${userId}`]: false });
     } else {
       await setDoc(postRef, { trancistId, count: (parseInt(btn.dataset.count)||0) + 1, [`users.${userId}`]: true }, { merge: true });
       if(currentUser) await setDoc(doc(db, 'notificacoes', trancistId + '_like_' + postId + '_' + userId), { tipo: 'like', trancistId, postId, userId, userName: currentUser.displayName || currentUser.email, lida: false, criadoEm: serverTimestamp() }, { merge: true });
