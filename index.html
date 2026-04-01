@@ -1536,10 +1536,7 @@ window.salvarPerfil = async () => {
     const isTrancista = currentUserPerfil?.tipo === 'trancista';
 
     // Upload foto de perfil (se nova)
-    let fotoPerfilItem = getFotoUrl(isTrancista
-      ? (await getDoc(doc(db,'trancistas',currentUser.uid))).data()
-      : currentUserPerfil
-    ) || null;
+    let fotoPerfilItem = getFotoUrl(currentUserPerfil) || null;
 
     const fotoInput = document.getElementById('uploadFotoPerfil');
     if(fotoInput && fotoInput.files[0]) {
