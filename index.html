@@ -1151,7 +1151,8 @@ posts.slice(0,12).forEach(async p => {
 window.toggleLike = async (postId, trancistId) => {
   const btn = document.getElementById('like_'+postId);
   if(!btn) return;
-  const userId = currentUser ? currentUser.uid : 'anon_' + Math.random().toString(36).slice(2);
+  const userId = currentUser ? currentUser.uid : null;
+if(!userId) { alert('Precisas de entrar para dar like.'); return; }
   const likeRef = doc(db, 'likes', postId + '_' + userId);
   const postRef = doc(db, 'feed_likes', postId);
   const jaLikado = btn.classList.contains('liked');
@@ -1911,7 +1912,7 @@ window.abrirComentarios = async (postId, trancistId) => {
   if(!area) return;
   if(area.style.display !== 'none') { area.style.display = 'none'; return; }
   area.style.display = 'block';
-  area.style.padding = '0 24px 16px';
+  area.style.cssText = 'padding:16px 24px;border-top:1px solid rgba(212,168,67,.08)';
   area.innerHTML = `<div style="color:var(--gold);font-size:.85rem;padding:12px 0">A carregar...</div>`;
   try {
     const snap = await getDocs(query(collection(db, 'comentarios'), where('postId','==',postId), orderBy('criadoEm','asc')));
@@ -1946,12 +1947,13 @@ window.enviarComentario = async (postId, trancistId) => {
     await addDoc(collection(db, 'comentarios'), novoComent);
     await setDoc(doc(db, 'notificacoes', trancistId + '_coment_' + postId + '_' + currentUser.uid), { tipo: 'comentario', trancistId, postId, userId: currentUser.uid, userName: currentUser.displayName || currentUser.email, texto, lida: false, criadoEm: serverTimestamp() }, { merge: true });
     const lista = document.getElementById('lista_coments_'+postId);
-    if(lista) lista.innerHTML += `<div style="display:flex;gap:10px;align-items:flex-start">
-      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;color:var(--espresso);flex-shrink:0">${(currentUser.displayName||'?')[0].toUpperCase()}</div>
-      <div style="background:rgba(61,28,10,.5);border-radius:10px;padding:10px 14px;flex:1">
-        <strong style="font-family:'Syne',sans-serif;font-size:.78rem;color:var(--gold)">${currentUser.displayName||'Utilizador'}</strong>
-        <p style="font-size:.85rem;color:rgba(253,246,236,.75);margin-top:4px">${texto}</p>
-      </div></div>`;
+    if(lista) lista.innerHTML += `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
+  <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.8rem;color:var(--espresso);flex-shrink:0">${(c.userName||'?')[0].toUpperCase()}</div>
+  <div style="flex:1">
+    <strong style="font-family:'Syne',sans-serif;font-size:.78rem;color:var(--gold);display:block;margin-bottom:3px">${c.userName||'Utilizador'}</strong>
+    <p style="font-size:.88rem;color:rgba(253,246,236,.8);line-height:1.5">${c.texto}</p>
+  </div>
+</div>`;
   } catch(e) { alert('Erro ao enviar comentário.'); }
   input.disabled = false;
 };
