@@ -1948,10 +1948,10 @@ window.enviarComentario = async (postId, trancistId) => {
     await setDoc(doc(db, 'notificacoes', trancistId + '_coment_' + postId + '_' + currentUser.uid), { tipo: 'comentario', trancistId, postId, userId: currentUser.uid, userName: currentUser.displayName || currentUser.email, texto, lida: false, criadoEm: serverTimestamp() }, { merge: true });
     const lista = document.getElementById('lista_coments_'+postId);
     if(lista) lista.innerHTML += `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
-  <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.8rem;color:var(--espresso);flex-shrink:0">${(c.userName||'?')[0].toUpperCase()}</div>
+  <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--caramel));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.8rem;color:var(--espresso);flex-shrink:0">${(novoComent.userName||'?')[0].toUpperCase()}</div>
   <div style="flex:1">
-    <strong style="font-family:'Syne',sans-serif;font-size:.78rem;color:var(--gold);display:block;margin-bottom:3px">${c.userName||'Utilizador'}</strong>
-    <p style="font-size:.88rem;color:rgba(253,246,236,.8);line-height:1.5">${c.texto}</p>
+    <strong style="font-family:'Syne',sans-serif;font-size:.78rem;color:var(--gold);display:block;margin-bottom:3px">${novoComent.userName||'Utilizador'}</strong>
+    <p style="font-size:.88rem;color:rgba(253,246,236,.8);line-height:1.5">${novoComent.texto}</p>
   </div>
 </div>`;
   } catch(e) { alert('Erro ao enviar comentário.'); }
