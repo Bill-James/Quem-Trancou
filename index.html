@@ -1136,7 +1136,7 @@ posts.slice(0,12).forEach(async p => {
       if(btn) {
         btn.dataset.count = count;
         const userId = currentUser ? currentUser.uid : null;
-        const jaDeuLike = userId && data.users && data.users[userId];
+       const jaDeuLike = userId && data.users && data.users[userId] === true;
         btn.textContent = (jaDeuLike ? '❤️' : '🤍') + ' ' + count;
         if(jaDeuLike) btn.classList.add('liked');
       }
