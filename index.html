@@ -1967,6 +1967,9 @@ window.enviarComentario = async (postId, trancistId) => {
 function stars(nota) { return `<span class="stars">${[1,2,3,4,5].map(i => `<span class="${i<=Math.round(nota)?'star filled':'star'}">★</span>`).join('')}<strong> ${(nota||0).toFixed(1)}</strong></span>`; }
 function starsHtml(nota) { return [1,2,3,4,5].map(i => `<span class="${i<=Math.round(nota)?'filled':''}">★</span>`).join(''); }
 
+  const hashInicial = location.hash.replace('#','') || 'home';
+if(['home','explorar','ranking','feed'].includes(hashInicial)) showPage(hashInicial);
+
 window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('navbar--scrolled', window.scrollY > 40); });
 </script>
 </body>
