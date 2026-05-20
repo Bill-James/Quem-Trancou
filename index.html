@@ -1905,6 +1905,7 @@ window.showPage = (page) => {
   if(page === 'perfil') renderPerfil();
   if(page === 'ranking') renderRanking();
   if(page === 'feed') renderFeed();
+  location.hash = page;
 };
 window.toggleMenu = () => document.getElementById('navLinks').classList.toggle('open');
 window.doHeroSearch = () => { const v = document.getElementById('heroSearch').value; if(v) { const fs = document.getElementById('filtroSearch'); if(fs) fs.value = v; } showPage('explorar'); };
