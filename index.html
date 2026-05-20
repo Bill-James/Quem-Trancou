@@ -1152,82 +1152,35 @@ posts.slice(0,12).forEach(async p => {
     `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(253,246,236,.05);font-family:'Syne',sans-serif;font-size:.85rem;color:rgba(253,246,236,.7)"><span style="color:var(--gold);font-weight:700;width:24px">#${i+1}</span><span>${nome}</span></div>`
   ).join('') || '<p style="color:rgba(253,246,236,.3);font-size:.85rem">Em breve...</p>';
 }
-  import { doc, getDoc, setDoc, updateDoc, serverTimestamp, increment, deleteField } from 'firebase/firestore'; 
-// (Ajusta os imports consoante estejas a usar modular v9+ ou compat)
-
 window.toggleLike = async (postId, trancistId) => {
-  const btn = document.getElementById('like_' + postId);
-  if (!btn || btn.disabled) return;
-
+  const btn = document.getElementById('like_'+postId);
+  if(!btn || btn.disabled) return;
   const userId = currentUser ? currentUser.uid : null;
-  if (!userId) { 
-    alert('Precisas de entrar para dar like.'); 
-    return; 
-  }
-
+  if(!userId) { alert('Precisas de entrar para dar like.'); return; }
   btn.disabled = true;
   const postRef = doc(db, 'feed_likes', postId);
-
+  const snapAtual = await getDoc(postRef);
+const dados = snapAtual.exists() ? snapAtual.data() : {};
+const jaLikado = dados.users?.[userId] === true;
+const countAtual = dados.count || 0;
   try {
-    const snapAtual = await getDoc(postRef);
-    const data = snapAtual.exists() ? snapAtual.data() : {};
     
-    // Verifica na BASE DE DADOS se já tem like (mais seguro que verificar a classe CSS)
-    const jaLikado = data.users && data.users[userId] === true;
-    
-    // Lê o count atual da interface para fazer a atualização visual imediata
-    let countAtualUI = parseInt(btn.dataset.count) || (data.count || 0);
-    let novoCountUI = countAtualUI;
-    let novoEstadoLike = false;
-
-    if (jaLikado) {
-      // REMOVER LIKE
-      await updateDoc(postRef, { 
-        count: increment(-1), // Subtração segura
-        [`users.${userId}`]: deleteField() // Remove o campo em vez de setar para false
-      });
-      novoCountUI = Math.max(0, countAtualUI - 1);
-      novoEstadoLike = false;
+    const countAtual = snapAtual.exists() ? (snapAtual.data().count || 0) : 0;
+    if(jaLikado) {
+      await updateDoc(postRef, { count: Math.max(0, countAtual - 1), [`users.${userId}`]: deleteField() });
     } else {
-      // ADICIONAR LIKE
-      await setDoc(postRef, { 
-        trancistId, 
-        count: increment(1), // Adição segura
-        [`users.${userId}`]: true 
-      }, { merge: true });
-
-      // Notificação
-      const notifRef = doc(db, 'notificacoes', `${trancistId}_like_${postId}_${userId}`);
-      await setDoc(notifRef, { 
-        tipo: 'like', 
-        trancistId, 
-        postId, 
-        userId, 
-        userName: currentUser.displayName || currentUser.email, 
-        lida: false, 
-        criadoEm: serverTimestamp() 
-      }, { merge: true });
-
-      novoCountUI = countAtualUI + 1;
-      novoEstadoLike = true;
+      await setDoc(postRef, { trancistId, count: countAtual + 1, [`users.${userId}`]: true }, { merge: true });
+      await setDoc(doc(db, 'notificacoes', trancistId + '_like_' + postId + '_' + userId), { tipo: 'like', trancistId, postId, userId, userName: currentUser.displayName || currentUser.email, lida: false, criadoEm: serverTimestamp() }, { merge: true });
     }
-
-    // ATUALIZAR INTERFACE (Sem fazer um segundo getDoc)
-    if (novoEstadoLike) {
-      btn.classList.add('liked');
-      btn.textContent = '🤍 ' + novoCountUI; // Substitui pelo teu emoji de "gostado"
-    } else {
-      btn.classList.remove('liked');
-      btn.textContent = '🔥 ' + novoCountUI; // Substitui pelo teu emoji padrão
-    }
-    btn.dataset.count = novoCountUI;
-
-  } catch (e) { 
-    console.error("Erro ao processar o like:", e); 
-    // Opcional: Mostrar um toast/alerta de erro ao utilizador
-  } finally {
-    btn.disabled = false;
-  }
+    const snapFinal = await getDoc(postRef);
+    const countFinal = snapFinal.exists() ? (snapFinal.data().count || 0) : 0;
+    const novoLike = snapFinal.exists() && snapFinal.data().users?.[userId] === true;
+    if(novoLike) btn.classList.add('liked');
+else btn.classList.remove('liked');
+    btn.dataset.count = countFinal;
+    btn.textContent = (novoLike ? '❤️' : '🤍') + ' ' + countFinal;
+  } catch(e) { console.error(e); }
+  btn.disabled = false;
 };
 // ── TRANCISTA PERFIL ──
 window.showTrancista = async (id) => {
