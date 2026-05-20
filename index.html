@@ -1128,7 +1128,7 @@ function renderFeed() {
     // Carrega likes reais da base de dados
 posts.slice(0,12).forEach(async p => {
   try {
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => auth.onAuthStateChanged(u => { currentUser = u; r(); }));
     const snap = await getDoc(doc(db, 'feed_likes', p.id));
     if(snap.exists()) {
       const data = snap.data();
