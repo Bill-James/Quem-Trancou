@@ -1128,6 +1128,7 @@ function renderFeed() {
     // Carrega likes reais da base de dados
 posts.slice(0,12).forEach(async p => {
   try {
+    await new Promise(r => setTimeout(r, 800));
     const snap = await getDoc(doc(db, 'feed_likes', p.id));
     if(snap.exists()) {
       const data = snap.data();
@@ -1171,7 +1172,8 @@ window.toggleLike = async (postId, trancistId) => {
     const snapFinal = await getDoc(postRef);
     const countFinal = snapFinal.exists() ? (snapFinal.data().count || 0) : 0;
     const novoLike = snapFinal.exists() && snapFinal.data().users?.[userId] === true;
-    btn.classList.toggle('liked', novoLike);
+    if(novoLike) btn.classList.add('liked');
+else btn.classList.remove('liked');
     btn.dataset.count = countFinal;
     btn.textContent = (novoLike ? '❤️' : '🤍') + ' ' + countFinal;
   } catch(e) { console.error(e); }
