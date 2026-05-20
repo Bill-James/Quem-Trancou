@@ -1159,12 +1159,15 @@ window.toggleLike = async (postId, trancistId) => {
   if(!userId) { alert('Precisas de entrar para dar like.'); return; }
   btn.disabled = true;
   const postRef = doc(db, 'feed_likes', postId);
-  const jaLikado = btn.classList.contains('liked');
+  const snapAtual = await getDoc(postRef);
+const dados = snapAtual.exists() ? snapAtual.data() : {};
+const jaLikado = dados.users?.[userId] === true;
+const countAtual = dados.count || 0;
   try {
-    const snapAtual = await getDoc(postRef);
+    
     const countAtual = snapAtual.exists() ? (snapAtual.data().count || 0) : 0;
     if(jaLikado) {
-      await updateDoc(postRef, { count: Math.max(0, countAtual - 1), [`users.${userId}`]: false });
+      await updateDoc(postRef, { count: Math.max(0, countAtual - 1), [`users.${userId}`]: deleteField() });
     } else {
       await setDoc(postRef, { trancistId, count: countAtual + 1, [`users.${userId}`]: true }, { merge: true });
       await setDoc(doc(db, 'notificacoes', trancistId + '_like_' + postId + '_' + userId), { tipo: 'like', trancistId, postId, userId, userName: currentUser.displayName || currentUser.email, lida: false, criadoEm: serverTimestamp() }, { merge: true });
